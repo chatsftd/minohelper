@@ -1,3 +1,4 @@
+#include "interpret.h"
 #include <iostream>
 #include <string>
 
@@ -10,8 +11,8 @@ int main(int argc, char** argv)
 	{
 		cout << "> " << flush;
 		getline(cin,a);
-		if(a == string("exit")){break;}
-		cout << "input is \"" << a << '"' << endl;
+		int e = interpret(a);
+		if(e) break;
 	}
 	return 0;
 }
