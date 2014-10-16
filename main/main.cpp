@@ -12,7 +12,12 @@ int main(int argc, char** argv)
 		cout << "> " << flush;
 		getline(cin,a);
 		int e = interpret(a);
-		if(e) break;
+		switch(e)
+		{
+			case -1: goto end; /* escape from while-true*/
+			default: break; /* do nothing */
+		}
 	}
-	return 0;
+	
+	end: return 0;
 }

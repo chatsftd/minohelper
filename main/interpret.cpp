@@ -17,9 +17,7 @@ void parse(vector<string>& vec,const string& a)
 
 int interpret(const string& a)
 {
-	typedef vector<string>::iterator VSI;
 	vector<string> vec;
-	
 	parse(vec,a);
 	
 	if(vec.empty()){return 0;}
@@ -27,7 +25,7 @@ int interpret(const string& a)
 	if(vec[0] == string("exit")){return -1;}
 	
 	int j=0;
-	for(VSI it = vec.begin(); it != vec.end(); ++it,++j)
+	for(vector<string>::iterator it = vec.begin(); it != vec.end(); ++it,++j)
 	{
 		cout << "input #" << j << " is \"" << vec[j] << '"' << endl;
 	}

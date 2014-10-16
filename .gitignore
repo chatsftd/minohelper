@@ -1,4 +1,7 @@
 *.bat
 *.o
 *.exe
+*.zip
+*.tx
+*.dll
 private/
