@@ -1,4 +1,5 @@
 #include "interpret.h"
+#include "import.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -21,8 +22,15 @@ int interpret(const string& a)
 	parse(vec,a);
 	
 	if(vec.empty()){return 0;}
-	
-	if(vec[0] == string("exit")){return -1;}
+#define eq(a) (vec[0] == string(a))	
+	if(eq("exit"))
+	{
+		return -1;
+	}
+	else if(eq("import"))
+	{
+		return import_(vec);
+	}
 	
 	int j=0;
 	for(vector<string>::iterator it = vec.begin(); it != vec.end(); ++it,++j)
