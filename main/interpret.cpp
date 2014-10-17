@@ -1,5 +1,6 @@
 #include "interpret.h"
 #include "import.h"
+#include "export.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -31,12 +32,17 @@ int interpret(const string& a)
 	{
 		return import_(vec);
 	}
-	
-	int j=0;
-	for(vector<string>::iterator it = vec.begin(); it != vec.end(); ++it,++j)
+	else if(eq("export"))
 	{
-		cout << "input #" << j << " is \"" << vec[j] << '"' << endl;
+		return export_(vec);
 	}
-	
+	else
+	{
+		int j=0;
+		for(vector<string>::iterator it = vec.begin(); it != vec.end(); ++it,++j)
+		{
+			cout << "input #" << j << " is \"" << vec[j] << '"' << endl;
+		}
+	}
 	return 0;
 }
