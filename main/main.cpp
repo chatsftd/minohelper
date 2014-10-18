@@ -1,14 +1,32 @@
 #include "interpret.h"
+#include "import.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
+void init(vector<string>& vec, int argc, char** argv)
+{
+	vec.push_back(string("import"));
+	for(int k = 1; k < argc; k++)
+	{
+		vec.push_back(string(argv[k]));
+	}
+}
+
 int main(int argc, char** argv)
 {
-	string a = "";
+	if(argc >= 2)
+	{
+		vector<string> vec;
+		init(vec,argc,argv);
+		import_(vec);
+	}
+	
 	while(true)
 	{
+		string a = "";
 		cout << "> " << flush;
 		getline(cin,a);
 		int e = interpret(a);
