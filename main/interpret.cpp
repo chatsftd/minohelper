@@ -17,16 +17,16 @@ void parse(vector<string>& vec,const string& a)
 	}
 }
 
-int interpret(const string& a)
+status interpret(const string& a)
 {
 	vector<string> vec;
 	parse(vec,a);
 	
-	if(vec.empty()){return 0;}
+	if(vec.empty()){return ALL_OK;}
 #define eq(a) (vec[0] == string(a))	
 	if(eq("exit"))
 	{
-		return -1;
+		return EXIT_ALL;
 	}
 	else if(eq("import"))
 	{
@@ -44,5 +44,5 @@ int interpret(const string& a)
 			cout << "input #" << j << " is \"" << vec[j] << '"' << endl;
 		}
 	}
-	return 0;
+	return ALL_OK;
 }

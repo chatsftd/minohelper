@@ -1,3 +1,4 @@
+#include "header.h"
 #include "interpret.h"
 #include "import.h"
 #include <iostream>
@@ -29,10 +30,10 @@ int main(int argc, char** argv)
 		string a = "";
 		cout << "> " << flush;
 		getline(cin,a);
-		int e = interpret(a);
+		status e = interpret(a);
 		switch(e)
 		{
-			case -1: goto end; /* escape from while-true*/
+			case EXIT_ALL: goto end; /* escape from while-true*/
 			default: break; /* do nothing */
 		}
 	}

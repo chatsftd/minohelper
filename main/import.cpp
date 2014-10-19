@@ -3,11 +3,11 @@
 #include <fstream>
 using namespace std;
 
-int import_(const vector<string>& vec)
+status import_(const vector<string>& vec)
 {
 	cout << "command \"import\" was called." << endl;
 	
-	int ret_val = 0;
+	status ret_val = ALL_OK;
 	for(size_t j = 1; j < vec.size(); ++j)
 	{
 		cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
@@ -15,7 +15,7 @@ int import_(const vector<string>& vec)
 		if(!ifs)
 		{
 			cerr << "file \"" << vec[j] << "\" does not exist" << endl << endl;
-			ret_val = -2; // doesn't-exist error
+			ret_val = SOMETHING_WRONG; // error
 			continue;
 		}
 		

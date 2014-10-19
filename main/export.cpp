@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-int export_(const vector<string>& vec)
+status export_(const vector<string>& vec)
 {
 	cout << "command \"export\" was called." << endl;
 	
@@ -10,5 +10,5 @@ int export_(const vector<string>& vec)
 	{
 		cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
 	}
-	return 0;
+	return ALL_OK;
 }
