@@ -1,6 +1,7 @@
 #include "import.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 status import_(const vector<string>& vec)
@@ -21,9 +22,11 @@ status import_(const vector<string>& vec)
 		
 		
 		cout << "the content of \"" << vec[j] << "\" is:" << endl;
-		char ch;
-		while((ch = ifs.get()) != EOF) cout << ch;
-		cout << endl << endl;
+		
+		stringstream buffer;
+		buffer << ifs.rdbuf();
+		string content = buffer.str();
+		cout << content << endl << endl;
 	}
 	return ret_val;
 }
