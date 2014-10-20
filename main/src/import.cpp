@@ -4,7 +4,7 @@
 #include <sstream>
 using namespace std;
 
-status import_(const vector<string>& vec)
+status import_(state st, const vector<string>& vec)
 {
 	cout << "command \"import\" was called." << endl;
 	

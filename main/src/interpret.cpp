@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-void parse(vector<string>& vec,const string& a)
+static void parse(vector<string>& vec,const string& a)
 {
 	stringstream input;
 	input.str(a);
@@ -17,7 +17,7 @@ void parse(vector<string>& vec,const string& a)
 	}
 }
 
-status interpret(const string& a)
+status interpret(state st, const string& a)
 {
 	vector<string> vec;
 	parse(vec,a);
@@ -30,11 +30,11 @@ status interpret(const string& a)
 	}
 	else if(eq("import"))
 	{
-		return import_(vec);
+		return import_(st,vec);
 	}
 	else if(eq("export"))
 	{
-		return export_(vec);
+		return export_(st,vec);
 	}
 	else
 	{

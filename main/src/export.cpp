@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-status export_(const vector<string>& vec)
+status export_(state st, const vector<string>& vec)
 {
 	cout << "command \"export\" was called." << endl;
 	
