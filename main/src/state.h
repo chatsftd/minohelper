@@ -1,12 +1,15 @@
 #ifndef STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
 #define STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
+#include <map>
+#include <string>
+#include <vector>
 
-enum unit
+
+struct state
 {
-	unit = 0
+	std::map<std::string,std::string> content;
 };
 
-typedef enum unit state;
 
 state create_state(void);
 

@@ -21,12 +21,12 @@ status import_(state st, const vector<string>& vec)
 		}
 		
 		
-		cout << "the content of \"" << vec[j] << "\" is:" << endl;
 		
 		stringstream buffer;
 		buffer << ifs.rdbuf();
 		string content = buffer.str();
-		cout << content << endl << endl;
+		st.content[vec[j]] = content;
+		cout << "ok, \"" << vec[j] << "\" loaded." << endl;
 	}
 	return ret_val;
 }
