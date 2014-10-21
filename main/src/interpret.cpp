@@ -23,16 +23,16 @@ status interpret(state st, const string& a)
 	parse(vec,a);
 	
 	if(vec.empty()){return ALL_OK;}
-#define eq(a) (vec[0] == string(a))	
-	if(eq("exit"))
+#define if2(a) if(vec[0] == string(a))	
+	if2("exit")
 	{
 		return EXIT_ALL;
 	}
-	else if(eq("import"))
+	else if2("import")
 	{
 		return import_(st,vec);
 	}
-	else if(eq("export"))
+	else if2("export")
 	{
 		return export_(st,vec);
 	}
