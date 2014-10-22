@@ -24,8 +24,7 @@ status import_(state st, const vector<string>& vec)
 		
 		stringstream buffer;
 		buffer << ifs.rdbuf();
-		string content = buffer.str();
-		st.content[vec[j]] = content;
+		st.content[vec[j]] = get_mino_data(buffer);
 		cout << "ok, \"" << vec[j] << "\" loaded." << endl;
 	}
 	return ret_val;
