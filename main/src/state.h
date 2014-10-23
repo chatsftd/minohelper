@@ -5,7 +5,7 @@
 #include <sstream>
 #include <vector>
 
-typedef std::string data;
+typedef std::vector<std::string> data;
 
 struct state
 {
@@ -15,5 +15,5 @@ struct state
 
 state create_state(void);
 
-data get_mino_data(const std::stringstream& str);
+data get_mino_data(std::stringstream& str);
 #endif/*STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ*/
