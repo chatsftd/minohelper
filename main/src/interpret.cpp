@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-static void parse(vector<string>& vec,const string& a)
+static void parse(vector<string>& vec, const string& a)
 {
 	stringstream input;
 	input.str(a);

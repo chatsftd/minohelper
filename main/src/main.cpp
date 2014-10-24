@@ -29,11 +29,10 @@ int main(int argc, char** argv)
 	
 	while(true)
 	{
-		string a = "";
+		string tmp = "";
 		cout << "> " << flush;
-		getline(cin,a);
-		status e = interpret(st,a);
-		switch(e)
+		getline(cin,tmp);
+		switch(interpret(st,tmp))
 		{
 			case EXIT_ALL: goto end; /* escape from while-true */
 			default: break; /* do nothing */

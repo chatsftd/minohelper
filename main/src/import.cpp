@@ -11,7 +11,6 @@ status import_(state st, const vector<string>& vec)
 	status ret_val = ALL_OK;
 	for(size_t j = 1; j < vec.size(); ++j)
 	{
-		cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
 		ifstream ifs(vec[j].c_str());
 		if(!ifs)
 		{
@@ -19,8 +18,6 @@ status import_(state st, const vector<string>& vec)
 			ret_val = SOMETHING_WRONG; // error
 			continue;
 		}
-		
-		
 		
 		stringstream buffer;
 		buffer << ifs.rdbuf();
