@@ -4,13 +4,7 @@ using namespace std;
 
 static data parse_data(const vector<string>& vec);
 
-state create_state(void)
-{
-	state stat;
-	std::map<std::string,data> content;
-	stat.content = content;
-	return stat;
-}
+state::state(void) : content() {}
 
 data get_mino_data(stringstream& str)
 {

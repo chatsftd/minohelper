@@ -19,7 +19,7 @@ void init(vector<string>& vec, int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-	state st = create_state();
+	state st;
 	if(argc >= 2)
 	{
 		vector<string> vec;

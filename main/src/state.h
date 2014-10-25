@@ -7,12 +7,13 @@
 
 typedef std::vector<std::string> data;
 
-struct state
+class state
 {
+public:
 	std::map<std::string,data> content;
+	state(void);
 };
 
-state create_state(void);
 
 data get_mino_data(std::stringstream& str);
 
