@@ -3,17 +3,20 @@
 using namespace std;
 
 typedef int ID;
+
+
+
 data parse_mino(const vector<string>& vec)
 {
-	vector< vector< pair< ID, char> > > something;
+	vector< vector< pair<ID, char> > > something;
 	ID id = 0;
 	for(size_t i = 0, n = vec.size(); i < n; i++)
 	{
-		vector< pair< ID, char> > tmp;
+		vector< pair<ID, char> > tmp;
 		something.push_back(tmp);
 		for(size_t j = 0, m = vec[i].size(); j < m; j++)
 		{
-			pair< ID,char> pic(id,vec[i][j]); 
+			pair<ID,char> pic(id,vec[i][j]); 
 			id++;
 			something[i].push_back(pic);
 		}
