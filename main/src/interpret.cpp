@@ -38,11 +38,7 @@ status interpret(state st, const string& a)
 	}
 	else
 	{
-		int j=0;
-		for(vector<string>::iterator it = vec.begin(); it != vec.end(); ++it,++j)
-		{
-			cout << "input #" << j << " is \"" << vec[j] << '"' << endl;
-		}
+		cout << "\"" << vec[0] << "\" is not a valid command." << endl << endl;
+		return SOMETHING_WRONG;
 	}
-	return ALL_OK;
 }
