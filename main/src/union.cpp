@@ -1,6 +1,6 @@
 #include "union.h"
 using namespace std;
-ID root(const vector<ID>& union_find, ID id)
+ID root(const UnionFind& union_find, ID id)
 {
 	ID parent_id;
 	while(true)
@@ -11,7 +11,7 @@ ID root(const vector<ID>& union_find, ID id)
 	}
 }
 
-void unite(vector<ID>& union_find, const ID id1, const ID id2)
+void unite(UnionFind& union_find, const ID id1, const ID id2)
 {
 	ID root1 = root(union_find,id1);
 	ID root2 = root(union_find,id2);
