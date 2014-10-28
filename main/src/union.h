@@ -12,6 +12,7 @@ public:
 	UnionFind(const std::vector<ID>& uf) : union_find(uf) {} 
 	ID root(ID id);
 	void unite(const ID id1, const ID id2);
+	std::vector< std::vector<ID> > toGroups(void);
 };
 
 
