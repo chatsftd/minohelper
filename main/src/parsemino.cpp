@@ -37,12 +37,13 @@ data parse_mino(const vector<string>& vec)
 	
 	
 	const ID id_max_plus_1 = id; // copy the value
-	UnionFind union_find;
-	
+	vector<ID> vec2;
 	for(ID i = 0; i < id_max_plus_1; i++)
 	{
-		union_find.push_back(i);
+		vec2.push_back(i);
 	}
+	
+	UnionFind union_find = vec2;
 	
 	for(size_t i = 0, n = something.size(); i < n; i++)
 	{
@@ -52,13 +53,13 @@ data parse_mino(const vector<string>& vec)
 			{
 				print_inside(something,i,j); cout << " and ";
 				print_inside(something,i,j-1); cout << " are the same." << endl;
-				unite(union_find,something[i][j].first,something[i][j-1].first);
+				union_find.unite(something[i][j].first,something[i][j-1].first);
 			}
 			if(isSame(something,i,j,i-1,j))
 			{
 				print_inside(something,i,j); cout << " and ";
 				print_inside(something,i-1,j); cout << " are the same." << endl;
-				unite(union_find,something[i][j].first,something[i-1][j].first);
+				union_find.unite(something[i][j].first,something[i-1][j].first);
 			}
 			
 			
