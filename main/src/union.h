@@ -6,10 +6,10 @@ typedef int ID;
 class UnionFind
 {
 private:
-	std::vector<ID> union_find;
+	std::vector<ID> parents;
 	
 public:
-	UnionFind(const std::vector<ID>& uf) : union_find(uf) {} 
+	UnionFind(const std::vector<ID>& uf) : parents(uf) {} 
 	ID root(ID id);
 	void unite(const ID id1, const ID id2);
 	std::vector< std::vector<ID> > toGroups(void);

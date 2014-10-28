@@ -6,7 +6,7 @@ ID UnionFind::root(ID id)
 	ID parent_id;
 	while(true)
 	{
-		parent_id = this->union_find[id];
+		parent_id = this->parents[id];
 		if(id == parent_id) return id;
 		id = parent_id;
 	}
@@ -16,7 +16,7 @@ void UnionFind::unite(const ID id1, const ID id2)
 {
 	ID root1 = this->root(id1);
 	ID root2 = this->root(id2);
-	this->union_find[root2] = root1;
+	this->parents[root2] = root1;
 }
 
 vector< vector<ID> > UnionFind::toGroups(void)
@@ -24,7 +24,7 @@ vector< vector<ID> > UnionFind::toGroups(void)
 	typedef vector<ID> group; 
 	map<ID, group> buf; // map from `root ID` to `group`
 	
-	size_t size = this->union_find.size();
+	size_t size = this->parents.size();
 	
 	for(size_t i = 0; i < size; i++) 
 	{
