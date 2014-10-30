@@ -1,6 +1,7 @@
 #include "parsemino.h"
 #include "union.h"
 #include <iostream>
+#include <map>
 using namespace std;
 typedef pair<ID, char> atom;
 
@@ -20,9 +21,11 @@ static void print_inside(const vector< vector<atom> >& atom_plane, size_t i, siz
 	cout << "(" << i+1 << ", " << j+1 << "): " << "(" << atom_plane[i][j].first << ",'" << atom_plane[i][j].second << "')" << flush;
 }
 
+typedef pair<size_t, size_t> point;
 data parse_mino(const vector<string>& vec)
 {
 	vector< vector<atom> > atom_plane;
+	map<ID, point> ItoP;
 	ID id = 0;
 	for(size_t i = 0, n = vec.size(); i < n; i++)
 	{
@@ -31,6 +34,7 @@ data parse_mino(const vector<string>& vec)
 		for(size_t j = 0, m = vec[i].size(); j < m; j++)
 		{
 			atom_plane[i].push_back(atom(id,vec[i][j]));
+			ItoP[id] = point(i,j);
 			id++;
 		}
 	}
