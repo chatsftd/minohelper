@@ -22,6 +22,14 @@ static void print_inside(const vector< vector<atom> >& atom_plane, size_t i, siz
 }
 
 typedef pair<size_t, size_t> point;
+
+
+typedef vector<point> mino; // fixme
+mino construct_mino(vector<point> points)
+{
+	return points; // fixme
+}
+
 data parse_mino(const vector<string>& vec)
 {
 	vector< vector<atom> > atom_plane;
@@ -68,5 +76,23 @@ data parse_mino(const vector<string>& vec)
 		}
 	}
 	
+	
+	typedef vector<ID> group; 
+	vector<group> groups = union_find.toGroups();
+	
+	vector<mino> groups2;
+	for(size_t i = 0, n = groups.size(); i < n; i++)
+	{
+		vector<point> tmp;
+		for(size_t j = 0, m = groups[i].size(); j < m; j++)
+		{
+			tmp.push_back(ItoP[groups[i][j]]);
+		}
+		groups2.push_back(construct_mino(tmp));
+	}
+
+	//groups2
+	
 	return vec; // fixme
 }
+
