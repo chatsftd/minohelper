@@ -4,9 +4,18 @@
 
 typedef std::pair<size_t, size_t> point;
 
-typedef std::vector<point> mino; // fixme
+class mino
+{
+public:
+	point p0;
+	point p1;
+	point p2;
+	point p3;
+	mino(std::vector<point> points);
 
-mino construct_mino(std::vector<point> points);
+}; // fixme
+
+
 
 
 #endif/*CONSTRUCT_MINO_H_DEFINED_28957c66eaef03980eb60b8ffdf0b85d11ca0744*/

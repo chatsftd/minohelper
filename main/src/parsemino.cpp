@@ -81,7 +81,7 @@ data parse_mino(const vector<string>& vec)
 		{
 			tmp.push_back(ItoP[groups[i][j]]);
 		}
-		groups2.push_back(construct_mino(tmp));
+		groups2.push_back(mino(tmp));
 	}
 
 	//groups2
