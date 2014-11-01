@@ -1,5 +1,6 @@
 #include "parsemino.h"
 #include "union.h"
+#include "constructmino.h"
 #include <iostream>
 #include <map>
 using namespace std;
@@ -21,14 +22,6 @@ static void print_inside(const vector< vector<atom> >& atom_plane, size_t i, siz
 	cout << "(" << i+1 << ", " << j+1 << "): " << "(" << atom_plane[i][j].first << ",'" << atom_plane[i][j].second << "')" << flush;
 }
 
-typedef pair<size_t, size_t> point;
-
-
-typedef vector<point> mino; // fixme
-mino construct_mino(vector<point> points)
-{
-	return points; // fixme
-}
 
 data parse_mino(const vector<string>& vec)
 {
