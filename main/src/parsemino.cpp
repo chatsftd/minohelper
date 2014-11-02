@@ -81,10 +81,17 @@ data parse_mino(const vector<string>& vec)
 		{
 			tmp.push_back(ItoP[groups[i][j]]);
 		}
-		groups2.push_back(mino(tmp));
+		if(tmp.size() == 4) // fixme
+		{
+			groups2.push_back(mino(tmp));
+		}
 	}
 
-	//groups2
+	for(size_t i = 0, n = groups2.size(); i < n; i++)
+	{
+		cout << groups2[i] << endl;
+	}
+	
 	
 	return vec; // fixme
 }
