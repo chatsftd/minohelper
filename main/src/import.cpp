@@ -6,11 +6,10 @@ using namespace std;
 
 status import_(state st, const vector<string>& vec)
 {
-	cout << "command \"import\" was called." << endl;
-	
 	status ret_val = ALL_OK;
 	for(size_t j = 1; j < vec.size(); ++j)
 	{
+		cout << "Loading \"" << vec[j] << "\" ..." << endl;
 		ifstream ifs(vec[j].c_str());
 		if(!ifs)
 		{
@@ -22,7 +21,7 @@ status import_(state st, const vector<string>& vec)
 		stringstream buffer;
 		buffer << ifs.rdbuf();
 		st.content[vec[j]] = get_mino_data(buffer);
-		cout << "ok, \"" << vec[j] << "\" loaded." << endl;
+		cout << "OK, \"" << vec[j] << "\" loaded." << endl;
 	}
 	return ret_val;
 }

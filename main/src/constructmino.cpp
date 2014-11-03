@@ -4,7 +4,7 @@
 using namespace std;
 
 
-mino::mino(vector<point> points) 
+mino::mino(const vector<point>& points) 
 {
 	assert(((void)"mino size is not 4", points.size() == 4)); // fixme
 	this->p0 = points[0];
@@ -14,13 +14,13 @@ mino::mino(vector<point> points)
 }
 
 #ifndef NDEBUG
-ostream& operator<<(ostream& o, mino m) 
+ostream& operator<<(ostream& o, const mino& m) 
 {
 	
-    o      << "(" << m.p0.first << "," << m.p0.second << ")"
-	<< "," << "(" << m.p1.first << "," << m.p1.second << ")"
-	<< "," << "(" << m.p2.first << "," << m.p2.second << ")"
-	<< "," << "(" << m.p3.first << "," << m.p3.second << ")"
+    o      << "(" << m.p0.first+1 << "," << m.p0.second+1 << ")"
+	<< "," << "(" << m.p1.first+1 << "," << m.p1.second+1 << ")"
+	<< "," << "(" << m.p2.first+1 << "," << m.p2.second+1 << ")"
+	<< "," << "(" << m.p3.first+1 << "," << m.p3.second+1 << ")"
 	;
 	return o;
 }

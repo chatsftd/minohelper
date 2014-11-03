@@ -11,10 +11,10 @@ public:
 	point p1;
 	point p2;
 	point p3;
-	mino(std::vector<point> points);
+	mino(const std::vector<point>& points);
 	
 #ifndef NDEBUG
-	friend std::ostream& operator<<(std::ostream& o, mino m);
+	friend std::ostream& operator<<(std::ostream& o, const mino& m);
 #endif
 
 }; // fixme

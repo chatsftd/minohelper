@@ -12,7 +12,7 @@ ID UnionFind::root(ID id)
 	}
 }
 
-void UnionFind::unite(const ID id1, const ID id2)
+void UnionFind::unite(ID id1, ID id2)
 {
 	ID root1 = this->root(id1);
 	ID root2 = this->root(id2);
