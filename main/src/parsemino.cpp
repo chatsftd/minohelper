@@ -16,12 +16,12 @@ static bool isSame(const vector< vector<atom> >& atom_plane, size_t i, size_t j,
 	if(a == ' ')return false;
 	return a == b;
 }
-
+/*
 static void print_inside(const vector< vector<atom> >& atom_plane, size_t i, size_t j)
 {
 	cout << "(" << i+1 << ", " << j+1 << "): " << "(" << atom_plane[i][j].first << ",'" << atom_plane[i][j].second << "')" << flush;
 }
-
+*/
 
 data parse_mino(const vector<string>& vec)
 {
@@ -56,14 +56,14 @@ data parse_mino(const vector<string>& vec)
 		{
 			if(isSame(atom_plane,i,j,i,j-1))
 			{
-				print_inside(atom_plane,i,j); cout << " and ";
-				print_inside(atom_plane,i,j-1); cout << " are the same." << endl;
+				/*print_inside(atom_plane,i,j); cout << " and ";
+				print_inside(atom_plane,i,j-1); cout << " are the same." << endl;*/
 				union_find.unite(atom_plane[i][j].first,atom_plane[i][j-1].first);
 			}
 			if(isSame(atom_plane,i,j,i-1,j))
 			{
-				print_inside(atom_plane,i,j); cout << " and ";
-				print_inside(atom_plane,i-1,j); cout << " are the same." << endl;
+				/*print_inside(atom_plane,i,j); cout << " and ";
+				print_inside(atom_plane,i-1,j); cout << " are the same." << endl;*/
 				union_find.unite(atom_plane[i][j].first,atom_plane[i-1][j].first);
 			}
 		}
@@ -79,12 +79,18 @@ data parse_mino(const vector<string>& vec)
 		vector<point> tmp;
 		for(size_t j = 0, m = groups[i].size(); j < m; j++)
 		{
-			tmp.push_back(ItoP[groups[i][j]]);
+			point p = ItoP[groups[i][j]];
+			
+			if(atom_plane[p.first][p.second].second == ' ') continue;
+			
+			/*cout << "(" << p.first+1 << "," << p.second+1 << "), " 
+			<< "ID: " << groups[i][j] << ", char: '" << atom_plane[p.first][p.second].second << "'" << endl; */
+			
+			tmp.push_back(p);
 		}
-		if(tmp.size() == 4) // fixme
-		{
-			groups2.push_back(mino(tmp));
-		}
+		if(tmp.size() == 0) continue; // ignore spaces
+		
+		groups2.push_back(mino(tmp));
 	}
 
 	for(size_t i = 0, n = groups2.size(); i < n; i++)
