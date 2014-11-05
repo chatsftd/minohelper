@@ -1,8 +1,20 @@
 #include "import.h"
+#include "parsemino.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 using namespace std;
+
+static data get_mino_data(stringstream& str)
+{
+	string s;
+	vector<string> buffer2;
+	while(getline(str,s))
+	{
+		buffer2.push_back(s);
+	}
+	return parse_mino(buffer2); 
+}
 
 status import_(state st, const vector<string>& vec)
 {
