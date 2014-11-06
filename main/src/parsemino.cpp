@@ -16,12 +16,6 @@ static bool isSame(const vector< vector<atom> >& atom_plane, size_t i, size_t j,
 	if(a == ' ')return false;
 	return a == b;
 }
-/*
-static void print_inside(const vector< vector<atom> >& atom_plane, size_t i, size_t j)
-{
-	cout << "(" << i+1 << ", " << j+1 << "): " << "(" << atom_plane[i][j].first << ",'" << atom_plane[i][j].second << "')" << flush;
-}
-*/
 
 data parse_mino(const vector<string>& vec)
 {
@@ -56,14 +50,10 @@ data parse_mino(const vector<string>& vec)
 		{
 			if(isSame(atom_plane,i,j,i,j-1))
 			{
-				/*print_inside(atom_plane,i,j); cout << " and ";
-				print_inside(atom_plane,i,j-1); cout << " are the same." << endl;*/
 				union_find.unite(atom_plane[i][j].first,atom_plane[i][j-1].first);
 			}
 			if(isSame(atom_plane,i,j,i-1,j))
 			{
-				/*print_inside(atom_plane,i,j); cout << " and ";
-				print_inside(atom_plane,i-1,j); cout << " are the same." << endl;*/
 				union_find.unite(atom_plane[i][j].first,atom_plane[i-1][j].first);
 			}
 		}
@@ -81,10 +71,14 @@ data parse_mino(const vector<string>& vec)
 		{
 			point p = ItoP[groups[i][j]];
 			
-			if(atom_plane[p.first][p.second].second == ' ') continue;
+			if(atom_plane[p.first][p.second].second == ' ') continue; // ignore spaces
 			
-			/*cout << "(" << p.first+1 << "," << p.second+1 << "), " 
-			<< "ID: " << groups[i][j] << ", char: '" << atom_plane[p.first][p.second].second << "'" << endl; */
+			/*
+			x   :   p.first+1
+			y   :   p.second+1
+			id  :   groups[i][j]
+			char:   atom_plane[p.first][p.second].second
+			*/
 			
 			tmp.push_back(p);
 		}
@@ -95,10 +89,10 @@ data parse_mino(const vector<string>& vec)
 
 	for(size_t i = 0, n = groups2.size(); i < n; i++)
 	{
-		cout << groups2[i] << endl;
+		cout << "mino #" << i+1 << ": " << groups2[i] << endl;
 	}
 	
-	
-	return vec; // fixme
+	data dat = groups2;
+	return dat;
 }
 
