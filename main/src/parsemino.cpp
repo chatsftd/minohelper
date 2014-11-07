@@ -48,11 +48,11 @@ data parse_mino(const vector<string>& vec)
 	{
 		for(size_t j = 0, m = atom_plane[i].size(); j < m; j++)
 		{
-			if(isSame(atom_plane,i,j,i,j-1))
+			if(j != 0 && isSame(atom_plane,i,j,i,j-1))
 			{
 				union_find.unite(atom_plane[i][j].first,atom_plane[i][j-1].first);
 			}
-			if(isSame(atom_plane,i,j,i-1,j))
+			if(i != 0 && isSame(atom_plane,i,j,i-1,j))
 			{
 				union_find.unite(atom_plane[i][j].first,atom_plane[i-1][j].first);
 			}
