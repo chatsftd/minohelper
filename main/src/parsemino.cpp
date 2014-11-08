@@ -67,12 +67,13 @@ data parse_mino(const vector<string>& vec)
 	for(size_t i = 0, n = groups.size(); i < n; i++)
 	{
 		vector<point> tmp;
+		char c2;
 		for(size_t j = 0, m = groups[i].size(); j < m; j++)
 		{
 			point p = ItoP[groups[i][j]];
-			
-			if(atom_plane[p.first][p.second].second == ' ') continue; // ignore spaces
-			
+			char c = atom_plane[p.first][p.second].second;
+			if(c == ' ') continue; // ignore spaces
+			c2 = c;
 			/*
 			x   :   p.first+1
 			y   :   p.second+1
@@ -84,7 +85,7 @@ data parse_mino(const vector<string>& vec)
 		}
 		if(tmp.size() == 0) continue; // ignore spaces
 		
-		groups2.push_back(mino(tmp));
+		groups2.push_back(mino(tmp,c2));
 	}
 
 	for(size_t i = 0, n = groups2.size(); i < n; i++)
