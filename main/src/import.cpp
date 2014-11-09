@@ -26,14 +26,14 @@ status import_(state st, const vector<string>& vec)
 		if(!ifs)
 		{
 			cerr << "file \"" << vec[j] << "\" does not exist" << endl << endl;
-			ret_val = SOMETHING_WRONG; // error
+			ret_val = NO_FILE; // error
 			continue;
 		}
 		
 		stringstream buffer;
 		buffer << ifs.rdbuf();
 		st.content[vec[j]] = get_mino_data(buffer);
-		cout << "OK, \"" << vec[j] << "\" loaded." << endl;
+		cout << "OK, \"" << vec[j] << "\" loaded." << endl << endl;
 	}
 	return ret_val;
 }
