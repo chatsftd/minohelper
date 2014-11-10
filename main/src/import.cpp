@@ -16,7 +16,7 @@ static data get_mino_data(stringstream& str)
 	return parse_mino(buffer2); 
 }
 
-status import_(state st, const vector<string>& vec)
+status import_(state& st, const vector<string>& vec)
 {
 	status ret_val = ALL_OK;
 	for(size_t j = 1; j < vec.size(); ++j)
