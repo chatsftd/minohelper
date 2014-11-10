@@ -17,7 +17,7 @@ static void parse(vector<string>& vec, const string& a)
 	}
 }
 
-status interpret(state st, const string& a)
+status interpret(state& st, const string& a)
 {
 	vector<string> vec;
 	parse(vec,a);
