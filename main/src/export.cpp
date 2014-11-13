@@ -13,10 +13,8 @@ static status export2(const string& file, const vector<string>& vec)
 	return ALL_OK;
 }
 
-
-status export_(state& st, const vector<string>& vec)
+static status file_select(string& filename, const state& st)
 {
-	cout << "command \"export\" was called." << endl;
 	size_t size = st.content.size();
 	
 	switch(size)
@@ -27,21 +25,58 @@ status export_(state& st, const vector<string>& vec)
 			break; // consistency 
 			
 		case 1:
-		{ 
-			const string& filename = st.content.begin()->first;
-			return export2(filename,vec);
+			filename = st.content.begin()->first;
+			return ALL_OK;
 			break; // consistency 
-		}
 		
 		default: 
 			break;
 	}
 	
-	cout << "Loaded files are:" << endl;
-	for(map<string,data>::iterator it = st.content.begin(); it != st.content.end(); ++it)
+	cout << "Which file?" << endl;
+	typedef size_t Index;
+	
+	Index i = 1;
+	map<Index, string> map_;
+	for(map<string,data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
 	{
-		cout << '\t' << it->first << endl;
+		cout << '\t' << i << ": \"" << it->first << '"' << endl;
+		map_[i] = it->first;
+		i++;
 	}
-	cout << endl;
-	return ALL_OK;
+	Index max_plus_1 = i;
+	
+	cout << ">>> " << flush;
+	
+	string str;
+	getline(cin, str);
+	
+	stringstream s2(str.c_str());
+	Index inp;
+	s2 >> inp;
+	if(inp == 0 || inp >= max_plus_1)
+	{
+		cout << "No such index." << endl;
+		return SOMETHING_WRONG;
+	}
+	else
+	{
+		filename = map_[inp];
+		return ALL_OK;
+	}
+}
+
+
+status export_(state& st, const vector<string>& vec)
+{
+	string filename = "";
+	status s = file_select(filename, st);
+	if(s == ALL_OK)
+	{
+		return export2(filename,vec);
+	}
+	else
+	{
+		return s; 
+	}
 }
