@@ -14,9 +14,7 @@ public:
 	char ch;
 	mino(const std::vector<point>& points, char c);
 	
-#ifndef NDEBUG
 	friend std::ostream& operator<<(std::ostream& o, const mino& m);
-#endif
 
 }; // fixme
 
