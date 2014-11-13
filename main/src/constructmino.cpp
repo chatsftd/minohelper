@@ -4,17 +4,15 @@
 using namespace std;
 
 
-mino::mino(const vector<point>& points, char c) 
+mino::mino(const vector<point>& points, char c) : ch(c) 
 {
 	assert(((void)"mino size is not 4", points.size() == 4)); // fixme
 	this->p0 = points[0];
 	this->p1 = points[1];
 	this->p2 = points[2];
 	this->p3 = points[3];
-	this->ch = c;
 }
 
-#ifndef NDEBUG
 ostream& operator<<(ostream& o, const mino& m) 
 {
 	
@@ -27,4 +25,3 @@ ostream& operator<<(ostream& o, const mino& m)
 	;
 	return o;
 }
-#endif
