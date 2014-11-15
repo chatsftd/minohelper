@@ -3,8 +3,9 @@
 
 enum status
 {
-	SOMETHING_WRONG = -2,
-	EXIT_ALL = -1,
-	ALL_OK = 0
+	NO_FILE = -3,
+	SOMETHING_WRONG,
+	EXIT_ALL,
+	ALL_OK
 };
 #endif/*HEADER_H_DEFINED_2014_10_12_cikbjhewcbqxepjnjpeuiiszzqcse*/
