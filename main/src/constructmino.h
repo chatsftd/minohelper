@@ -15,6 +15,8 @@ public:
 	mino(const std::vector<point>& points, char c);
 	
 	friend std::ostream& operator<<(std::ostream& o, const mino& m);
+	
+	point top_left() const;
 
 }; // fixme
 

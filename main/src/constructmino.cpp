@@ -25,3 +25,10 @@ ostream& operator<<(ostream& o, const mino& m)
 	;
 	return o;
 }
+static inline size_t m(size_t a, size_t b){ return a < b ? a : b; }
+static inline size_t min(size_t a, size_t b, size_t c, size_t d){ return m(m(a,b),m(c,d)); }
+
+point mino::top_left() const
+{
+	return point(min(p0.first,p1.first,p2.first,p3.first),min(p0.second,p1.second,p2.second,p3.second));
+}

@@ -14,7 +14,8 @@ static status export2(const string& file, const data& dat, const vector<string>&
 	const vector<mino>& minos = dat.minos;
 	for(size_t i = 0; i < minos.size(); ++i)
 	{
-		cout << "mino #" << i+1 << ": " << minos[i] << endl;
+		point p = minos[i].top_left();
+		cout << "mino #" << i+1 << ": [" << p.first+1 << ',' << p.second+1 << "] " << minos[i] << endl;
 	}
 	
 	return ALL_OK;
