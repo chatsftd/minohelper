@@ -13,17 +13,19 @@ mino::mino(const vector<point>& points, char c) : ch(c)
 	this->p3 = points[3];
 }
 
+ostream& operator<<(ostream& o, const point& p)
+{
+	assert(((void)"Wrong point", p.first != WRONG_PLACE && p.second != WRONG_PLACE));
+	return o << "(" << p.first+1 << "," << p.second+1 << ")";	
+}
+
 ostream& operator<<(ostream& o, const mino& m) 
 {
-	
-    o      << "'" << m.ch << "' " 
-	<< "(" << m.p0.first+1 << "," << m.p0.second+1 << ")"
-	<< "," << "(" << m.p1.first+1 << "," << m.p1.second+1 << ")"
-	<< "," << "(" << m.p2.first+1 << "," << m.p2.second+1 << ")"
-	<< "," << "(" << m.p3.first+1 << "," << m.p3.second+1 << ")"
-	
-	;
-	return o;
+    return o << "'" << m.ch << "' " 
+	<< m.p0 << "," 
+	<< m.p1 << "," 
+	<< m.p2 << "," 
+	<< m.p3;
 }
 static inline size_t m(size_t a, size_t b){ return a < b ? a : b; }
 static inline size_t min(size_t a, size_t b, size_t c, size_t d){ return m(m(a,b),m(c,d)); }
