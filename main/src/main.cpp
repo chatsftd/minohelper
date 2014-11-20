@@ -1,7 +1,5 @@
-#include "header.h"
 #include "interpret.h"
 #include "import.h"
-#include "state.h"
 #include <iostream>
 #include <string>
 #include <vector>

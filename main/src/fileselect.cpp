@@ -43,7 +43,7 @@ status file_select(string& filename, const state& st)
 	stringstream s2(str.c_str());
 	Index inp;
 	s2 >> inp;
-	if(inp == 0 || inp >= max_plus_1)
+	if(inp < 1 || inp >= max_plus_1)
 	{
 		cout << "No such index." << endl;
 		return SOMETHING_WRONG;
