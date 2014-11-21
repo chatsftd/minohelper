@@ -14,6 +14,35 @@ struct point
 	friend std::ostream& operator<<(std::ostream& o, const point& p);
 };
 
+enum shape_num
+{
+	N_mino = 0, /*   @   @@    @     @@  */
+	Z_mino,     /*  @@    @@   @@   @@   */
+	Y_mino,     /*  @           @        */
+	S_mino,     /*  N     Z     Y    S   */
+	
+	J_mino,     /*   @   @@   @     @@@  */
+	P_mino,     /*   @   @    @@@     @  */
+	A_mino,     /*  @@   @               */
+	B_mino,     /*   J   P     A     B   */	
+	
+	L_mino,     /*  @    @@   @@@     @  */
+	Q_mino,     /*  @     @   @     @@@  */
+	C_mino,     /*  @@    @              */
+	D_mino,     /*  L     Q    C     D   */	
+	
+	E_mino,     /*  @     @   @@@    @   */
+	F_mino,     /*  @@   @@    @    @@@  */
+	T_mino,     /*  @     @              */
+	K_mino,     /*  E     F    T     K   */	
+		
+	I_mino,     /*  @          @@        */
+	M_mino,     /*  @   @@@@   @@        */
+	O_mino      /*  @                    */
+	            /*  @                    */	
+	            /*  I    M      O        */	
+};
+
 class mino
 {
 private:
