@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+static status export3(const vector<mino>& minos);
+
 static status export2(const string& file, const data& dat, const vector<string>& vec)
 {
 	cout << "Exporting \"" << file << "\"..." << endl;
@@ -10,10 +12,11 @@ static status export2(const string& file, const data& dat, const vector<string>&
 	{
 		cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
 	}
-	
-	const vector<mino>& minos = dat.minos;
-	
-	
+	return export3(dat.minos);	
+}
+
+static status export3(const vector<mino>& minos)
+{
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i)
 	{
@@ -25,9 +28,6 @@ static status export2(const string& file, const data& dat, const vector<string>&
 	
 	return ALL_OK;
 }
-
-
-
 
 status export_(state& st, const vector<string>& vec)
 {
