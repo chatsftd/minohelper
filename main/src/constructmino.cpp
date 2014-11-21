@@ -3,10 +3,11 @@
 
 using namespace std;
 
+#define assert2(a,b) assert(((void)(a),(b)))
 
 mino::mino(const vector<point>& points, char c) : ch(c) 
 {
-	assert(((void)"mino size is not 4", points.size() == 4)); // fixme
+	assert2("mino size is not 4", points.size() == 4); // fixme
 	this->p0 = points[0];
 	this->p1 = points[1];
 	this->p2 = points[2];
@@ -15,7 +16,7 @@ mino::mino(const vector<point>& points, char c) : ch(c)
 
 ostream& operator<<(ostream& o, const point& p)
 {
-	assert(((void)"Wrong point", p.first != WRONG_PLACE && p.second != WRONG_PLACE));
+	assert2("Wrong point", p.first != WRONG_PLACE && p.second != WRONG_PLACE);
 	return o << "(" << p.first+1 << "," << p.second+1 << ")";	
 }
 
