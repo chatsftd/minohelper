@@ -38,9 +38,10 @@ enum shape_num
 		
 	I_mino,     /*  @          @@        */
 	M_mino,     /*  @   @@@@   @@        */
-	O_mino      /*  @                    */
+	O_mino,     /*  @                    */
 	            /*  @                    */	
 	            /*  I    M      O        */	
+	VOID__ = 0xCCCC
 };
 
 class mino
@@ -56,8 +57,9 @@ public:
 	mino(const std::vector<point>& points, char c);
 	friend std::ostream& operator<<(std::ostream& o, const mino& m);
 	point top_left() const;
+	shape_num get_shape_num() const;
 
-}; // fixme
+};
 
 
 
