@@ -17,7 +17,7 @@ static bool isSame(const vector< vector<atom> >& atom_plane, size_t i, size_t j,
 	return a == b;
 }
 
-data parse_mino(const vector<string>& vec)
+Maybe<data> parse_mino(const vector<string>& vec)
 {
 	vector< vector<atom> > atom_plane;
 	map<ID, point> ItoP;
@@ -84,8 +84,20 @@ data parse_mino(const vector<string>& vec)
 			tmp.push_back(p);
 		}
 		if(tmp.size() == 0) continue; // ignore spaces
-		
-		groups2.push_back(mino(tmp,c2));
+		if(tmp.size() == 4)
+		{
+			groups2.push_back(mino(tmp,c2));
+		}
+		else
+		{
+			cerr << "Improper mino ";
+			for(size_t k = 0; k < tmp.size(); k++)
+			{
+				cerr << tmp[k] << ',';
+			}
+			cerr << " which consists of " << tmp.size() << " pixel(s), not 4." << endl << endl;
+			return Nothing<data>();
+		}
 	}
 
 	for(size_t i = 0, n = groups2.size(); i < n; i++)
@@ -94,6 +106,6 @@ data parse_mino(const vector<string>& vec)
 	}
 	
 	data dat = groups2;
-	return dat;
+	return Just(dat);
 }
 
