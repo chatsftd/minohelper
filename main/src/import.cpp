@@ -5,7 +5,7 @@
 #include <sstream>
 using namespace std;
 
-static data get_mino_data(stringstream& str)
+static Maybe<data> get_mino_data(stringstream& str)
 {
 	string s;
 	vector<string> buffer2;
@@ -32,7 +32,13 @@ status import_(state& st, const vector<string>& vec)
 		
 		stringstream buffer;
 		buffer << ifs.rdbuf();
-		st.content[vec[j]] = get_mino_data(buffer);
+		const Maybe<data>& mD = get_mino_data(buffer);
+		if(mD.isNothing())
+		{
+			ret_val = SOMETHING_WRONG;
+			continue;
+		}
+		st.content[vec[j]] = mD.unJust(); // fixme
 		cout << "OK, \"" << vec[j] << "\" loaded." << endl << endl;
 	}
 	return ret_val;
