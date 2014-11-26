@@ -4,17 +4,6 @@
 #include <sstream>
 using namespace std;
 
-static status export3(const vector<mino>& minos);
-
-static status export2(const string& file, const data& dat, const vector<string>& vec)
-{
-	cout << "Exporting \"" << file << "\"..." << endl;
-	for(size_t j = 1; j < vec.size(); ++j)
-	{
-		cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
-	}
-	return export3(dat.minos);	
-}
 
 static status export3(const vector<mino>& minos)
 {
@@ -58,7 +47,7 @@ static status export3(const vector<mino>& minos)
 		ans << "],";
 	}
 	ans << "\"end\"]";
-	cout << ans.str() << endl;
+	cout << ans.str() << endl << endl;
 	return ALL_OK;
 }
 
@@ -68,7 +57,12 @@ status export_(state& st, const vector<string>& vec)
 	status s = file_select(filename, st);
 	if(s == ALL_OK)
 	{
-		return export2(filename, st.content[filename], vec);
+		cout << "Exporting \"" << filename << "\"..." << endl;
+		for(size_t j = 1; j < vec.size(); ++j)
+		{
+			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
+		}
+		return export3(st.content[filename].minos);
 	}
 	else
 	{
