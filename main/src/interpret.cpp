@@ -28,14 +28,8 @@ status interpret(state& st, const string& a)
 	{
 		return EXIT_ALL;
 	}
-	else if2("import")
-	{
-		return import_(st,vec);
-	}
-	else if2("export")
-	{
-		return export_(st,vec);
-	}
+	else if2("import") return import_(st,vec);
+	else if2("export") return export_(st,vec);
 	else
 	{
 		cout << "\"" << vec[0] << "\" is not a valid command." << endl << endl;

@@ -5,17 +5,6 @@
 #include <sstream>
 using namespace std;
 
-static Maybe<data> get_mino_data(stringstream& str)
-{
-	string s;
-	vector<string> buffer2;
-	while(getline(str,s))
-	{
-		buffer2.push_back(s);
-	}
-	return parse_mino(buffer2); 
-}
-
 status import_(state& st, const vector<string>& vec)
 {
 	status ret_val = ALL_OK;
@@ -30,15 +19,24 @@ status import_(state& st, const vector<string>& vec)
 			continue;
 		}
 		
-		stringstream buffer;
-		buffer << ifs.rdbuf();
-		const Maybe<data>& mD = get_mino_data(buffer);
+		vector<string> plane;
+		{
+			string s;
+			stringstream buffer;
+			buffer << ifs.rdbuf();
+			while(getline(buffer,s))
+			{
+				plane.push_back(s);
+			}
+		}
+		const Maybe<data>& mD = parse_mino(plane); 
+		
 		if(mD.isNothing())
 		{
 			ret_val = SOMETHING_WRONG;
 			continue;
 		}
-		st.content[vec[j]] = mD.unJust(); // fixme
+		st.content[vec[j]] = mD.unJust(); 
 		cout << "OK, \"" << vec[j] << "\" loaded." << endl << endl;
 	}
 	return ret_val;

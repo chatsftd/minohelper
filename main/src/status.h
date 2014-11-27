@@ -9,6 +9,4 @@ enum status
 	ALL_OK
 };
 
-
-
 #endif/*HEADER_H_DEFINED_2014_10_12_cikbjhewcbqxepjnjpeuiiszzqcse*/
