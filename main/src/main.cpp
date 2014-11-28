@@ -17,7 +17,8 @@ int main(int argc, char** argv)
 		{
 			vec.push_back(argv[k]);
 		}
-		import_(st,vec);
+		status s = import_(st,vec); 
+		st.error_status = s;
 	}
 	
 	while(true)
@@ -25,7 +26,9 @@ int main(int argc, char** argv)
 		string tmp = "";
 		cout << "> " << flush;
 		getline(cin,tmp);
-		switch(interpret(st,tmp))
+		status s = interpret(st,tmp);
+		st.error_status = s;
+		switch(s)
 		{
 			case EXIT_ALL: goto end; /* escape from while-true */
 			default: break; /* do nothing */
