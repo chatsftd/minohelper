@@ -40,6 +40,14 @@ static status import_file(state& st, const string& filename)
 status import_(state& st, const vector<string>& vec)
 {
 	status ret_val = ALL_OK;
+	if(vec.size() < 2)
+	{
+		string str;
+		cout << "File name?" << endl;
+		cout << ">>> " << flush;
+		getline(cin,str);
+		return import_file(st,str);
+	}
 	for(size_t j = 1; j < vec.size(); ++j)
 	{
 		status s = import_file(st,vec[j]);
