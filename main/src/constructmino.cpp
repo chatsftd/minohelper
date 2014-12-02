@@ -1,9 +1,8 @@
 #include "constructmino.h"
-#include <cassert>
+#include "debug.h"
 
 using namespace std;
 
-#define assert2(a,b) assert(((void)(a),(b)))
 
 mino::mino(const vector<point>& points, char c) : ch(c) 
 {

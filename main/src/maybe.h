@@ -1,6 +1,6 @@
 #ifndef MAYBE_H_5d35ecd97713d038e9d8d4bff923d82939949a2c
 #define MAYBE_H_5d35ecd97713d038e9d8d4bff923d82939949a2c
-#include <cassert>
+#include "debug.h"
 template <class T>
 class Maybe
 {
@@ -26,7 +26,7 @@ T Maybe<T>::unJust() const
 	}
 	else
 	{
-		assert(0);
+		assert2("cannot unJust Nothing",0);
 		T t;
 		return t;
 	}
