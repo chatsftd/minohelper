@@ -6,12 +6,12 @@ class Maybe
 {
 	bool isJust_;
 	T inside;
-	Maybe(bool ij, T t) : isJust_(ij), inside(t) {}
+	Maybe(bool ij, const T& t) : isJust_(ij), inside(t) {}
 	Maybe() : isJust_(false), inside() {}
 	
 public:
 	template <class T2> friend Maybe<T2> Nothing() { Maybe<T2> mt; return mt;}
-	template <class T2> friend Maybe<T2> Just(T2 t) { Maybe<T2> mt(true,t); return mt;}
+	template <class T2> friend Maybe<T2> Just(const T2& t) { Maybe<T2> mt(true,t); return mt;}
 	bool isJust() const{ return this->isJust_; }
 	bool isNothing() const{ return !(this->isJust_); }
 	T unJust() const;
