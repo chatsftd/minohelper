@@ -10,7 +10,7 @@ static void parse(vector<string>& vec, const string& a)
 {
 	stringstream input;
 	input.str(a);
-	string b; 
+	string b;
 	while(input >> b)
 	{
 		vec.push_back(b);

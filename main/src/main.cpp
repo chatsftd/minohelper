@@ -11,13 +11,13 @@ int main(int argc, char** argv)
 	state st;
 	if(argc >= 2)
 	{
-		vector<string> vec; 
+		vector<string> vec;
 		vec.push_back("import");
 		for(int k = 1; k < argc; k++)
 		{
 			vec.push_back(argv[k]);
 		}
-		status s = import_(st,vec); 
+		status s = import_(st,vec);
 		st.error_status = s;
 	}
 	

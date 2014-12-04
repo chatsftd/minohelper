@@ -9,7 +9,7 @@ private:
 	std::vector<ID> parents;
 	
 public:
-	explicit UnionFind(const std::vector<ID>& id_list) : parents(id_list) {} 
+	explicit UnionFind(const std::vector<ID>& id_list) : parents(id_list) {}
 	ID root(ID id);
 	void unite(ID id1, ID id2);
 	std::vector< std::vector<ID> > toGroups(void);

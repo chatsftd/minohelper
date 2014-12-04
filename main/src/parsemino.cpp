@@ -60,7 +60,7 @@ Maybe<data> parse_mino(const vector<string>& vec)
 	}
 	
 	
-	typedef vector<ID> group; 
+	typedef vector<ID> group;
 	vector<group> groups = union_find.toGroups();
 	
 	vector<mino> groups2;

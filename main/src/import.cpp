@@ -25,13 +25,13 @@ static status import_file(state& st, const string& filename)
 			plane.push_back(s);
 		}
 	}
-	const Maybe<data>& mD = parse_mino(plane); 
+	const Maybe<data>& mD = parse_mino(plane);
 	
 	if(mD.isNothing())
 	{
 		return SOMETHING_WRONG;
 	}
-	st.content[filename] = mD.unJust(); 
+	st.content[filename] = mD.unJust();
 	cout << "OK, \"" << filename << "\" loaded." << endl << endl;
 	return ALL_OK;
 }

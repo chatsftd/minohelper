@@ -4,7 +4,7 @@
 using namespace std;
 
 
-mino::mino(const vector<point>& points, char c) : ch(c) 
+mino::mino(const vector<point>& points, char c) : ch(c)
 {
 	assert2("mino size is not 4", points.size() == 4); // fixme
 	this->p0 = points[0];
@@ -56,9 +56,9 @@ shape_num mino::get_shape_num() const
 		J_mino, D_mino, O_mino, VOID__, M_mino,
 		VOID__, C_mino, VOID__, T_mino, VOID__,
 		S_mino, VOID__, VOID__, I_mino, P_mino,
-		VOID__, VOID__, E_mino, N_mino, VOID__, 
+		VOID__, VOID__, E_mino, N_mino, VOID__,
 		VOID__, VOID__, VOID__, VOID__, Q_mino,
-		Y_mino, F_mino, VOID__, VOID__, VOID__, 
+		Y_mino, F_mino, VOID__, VOID__, VOID__,
 		VOID__, VOID__, Z_mino, A_mino, K_mino
 	}; // scary table
 	
@@ -67,16 +67,16 @@ shape_num mino::get_shape_num() const
 	proc(tmp, tl, p1);
 	proc(tmp, tl, p2);
 	proc(tmp, tl, p3);
-	return arr[tmp % 40]; 
+	return arr[tmp % 40];
 }
 
 
-ostream& operator<<(ostream& o, const mino& m) 
+ostream& operator<<(ostream& o, const mino& m)
 {
-    return o << "'" << m.ch << "' " 
-	<< m.p0 << "," 
-	<< m.p1 << "," 
-	<< m.p2 << "," 
+    return o << "'" << m.ch << "' "
+	<< m.p0 << ","
+	<< m.p1 << ","
+	<< m.p2 << ","
 	<< m.p3
 	<< "  " << m.get_shape_num()
 	<< "  " << get_name(m.get_shape_num());

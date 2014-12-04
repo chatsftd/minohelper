@@ -20,9 +20,9 @@ public:
 template <class T>
 T Maybe<T>::unJust() const
 {
-	if(this->isJust_) 
+	if(this->isJust_)
 	{
-		return this->inside; 
+		return this->inside;
 	}
 	else
 	{

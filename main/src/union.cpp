@@ -32,12 +32,12 @@ void UnionFind::unite(ID id1, ID id2)
 
 vector< vector<ID> > UnionFind::toGroups(void)
 {
-	typedef vector<ID> group; 
+	typedef vector<ID> group;
 	map<ID, group> buf; // map from `root ID` to `group`
 	
 	size_t size = this->parents.size();
 	
-	for(size_t i = 0; i < size; i++) 
+	for(size_t i = 0; i < size; i++)
 	{
 		ID i2 = i;
 		buf[this->root(i2)].push_back(i2);

@@ -11,14 +11,14 @@ status file_select(string& filename, const state& st)
 		case 0:	
 			cout << "No files loaded." << endl << endl;	
 			return SOMETHING_WRONG;	
-			break; // consistency 
+			break; // consistency
 			
 		case 1:
 			filename = st.content.begin()->first;
 			return ALL_OK;
-			break; // consistency 
+			break; // consistency
 		
-		default: 
+		default:
 			break;
 	}
 	

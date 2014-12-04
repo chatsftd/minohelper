@@ -39,7 +39,7 @@ static status export3(const vector<mino>& minos)
 			ans << "_0_";
 			ans << result[j][k].top_left().second;
 			ans << "_0\"";
-			if(k+1 != result[j].size()) 
+			if(k+1 != result[j].size())
 			{
 				ans << ",";
 			}
@@ -66,6 +66,6 @@ status export_(state& st, const vector<string>& vec)
 	}
 	else
 	{
-		return s; 
+		return s;
 	}
 }
