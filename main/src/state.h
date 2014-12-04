@@ -11,7 +11,7 @@ class data
 public:
 	std::vector<mino> minos;
 	data(void);
-	data(const std::vector<mino>& minos_);
+	explicit data(const std::vector<mino>& minos_);
 };
 
 

@@ -42,7 +42,7 @@ Maybe<data> parse_mino(const vector<string>& vec)
 		vec2.push_back(i);
 	}
 	
-	UnionFind union_find = vec2;
+	UnionFind union_find(vec2);
 	
 	for(size_t i = 0, n = atom_plane.size(); i < n; i++)
 	{
@@ -105,7 +105,7 @@ Maybe<data> parse_mino(const vector<string>& vec)
 		cout << "mino #" << i+1 << ": " << groups2[i] << endl;
 	}
 	
-	data dat = groups2;
+	data dat(groups2);
 	return Just(dat);
 }
 
