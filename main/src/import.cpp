@@ -11,7 +11,7 @@ static status import_file(state& st, const string& filename)
 	ifstream ifs(filename.c_str());
 	if(!ifs)
 	{
-		cerr << "file \"" << filename << "\" does not exist" << endl << endl;
+		cerr << "File \"" << filename << "\" does not exist." << endl << endl;
 		return NO_FILE; // error
 	}
 	

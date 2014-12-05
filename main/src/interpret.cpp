@@ -32,7 +32,7 @@ status interpret(state& st, const string& a)
 	else if2("export") return export_(st,vec);
 	else
 	{
-		cout << "\"" << vec[0] << "\" is not a valid command." << endl << endl;
+		cerr << "\"" << vec[0] << "\" is not a valid command." << endl << endl;
 		return SOMETHING_WRONG;
 	}
 }

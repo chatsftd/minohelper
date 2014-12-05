@@ -60,7 +60,7 @@ status export_(state& st, const vector<string>& vec)
 		cout << "Exporting \"" << filename << "\"..." << endl;
 		for(size_t j = 1; j < vec.size(); ++j)
 		{
-			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl;
+			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl; // fixme: debug
 		}
 		return export3(st.content[filename].minos);
 	}

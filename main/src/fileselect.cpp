@@ -9,7 +9,7 @@ status file_select(string& filename, const state& st)
 	switch(size)
 	{
 		case 0:	
-			cout << "No files loaded." << endl << endl;	
+			cerr << "No files loaded." << endl << endl;	
 			return SOMETHING_WRONG;	
 			break; // consistency
 			
@@ -45,7 +45,7 @@ status file_select(string& filename, const state& st)
 	s2 >> inp;
 	if(inp < 1 || inp >= max_plus_1)
 	{
-		cout << "No such index." << endl;
+		cerr << "No such index." << endl;
 		return SOMETHING_WRONG;
 	}
 	else
