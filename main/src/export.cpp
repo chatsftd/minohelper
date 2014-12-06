@@ -5,7 +5,7 @@
 using namespace std;
 
 
-static status export3(const vector<mino>& minos)
+static status export3(string& str, const vector<mino>& minos)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i)
@@ -47,7 +47,7 @@ static status export3(const vector<mino>& minos)
 		ans << "],";
 	}
 	ans << "\"end\"]";
-	cout << ans.str() << endl << endl;
+	str = ans.str(); 
 	return ALL_OK;
 }
 
@@ -62,7 +62,10 @@ status export_(state& st, const vector<string>& vec)
 		{
 			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl; // fixme: debug
 		}
-		return export3(st.content[filename].minos);
+		string str = "";
+		status s = export3(str,st.content[filename].minos);
+		cout << str << endl << endl;
+		return s;
 	}
 	else
 	{
