@@ -1,6 +1,7 @@
 #include "interpret.h"
 #include "import.h"
 #include "export.h"
+#include "help.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -30,6 +31,7 @@ status interpret(state& st, const string& a)
 	}
 	else if2("import") return import_(st,vec);
 	else if2("export") return export_(st,vec);
+	else if2("help"  ) return   help_(st,vec);
 	else
 	{
 		cerr << "\"" << vec[0] << "\" is not a valid command." << endl << endl;
