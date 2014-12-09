@@ -1,5 +1,6 @@
 #include "import.h"
 #include "parsemino.h"
+#include "paren.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -25,6 +26,9 @@ static status import_file(state& st, const string& filename)
 			plane.push_back(s);
 		}
 	}
+	
+	status s = paren(st,plane); //fixme: ignored
+	
 	const Maybe<data>& mD = parse_mino(plane);
 	
 	if(mD.isNothing())
