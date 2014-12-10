@@ -17,18 +17,18 @@ static bool isSame(const vector< vector<atom> >& atom_plane, size_t i, size_t j,
 	return a == b;
 }
 
-Maybe<data> parse_mino(const vector<string>& vec)
+Maybe<data> parse_mino(const vector<string>& content)
 {
 	vector< vector<atom> > atom_plane;
 	map<ID, point> ItoP;
 	ID id = 0;
-	for(size_t i = 0, n = vec.size(); i < n; i++)
+	for(size_t i = 0, n = content.size(); i < n; i++)
 	{
 		vector<atom> tmp;
 		atom_plane.push_back(tmp);
-		for(size_t j = 0, m = vec[i].size(); j < m; j++)
+		for(size_t j = 0, m = content[i].size(); j < m; j++)
 		{
-			atom_plane[i].push_back(atom(id,vec[i][j]));
+			atom_plane[i].push_back(atom(id,content[i][j]));
 			ItoP[id] = point(i,j);
 			id++;
 		}
