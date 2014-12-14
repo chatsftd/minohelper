@@ -1,5 +1,6 @@
 #include "fileselect.h"
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 status file_select(string& filename, const state& st)

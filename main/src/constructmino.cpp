@@ -13,11 +13,6 @@ mino::mino(const vector<point>& points, char c) : ch(c)
 	this->p3 = points[3];
 }
 
-ostream& operator<<(ostream& o, const point& p)
-{
-	assert2("Wrong point", p.first != WRONG_PLACE && p.second != WRONG_PLACE);
-	return o << "(" << p.first+1 << "," << p.second+1 << ")";	
-}
 
 #define bind(a,b) (((a) << 4) | (b))
 static void proc(int& tmp, point tl, point p)

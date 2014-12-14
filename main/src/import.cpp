@@ -27,7 +27,7 @@ static status import_file(state& st, const string& filename)
 		}
 	}
 	
-	status s = paren(st,plane); //fixme: ignored
+	status s = paren(st,plane);
 	if(s != ALL_OK) return s;
 	
 	const Maybe<data>& mD = parse_mino(plane);
