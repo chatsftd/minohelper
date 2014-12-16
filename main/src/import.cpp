@@ -1,6 +1,6 @@
 #include "import.h"
 #include "parsemino.h"
-#include "paren.h"
+#include "interpretmeta.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -27,7 +27,7 @@ static status import_file(state& st, const string& filename)
 		}
 	}
 	
-	status s = paren(st,plane);
+	status s = interpretmeta(st,plane);
 	if(s != ALL_OK) return s;
 	
 	const Maybe<data>& mD = parse_mino(plane);
