@@ -18,9 +18,9 @@ enum Paren
 typedef std::pair<Paren,std::string> meta;
 typedef std::vector<meta> SyntaxTree2; 
 
-status paren2(SyntaxTree2& st, std::vector<std::string>& plane);
-char begin(Paren p);
-char end(Paren p);
+status parsemeta(SyntaxTree2& st, std::vector<std::string>& plane);
+char paren_begin(Paren p);
+char paren_end(Paren p);
 
 
 #endif/*PARSEMETA_H_DEFINED_C9564D0209E6A24CE123668EB6AB9102A6476100*/

@@ -1,7 +1,7 @@
 #include "parsemeta.h"
 using namespace std;
 
-status paren2(SyntaxTree2& st, vector<string>& plane)
+status parsemeta(SyntaxTree2& st, vector<string>& plane)
 {
 	stack<Paren> paren_stack;
 	vector<string> plane2;
@@ -22,7 +22,7 @@ status paren2(SyntaxTree2& st, vector<string>& plane)
 				case ')': /*FALLTHROUGH*/
 				case '}': /*FALLTHROUGH*/
 				case ']':
-					if(paren_stack.empty() || end(paren_stack.top()) != c)
+					if(paren_stack.empty() || paren_end(paren_stack.top()) != c)
 					{
 						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl << endl;
 						return SOMETHING_WRONG;
@@ -41,7 +41,7 @@ status paren2(SyntaxTree2& st, vector<string>& plane)
 	return ALL_OK;
 }
 
-char begin(Paren p)
+char paren_begin(Paren p)
 {
 	switch(p)
 	{
@@ -51,7 +51,7 @@ char begin(Paren p)
 	}
 }
 
-char end(Paren p)
+char paren_end(Paren p)
 {
 	switch(p)
 	{
