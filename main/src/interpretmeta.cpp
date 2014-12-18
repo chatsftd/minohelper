@@ -1,9 +1,5 @@
-#include "parsemeta.h"
-#include "debug.h"
 #include "interpretmeta.h"
-#include "constructmino.h"
-#include <stack>
-#include <utility>
+#include "parsemeta.h"
 using namespace std;
 
 
