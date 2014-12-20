@@ -1,4 +1,5 @@
 #include "parsemeta.h"
+#include <stack>
 using namespace std;
 
 status parsemeta(SyntaxTree2& st, vector<string>& plane)
@@ -15,9 +16,9 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 			bool ignore_open  = false;
 			switch(c)
 			{
-				case '(': if(paren_stack.empty()){ st.push_back(meta(Parenthesis,"")); ignore_open = true; } paren_stack.push(Parenthesis); break;
-				case '{': if(paren_stack.empty()){ st.push_back(meta(Brace      ,"")); ignore_open = true; } paren_stack.push(Brace      ); break;
-				case '[': if(paren_stack.empty()){ st.push_back(meta(Bracket    ,"")); ignore_open = true; } paren_stack.push(Bracket    ); break;
+				case '(': if(paren_stack.empty()){ st.push_back(meta(Parenthesis, point(i,j))); ignore_open = true; } paren_stack.push(Parenthesis); break;
+				case '{': if(paren_stack.empty()){ st.push_back(meta(Brace      , point(i,j))); ignore_open = true; } paren_stack.push(Brace      ); break;
+				case '[': if(paren_stack.empty()){ st.push_back(meta(Bracket    , point(i,j))); ignore_open = true; } paren_stack.push(Bracket    ); break;
 				
 				case ')': /*FALLTHROUGH*/
 				case '}': /*FALLTHROUGH*/

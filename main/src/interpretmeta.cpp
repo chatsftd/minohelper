@@ -37,6 +37,7 @@ static vector<string> tokenize(string str)
 				
 			default:
 				tmp += c;
+				break;
 		}
 	}
 	return res;
