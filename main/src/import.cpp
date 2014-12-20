@@ -26,8 +26,8 @@ static status import_file(state& st, const string& filename)
 			plane.push_back(s);
 		}
 	}
-	
-	status s = interpretmeta(st,plane);
+	state2 st2;
+	status s = interpretmeta(st2,plane);
 	if(s != ALL_OK) return s;
 	
 	const Maybe<data>& mD = parse_mino(plane);
