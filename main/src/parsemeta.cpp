@@ -61,3 +61,8 @@ char paren_end(Paren p)
 		default: return '}';
 	}
 }
+
+ostream& operator<<(ostream& o, const meta& m)
+{
+	return o << paren_begin(m.first) << m.second << paren_end(m.first) << " at " << m.pos;
+}

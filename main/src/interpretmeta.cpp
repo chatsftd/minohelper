@@ -17,7 +17,7 @@ status interpretmeta(state2& st, vector<string>& plane)
 	if(s != ALL_OK) return s; 
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
 	{
-		cout << "meta #" << (i+1) << ": " << paren_begin(tree2[i].first) << tree2[i].second << paren_end(tree2[i].first) << endl;
+		cout << "meta #" << (i+1) << ": " << tree2[i] << endl;
 		vector<string> tokens = tokenize(tree2[i].second);
 		status s2 = interpretmeta2(st,tokens, tree2[i].first);
 		if(s2 != ALL_OK) return s2;
