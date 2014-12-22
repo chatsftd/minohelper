@@ -6,9 +6,9 @@
 #include <string>
 enum Paren
 {
-	Parenthesis = ')', 
-	Bracket     = ']',
-	Brace       = '}'
+	Parenthesis, 
+	Bracket,
+	Brace
 };
 
 struct meta
