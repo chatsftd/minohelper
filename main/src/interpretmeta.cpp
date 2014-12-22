@@ -2,9 +2,9 @@
 #include "parsemeta.h"
 using namespace std;
 static vector<string> tokenize(const string& str);
-static status interpretmeta2(state2& st, const vector<string>& tokens, Paren p);
+static status interpretmeta2(state2& st, meta m);
 
-static status interpretmeta2(state2& st, const vector<string>& tokens, Paren p)
+static status interpretmeta2(state2& st, meta m)
 {
 	/* fixme: modify state using tokens*/
 	return ALL_OK;
@@ -18,8 +18,7 @@ status interpretmeta(state2& st, vector<string>& plane)
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
 	{
 		cout << "meta #" << (i+1) << ": " << tree2[i] << endl;
-		vector<string> tokens = tokenize(tree2[i].second);
-		status s2 = interpretmeta2(st,tokens, tree2[i].first);
+		status s2 = interpretmeta2(st,tree2[i]);
 		if(s2 != ALL_OK) return s2;
 	}
 	return ALL_OK;
