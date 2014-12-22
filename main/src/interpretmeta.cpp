@@ -4,9 +4,32 @@ using namespace std;
 static vector<string> tokenize(const string& str);
 static status interpretmeta2(state2& st, meta m);
 
+static status colordef_(state2& st, const vector<string>& tokens, Paren p)
+{
+	return ALL_OK;
+}
+
+static status direction_(state2& st, const vector<string>& tokens, Paren p)
+{
+	return ALL_OK;
+}
+
 static status interpretmeta2(state2& st, meta m)
 {
-	/* fixme: modify state using tokens*/
+	vector<string> tokens = tokenize(m.second);
+	Paren p = m.first;
+	
+	if(tokens.empty()){ return ALL_OK; }
+#define if2(a) if(tokens[0] == string(a))
+	if2("colordefine"   ){ return colordef_ (st,tokens,p); }
+	else if2("colordef" ){ return colordef_ (st,tokens,p); }
+	else if2("direction"){ return direction_(st,tokens,p); }
+	else if2("dir"      ){ return direction_(st,tokens,p); }
+	else
+	{
+		cerr << "Warning: unknown meta info " << m << endl;
+	}
+	
 	return ALL_OK;
 }
 
