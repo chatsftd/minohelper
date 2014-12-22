@@ -4,6 +4,27 @@ using namespace std;
 static vector<string> tokenize(const string& str);
 static status interpretmeta2(state2& st, const vector<string>& tokens, Paren p);
 
+static status interpretmeta2(state2& st, const vector<string>& tokens, Paren p)
+{
+	/* fixme: modify state using tokens*/
+	return ALL_OK;
+}
+
+status interpretmeta(state2& st, vector<string>& plane)
+{
+	SyntaxTree2 tree2;
+	status s = parsemeta(tree2,plane);
+	if(s != ALL_OK) return s; 
+	for(size_t i = 0, n = tree2.size(); i < n; i++)
+	{
+		cout << "meta #" << (i+1) << ": " << paren_begin(tree2[i].first) << tree2[i].second << paren_end(tree2[i].first) << endl;
+		vector<string> tokens = tokenize(tree2[i].second);
+		status s2 = interpretmeta2(st,tokens, tree2[i].first);
+		if(s2 != ALL_OK) return s2;
+	}
+	return ALL_OK;
+}
+
 static vector<string> tokenize(const string& str)
 {
 	vector<string> res;
@@ -45,23 +66,4 @@ static vector<string> tokenize(const string& str)
 	return res;
 }
 
-static status interpretmeta2(state2& st, const vector<string>& tokens, Paren p)
-{
-	/* fixme: modify state using tokens*/
-	return ALL_OK;
-}
 
-status interpretmeta(state2& st, vector<string>& plane)
-{
-	SyntaxTree2 tree2;
-	status s = parsemeta(tree2,plane);
-	if(s != ALL_OK) return s; 
-	for(size_t i = 0, n = tree2.size(); i < n; i++)
-	{
-		cout << "meta #" << (i+1) << ": " << paren_begin(tree2[i].first) << tree2[i].second << paren_end(tree2[i].first) << endl;
-		vector<string> tokens = tokenize(tree2[i].second);
-		status s2 = interpretmeta2(st,tokens, tree2[i].first);
-		if(s2 != ALL_OK) return s2;
-	}
-	return ALL_OK;
-}
