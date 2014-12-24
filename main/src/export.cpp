@@ -1,6 +1,7 @@
 #include "fileselect.h"
 #include "export.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
 using namespace std;
 
@@ -85,12 +86,22 @@ status export_(state& st, const vector<string>& vec)
 		if(s != ALL_OK) return s;
 	}
 	
-	cout << "Exporting \"" << input << "\"..." << endl;
+	if(output == "")
+	{
+		cout << "To where?" << endl;
+		cout << ">>> " << flush;
+		getline(cin,output);
+	}
+	
+	ofstream ofs(output.c_str());
+	
+	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
 		
 	string str = "";
 	status s3 = export3(str,st.content[input].minos);
 	if(s3 != ALL_OK) return s3;
 	
-	cout << str << endl << endl;
+	ofs << str << endl;
+	cout << "Finished." << endl << endl; 
 	return ALL_OK;
 }
