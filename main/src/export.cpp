@@ -1,6 +1,7 @@
 #include "fileselect.h"
 #include "export.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
 using namespace std;
 
@@ -51,24 +52,56 @@ static status export3(string& str, const vector<mino>& minos)
 	return ALL_OK;
 }
 
+static status parse_arg(string& input, string& output, const vector<string>& vec)
+{
+	bool after_o = false;
+	for(size_t j = 1; j < vec.size(); ++j)
+	{
+		if(after_o)
+		{
+			output = vec[j];
+			after_o = false;
+		}
+		else if(vec[j] == (string)"-o")
+		{
+			after_o = true;
+		}
+		else
+		{
+			input = vec[j];
+		}
+	}
+	return ALL_OK;
+}
+
 status export_(state& st, const vector<string>& vec)
 {
-	string filename = "";
-	status s = file_select(filename, st);
-	if(s == ALL_OK)
+	string input, output;
+	status s2 = parse_arg(input,output,vec);
+	if(s2 != ALL_OK) return s2;
+	
+	if(input == "")
 	{
-		cout << "Exporting \"" << filename << "\"..." << endl;
-		for(size_t j = 1; j < vec.size(); ++j)
-		{
-			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl; // fixme: debug
-		}
-		string str = "";
-		status s = export3(str,st.content[filename].minos);
-		cout << str << endl << endl;
-		return s;
+		status s = file_select(input, st);
+		if(s != ALL_OK) return s;
 	}
-	else
+	
+	if(output == "")
 	{
-		return s;
+		cout << "To where?" << endl;
+		cout << ">>> " << flush;
+		getline(cin,output);
 	}
+	
+	ofstream ofs(output.c_str());
+	
+	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
+		
+	string str = "";
+	status s3 = export3(str,st.content[input].minos);
+	if(s3 != ALL_OK) return s3;
+	
+	ofs << str << endl;
+	cout << "Finished." << endl << endl; 
+	return ALL_OK;
 }
