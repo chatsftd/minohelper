@@ -51,6 +51,28 @@ static status export3(string& str, const vector<mino>& minos)
 	return ALL_OK;
 }
 
+static status parse_arg(string& input, string& output, const vector<string>& vec)
+{
+	bool after_o = false;
+	for(size_t j = 1; j < vec.size(); ++j)
+	{
+		if(after_o)
+		{
+			output = vec[j];
+			after_o = false;
+		}
+		else if(vec[j] == (string)"-o")
+		{
+			after_o = true;
+		}
+		else
+		{
+			input = vec[j];
+		}
+	}
+	return ALL_OK;
+}
+
 status export_(state& st, const vector<string>& vec)
 {
 	string filename = "";
@@ -58,10 +80,9 @@ status export_(state& st, const vector<string>& vec)
 	if(s == ALL_OK)
 	{
 		cout << "Exporting \"" << filename << "\"..." << endl;
-		for(size_t j = 1; j < vec.size(); ++j)
-		{
-			cout << "argument #" << j << " is \"" << vec[j] << '"' << endl; // fixme: debug
-		}
+		string input, output;
+		status s2 = parse_arg(input,output,vec);
+		if(s2 != ALL_OK) return s2;
 		string str = "";
 		status s = export3(str,st.content[filename].minos);
 		cout << str << endl << endl;
