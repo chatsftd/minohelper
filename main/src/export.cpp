@@ -77,19 +77,18 @@ status export_(state& st, const vector<string>& vec)
 {
 	string filename = "";
 	status s = file_select(filename, st);
-	if(s == ALL_OK)
-	{
-		cout << "Exporting \"" << filename << "\"..." << endl;
-		string input, output;
-		status s2 = parse_arg(input,output,vec);
-		if(s2 != ALL_OK) return s2;
-		string str = "";
-		status s = export3(str,st.content[filename].minos);
-		cout << str << endl << endl;
-		return s;
-	}
-	else
-	{
-		return s;
-	}
+	if(s != ALL_OK) return s;
+	
+	cout << "Exporting \"" << filename << "\"..." << endl;
+	
+	string input, output;
+	status s2 = parse_arg(input,output,vec);
+	if(s2 != ALL_OK) return s2;
+	
+	string str = "";
+	status s3 = export3(str,st.content[filename].minos);
+	if(s3 != ALL_OK) return s3;
+	
+	cout << str << endl << endl;
+	return ALL_OK;
 }
