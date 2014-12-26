@@ -14,10 +14,10 @@ enum Paren
 
 struct meta
 {
-	Paren first;
-	std::string second;
+	Paren paren;
+	std::string content;
 	point pos;
-	meta(Paren pa, point po) : first(pa), second(""), pos(po) {}
+	meta(Paren pa, point po) : paren(pa), content(""), pos(po) {}
 	friend std::ostream& operator<<(std::ostream& o, const meta& p);
 };
 typedef std::vector<meta> SyntaxTree2; 

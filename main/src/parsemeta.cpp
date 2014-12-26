@@ -35,10 +35,10 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 					break;
 			}
 			
-			if(!paren_stack.empty() && !ignore_open){ st[st.size()-1].second += c; }
+			if(!paren_stack.empty() && !ignore_open){ st[st.size()-1].content += c; }
 			plane2[i] += paren_stack.empty() && !ignore_close ? c : ' ';
 		}
-		if(!paren_stack.empty()){ st[st.size()-1].second += ' ';} // newline becomes space
+		if(!paren_stack.empty()){ st[st.size()-1].content += '\n';} 
 	}
 	plane = plane2;
 	return ALL_OK;
@@ -66,5 +66,5 @@ static char paren_end(Paren p)
 
 ostream& operator<<(ostream& o, const meta& m)
 {
-	return o << paren_begin(m.first) << m.second << paren_end(m.first) << " at " << m.pos;
+	return o << paren_begin(m.paren) << m.content << paren_end(m.paren) << " at " << m.pos;
 }

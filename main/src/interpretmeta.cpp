@@ -16,8 +16,8 @@ static status direction_(state2& st, const vector<string>& tokens, Paren p)
 
 static status interpretmeta2(state2& st, meta m)
 {
-	vector<string> tokens = tokenize(m.second);
-	Paren p = m.first;
+	vector<string> tokens = tokenize(m.content);
+	Paren p = m.paren;
 	
 	if(tokens.empty()){ return ALL_OK; }
 #define if2(a) if(tokens[0] == string(a))
