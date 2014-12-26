@@ -1,6 +1,8 @@
 #include "parsemeta.h"
 #include <stack>
 using namespace std;
+static char paren_begin(Paren p);
+static char paren_end(Paren p);
 
 status parsemeta(SyntaxTree2& st, vector<string>& plane)
 {
@@ -42,7 +44,7 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 	return ALL_OK;
 }
 
-char paren_begin(Paren p)
+static char paren_begin(Paren p)
 {
 	switch(p)
 	{
@@ -52,7 +54,7 @@ char paren_begin(Paren p)
 	}
 }
 
-char paren_end(Paren p)
+static char paren_end(Paren p)
 {
 	switch(p)
 	{
