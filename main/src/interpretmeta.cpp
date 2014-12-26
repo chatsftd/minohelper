@@ -14,17 +14,32 @@ static status direction_(state2& st, const vector<string>& tokens, Paren p)
 	return ALL_OK;
 }
 
+static status comment_(state2& st, const vector<string>& tokens, Paren p)
+{
+	string last_token = tokens[tokens.size()-1];
+	if(last_token[last_token.size()-1] != '-')
+	{
+		cerr << "The comment is unterminated." << endl;
+		return SOMETHING_WRONG;
+	}
+	return ALL_OK;
+}
+
 static status interpretmeta2(state2& st, meta m)
 {
-	vector<string> tokens = tokenize(m.second);
-	Paren p = m.first;
+	vector<string> tokens = tokenize(m.content);
+	Paren p = m.paren;
 	
 	if(tokens.empty()){ return ALL_OK; }
 #define if2(a) if(tokens[0] == string(a))
-	if2("colordefine"   ){ return colordef_ (st,tokens,p); }
-	else if2("colordef" ){ return colordef_ (st,tokens,p); }
-	else if2("direction"){ return direction_(st,tokens,p); }
-	else if2("dir"      ){ return direction_(st,tokens,p); }
+	if(tokens[0][0] == '-' && p == Brace)
+	{
+		return comment_  (st,tokens,p); 
+	}
+	else if2("colordefine"){ return colordef_ (st,tokens,p); }
+	else if2("colordef"   ){ return colordef_ (st,tokens,p); }
+	else if2("direction"  ){ return direction_(st,tokens,p); }
+	else if2("dir"        ){ return direction_(st,tokens,p); }
 	else
 	{
 		cerr << "Warning: unknown meta info " << m << endl;
@@ -84,6 +99,11 @@ static vector<string> tokenize(const string& str)
 				tmp += c;
 				break;
 		}
+	}
+	if(!tmp.empty())
+	{
+		res.push_back(tmp);
+		tmp = "";
 	}
 	return res;
 }
