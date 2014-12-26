@@ -100,6 +100,11 @@ static vector<string> tokenize(const string& str)
 				break;
 		}
 	}
+	if(!tmp.empty())
+	{
+		res.push_back(tmp);
+		tmp = "";
+	}
 	return res;
 }
 
