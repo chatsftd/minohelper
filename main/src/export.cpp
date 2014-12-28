@@ -48,7 +48,7 @@ static status export3(string& str, const vector<mino>& minos)
 		ans << "],";
 	}
 	ans << "\"end\"]";
-	str = ans.str(); 
+	str = ans.str();
 	return ALL_OK;
 }
 
@@ -102,6 +102,6 @@ status export_(state& st, const vector<string>& vec)
 	if(s3 != ALL_OK) return s3;
 	
 	ofs << str << endl;
-	cout << "Finished." << endl << endl; 
+	cout << "Finished." << endl << endl;
 	return ALL_OK;
 }

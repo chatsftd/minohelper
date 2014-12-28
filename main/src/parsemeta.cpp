@@ -30,7 +30,7 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl << endl;
 						return SOMETHING_WRONG;
 					}
-					paren_stack.pop(); 
+					paren_stack.pop();
 					ignore_close = true;
 					break;
 			}
@@ -38,7 +38,7 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 			if(!paren_stack.empty() && !ignore_open){ st[st.size()-1].content += c; }
 			plane2[i] += paren_stack.empty() && !ignore_close ? c : ' ';
 		}
-		if(!paren_stack.empty()){ st[st.size()-1].content += '\n';} 
+		if(!paren_stack.empty()){ st[st.size()-1].content += '\n';}
 	}
 	plane = plane2;
 	return ALL_OK;

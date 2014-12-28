@@ -7,7 +7,7 @@
 #include <string>
 enum Paren
 {
-	Parenthesis, 
+	Parenthesis,
 	Bracket,
 	Brace
 };
@@ -20,7 +20,7 @@ struct meta
 	meta(Paren pa, point po) : paren(pa), content(""), pos(po) {}
 	friend std::ostream& operator<<(std::ostream& o, const meta& p);
 };
-typedef std::vector<meta> SyntaxTree2; 
+typedef std::vector<meta> SyntaxTree2;
 
 status parsemeta(SyntaxTree2& st, std::vector<std::string>& plane);
 

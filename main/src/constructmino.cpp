@@ -6,7 +6,7 @@ using namespace std;
 
 mino::mino(const vector<point>& points, char c) : ch(c)
 {
-	assert2("mino size is not 4", points.size() == 4); 
+	assert2("mino size is not 4", points.size() == 4);
 	this->p0 = points[0];
 	this->p1 = points[1];
 	this->p2 = points[2];

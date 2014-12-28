@@ -34,7 +34,7 @@ static status interpretmeta2(state2& st, meta m)
 #define if2(a) if(tokens[0] == string(a))
 	if(tokens[0][0] == '-' && p == Brace)
 	{
-		return comment_  (st,tokens,p); 
+		return comment_  (st,tokens,p);
 	}
 	else if2("colordefine"){ return colordef_ (st,tokens,p); }
 	else if2("colordef"   ){ return colordef_ (st,tokens,p); }
@@ -52,7 +52,7 @@ status interpretmeta(state2& st, vector<string>& plane)
 {
 	SyntaxTree2 tree2;
 	status s = parsemeta(tree2,plane);
-	if(s != ALL_OK) return s; 
+	if(s != ALL_OK) return s;
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
 	{
 		cout << "meta #" << (i+1) << ": " << tree2[i] << endl;
