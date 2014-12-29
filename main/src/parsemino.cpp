@@ -1,5 +1,5 @@
 #include "parsemino.h"
-#include "union.h"
+#include "lib/union.h"
 #include "constructmino.h"
 #include <iostream>
 #include <map>

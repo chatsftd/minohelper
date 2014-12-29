@@ -1,5 +1,5 @@
 #include "constructmino.h"
-#include "debug.h"
+#include "lib/debug.h"
 
 using namespace std;
 

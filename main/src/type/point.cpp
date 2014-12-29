@@ -1,5 +1,5 @@
 #include "point.h"
-#include "debug.h"
+#include "../lib/debug.h"
 using namespace std;
 
 ostream& operator<<(ostream& o, const point& p)

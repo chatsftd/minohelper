@@ -1,7 +1,7 @@
 #ifndef PARSEMETA_H_DEFINED_C9564D0209E6A24CE123668EB6AB9102A6476100
 #define PARSEMETA_H_DEFINED_C9564D0209E6A24CE123668EB6AB9102A6476100
-#include "status.h"
-#include "point.h"
+#include "type/status.h"
+#include "type/point.h"
 #include <iostream>
 #include <vector>
 #include <string>
