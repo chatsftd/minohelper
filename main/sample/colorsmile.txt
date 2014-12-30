@@ -1,0 +1,28 @@
+(colordef
+    rR% r
+	oO& o
+	yY* y
+	gG# g
+	bB+ b
+	pP$ p
+	nN@ n
+	()  l
+)
+
+  %%%%
+ rRRrrR
+rr Rr RR
+Rr Rr Rr
+RRR%%rrr
+rr %% RR
+ rr  RR
+  %%%%
+
+  &&&&
+ oOOooO
+oo Oo OO
+Oo Oo Oo
+OOO&&ooo
+oo && OO
+ oo  OO
+  &&&&
