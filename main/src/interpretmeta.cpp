@@ -1,13 +1,10 @@
 #include "interpretmeta.h"
 #include "parsemeta.h"
+#include "colordef.h"
 using namespace std;
 static vector<string> tokenize(const string& str);
 static status interpretmeta2(state2& st, meta m);
 
-static status colordef_(state2& st, const vector<string>& tokens, Paren p)
-{
-	return ALL_OK;
-}
 
 static status direction_(state2& st, const vector<string>& tokens, Paren p)
 {
