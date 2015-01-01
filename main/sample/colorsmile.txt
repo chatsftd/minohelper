@@ -1,12 +1,11 @@
 (colordef
     rR% r
-	oO& o
-	yY* y
-	gG# g
-	bB+ b
-	pP$ p
-	nN@ n
-	()  l
+    oO& o
+    yY* y
+    gG# g
+    bB+ b
+    pP$ p
+    nN@ n
 )
 
   %%%%
