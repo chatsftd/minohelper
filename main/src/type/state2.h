@@ -15,7 +15,12 @@ enum Color
 	HEAL
 };
 
-typedef std::map<char,Color> color_palette;
+
+struct color_palette
+{
+	std::map<char,Color> p;
+	Color default_color;
+};
 
 struct state2
 {
