@@ -17,7 +17,7 @@ static bool isSame(const vector< vector<atom> >& atom_plane, size_t i, size_t j,
 	return a == b;
 }
 
-Maybe<data> parse_mino(const vector<string>& content)
+Maybe<data> parse_mino(const state2& st2, const vector<string>& content)
 {
 	vector< vector<atom> > atom_plane;
 	map<ID, point> ItoP;
@@ -105,7 +105,7 @@ Maybe<data> parse_mino(const vector<string>& content)
 		cout << "mino #" << i+1 << ": " << groups2[i] << endl;
 	}
 	
-	data dat(groups2);
+	data dat(groups2, st2.palette);
 	return Just(dat);
 }
 
