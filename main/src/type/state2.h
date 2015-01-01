@@ -5,17 +5,17 @@
 #include <string>
 enum Color
 {
-	RED,
+	RED = 0,
 	ORANGE,
 	YELLOW,
 	GREEN,
 	LIGHTBLUE,
 	NAVY,
 	PURPLE,
-	BLACK,
 	WHITE,
+	BLACK,
 	HEAL,
-	Null
+	Null = 0xCCCC
 };
 
 
