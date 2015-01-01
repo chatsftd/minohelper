@@ -30,7 +30,7 @@ static status import_file(state& st, const string& filename)
 	status s = interpretmeta(st2,plane);
 	if(s != ALL_OK) return s;
 	
-	const Maybe<data>& mD = parse_mino(plane);
+	const Maybe<data>& mD = parse_mino(st2,plane);
 	
 	if(mD.isNothing())
 	{

@@ -2,6 +2,7 @@
 #define STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
 #include "constructmino.h"
 #include "type/status.h"
+#include "type/state2.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -9,8 +10,9 @@ class data
 {
 public:
 	std::vector<mino> minos;
+	color_palette palette;
 	data(void);
-	explicit data(const std::vector<mino>& minos_);
+	data(const std::vector<mino>& minos_, color_palette pal);
 };
 
 

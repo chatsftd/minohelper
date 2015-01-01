@@ -6,7 +6,7 @@
 using namespace std;
 
 
-static status export3(string& str, const vector<mino>& minos)
+static status export3(string& str, const vector<mino>& minos, color_palette palette)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i)
@@ -32,10 +32,12 @@ static status export3(string& str, const vector<mino>& minos)
 			continue;
 		}
 		ans << "[";
+		
 		for(size_t k = 0; k < result[j].size(); ++k)
 		{
 			ans << "\"";
-			ans << "0_";
+			ans << static_cast<int>(palette.p[result[j][k].ch]);
+			ans << "_";
 			ans << static_cast<int>(result[j][k].get_shape_num());
 			ans << "_0_";
 			ans << result[j][k].top_left().second;
@@ -98,7 +100,7 @@ status export_(state& st, const vector<string>& vec)
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
 		
 	string str = "";
-	status s3 = export3(str,st.content[input].minos);
+	status s3 = export3(str,st.content[input].minos,st.content[input].palette);
 	if(s3 != ALL_OK) return s3;
 	
 	ofs << str << endl;
