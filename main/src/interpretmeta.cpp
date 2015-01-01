@@ -71,6 +71,7 @@ static vector<string> tokenize(const string& str)
 		{
 			case ' ' : /*FALLTHROUGH*/
 			case '\t':
+			case '\n':
 				if(!tmp.empty())
 				{
 					res.push_back(tmp);
