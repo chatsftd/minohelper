@@ -69,7 +69,7 @@ status colordef_(state2& st, const vector<string>& tokens, Paren p)
 		for(size_t j = 0; j < str.size(); j++)
 		{
 			st.palette.p[str[j]] = col; //fixme: collision undetected
-			cout << "palette: '" << str[j] << "' is " << col << endl;
+			cout << "colordef: '" << str[j] << "' is " << col_to_str(col) << endl;
 		}
 	}
 	return ALL_OK;

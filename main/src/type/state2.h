@@ -1,6 +1,7 @@
 #ifndef STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #define STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #include <map>
+#include <string>
 enum Color
 {
 	RED,
@@ -15,6 +16,7 @@ enum Color
 	HEAL
 };
 
+std::string col_to_str(Color c);
 
 struct color_palette
 {
