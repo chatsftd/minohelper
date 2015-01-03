@@ -73,6 +73,11 @@ static status parse_arg(string& input, string& output, const vector<string>& vec
 			input = vec[j];
 		}
 	}
+	if(after_o)
+	{
+		cerr << "Invalid arguments: No file name after '-o'" << endl; cout << endl;
+		return SOMETHING_WRONG;
+	}
 	return ALL_OK;
 }
 
