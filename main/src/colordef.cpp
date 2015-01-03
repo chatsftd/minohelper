@@ -48,12 +48,12 @@ status colordef_(state2& st, const vector<string>& tokens, Paren p)
 {
 	if(tokens.size()%2 == 0) //odd number argument + "colordef"
 	{
-		cerr << "Meta info 'colordef' cannot have odd number of arguments" << endl << endl;
+		cerr << "Meta info 'colordef' cannot have odd number of arguments" << endl; cout << endl;
 		return SOMETHING_WRONG;
 	}
 	if(tokens.size() < 2)
 	{
-		cerr << "Meta info 'colordef' needs arguments" << endl << endl;
+		cerr << "Meta info 'colordef' needs arguments" << endl; cout << endl;
 		return SOMETHING_WRONG;
 	}
 	for(size_t i = 1; i < tokens.size(); i += 2) //parse two tokens at once
@@ -61,7 +61,7 @@ status colordef_(state2& st, const vector<string>& tokens, Paren p)
 		Maybe<Color> co = get_color(tokens[i+1]);
 		if(co.isNothing())
 		{
-			cerr << "Invalid color name '" << tokens[i+1] << "' inside a meta info 'colordef'" << endl << endl;
+			cerr << "Invalid color name '" << tokens[i+1] << "' inside a meta info 'colordef'" << endl; cout << endl;
 			return SOMETHING_WRONG;
 		}
 		Color col = co.unJust();

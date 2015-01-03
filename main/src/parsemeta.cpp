@@ -27,7 +27,7 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 				case ']':
 					if(paren_stack.empty() || paren_end(paren_stack.top()) != c)
 					{
-						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl << endl;
+						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl; cout << endl;
 						return SOMETHING_WRONG;
 					}
 					paren_stack.pop();

@@ -34,7 +34,7 @@ status interpret(state& st, const string& a)
 	else if2("help"  ) return   help_(st,vec);
 	else
 	{
-		cerr << "\"" << vec[0] << "\" is not a valid command." << endl << endl;
+		cerr << "\"" << vec[0] << "\" is not a valid command." << endl; cout << endl;
 		return SOMETHING_WRONG;
 	}
 }

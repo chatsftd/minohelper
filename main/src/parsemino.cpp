@@ -95,7 +95,7 @@ Maybe<data> parse_mino(const state2& st2, const vector<string>& content)
 			{
 				cerr << tmp[k] << ',';
 			}
-			cerr << " which consists of " << tmp.size() << " pixel(s), not 4." << endl << endl;
+			cerr << " which consists of " << tmp.size() << " pixel(s), not 4." << endl; cout << endl;
 			return Nothing<data>();
 		}
 	}

@@ -16,7 +16,7 @@ static status comment_(state2& st, const vector<string>& tokens, Paren p)
 	string last_token = tokens[tokens.size()-1];
 	if(last_token[last_token.size()-1] != '-')
 	{
-		cerr << "The comment is unterminated." << endl;
+		cerr << "The comment is unterminated." << endl; cout << endl;
 		return SOMETHING_WRONG;
 	}
 	return ALL_OK;
