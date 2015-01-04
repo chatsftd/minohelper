@@ -6,10 +6,23 @@
 using namespace std;
 
 
+static string export4(const mino& m, color_palette palette)
+{
+	stringstream ans;
+	ans << "\"";
+	ans << static_cast<int>(palette.p[m.ch]);
+	ans << "_";
+	ans << static_cast<int>(m.get_shape_num());
+	ans << "_0_";
+	ans << m.top_left().second;
+	ans << "_0\"";	
+	return ans.str();
+}
+
 static status export3(string& str, const vector<mino>& minos, color_palette palette)
 {
 	size_t down_most = 0;
-	for(size_t i = 0; i < minos.size(); ++i)
+	for(size_t i = 0; i < minos.size(); ++i) //look for down_most
 	{
 		point p = minos[i].top_left();
 		if(down_most < p.first) down_most = p.first;
@@ -35,13 +48,7 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 		
 		for(size_t k = 0; k < result[j].size(); ++k)
 		{
-			ans << "\"";
-			ans << static_cast<int>(palette.p[result[j][k].ch]);
-			ans << "_";
-			ans << static_cast<int>(result[j][k].get_shape_num());
-			ans << "_0_";
-			ans << result[j][k].top_left().second;
-			ans << "_0\"";
+			ans << export4(result[j][k], palette);
 			if(k+1 != result[j].size())
 			{
 				ans << ",";
