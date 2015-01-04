@@ -9,13 +9,12 @@ using namespace std;
 static string export4(const mino& m, color_palette palette)
 {
 	stringstream ans;
-	ans << "\"";
-	ans << static_cast<int>(palette.p[m.ch]);
-	ans << "_";
-	ans << static_cast<int>(m.get_shape_num());
-	ans << "_0_";
-	ans << m.top_left().second;
-	ans << "_0\"";	
+	ans << '"' << static_cast<int>(palette.p[m.ch]);
+	ans << '_' << static_cast<int>(m.get_shape_num());
+	ans << '_' << "0";
+	ans << '_' << m.top_left().second;
+	ans << '_' << "0";
+	ans << '"';	
 	return ans.str();
 }
 
@@ -35,29 +34,28 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 		result[down_most - p.first].push_back(minos[i]);
 	}
 	
-	stringstream ans;
-	ans << "[\"\",";
+	
+	str = "[\"\",";
 	for(size_t j = 0; j < result.size(); ++j)
 	{
 		if(result[j].empty())
 		{
-			ans << "\"\",";
+			str += "\"\",";
 			continue;
 		}
-		ans << "[";
+		str += "[";
 		
 		for(size_t k = 0; k < result[j].size(); ++k)
 		{
-			ans << export4(result[j][k], palette);
+			str += export4(result[j][k], palette);
 			if(k+1 != result[j].size())
 			{
-				ans << ",";
+				str += ",";
 			}
 		}
-		ans << "],";
+		str += "],";
 	}
-	ans << "\"end\"]";
-	str = ans.str();
+	str += "\"end\"]";
 	return ALL_OK;
 }
 
