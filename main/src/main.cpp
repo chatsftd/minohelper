@@ -1,5 +1,7 @@
 #include "interpret.h"
 #include "import.h"
+#include "export.h"
+#include "parsearg.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,14 +10,28 @@ using namespace std;
 
 void init(state& st, const vector<string>& v)
 {
+	string input, output;
+	status s2 = parse_arg(input,output,v);
+	if(s2 != ALL_OK){ st.error_status = s2;	return; }
+	if(input == ""){ st.error_status = ALL_OK; return; }
+	
 	vector<string> vec;
 	vec.push_back("import");
-	for(size_t k = 0; k < v.size(); k++)
-	{
-		vec.push_back(v[k]);
-	}
+	vec.push_back(input);
 	status s = import_(st,vec);
 	st.error_status = s;
+	
+	if(output == "") return;
+	
+	
+	vector<string> vec2;
+	vec2.push_back("export");
+	vec2.push_back(input);
+	vec2.push_back("-o");
+	vec2.push_back(output);
+	
+	status s3 = export_(st,vec2); //fixme: ignored
+	exit(0); //fixme
 }
 
 int main(int argc, char** argv)
@@ -24,6 +40,7 @@ int main(int argc, char** argv)
 	if(argc >= 2)
 	{
 		vector<string> vec;
+		vec.push_back("import");
 		for(int k = 1; k < argc; k++)
 		{
 			vec.push_back(argv[k]);
