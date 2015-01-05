@@ -8,21 +8,20 @@
 
 using namespace std;
 
-void init(state& st, const vector<string>& v)
+static status init(int& ret, state& st, const vector<string>& v)
 {
 	string input, output;
+	ret = 0;
 	status s2 = parse_arg(input,output,v);
-	if(s2 != ALL_OK){ st.error_status = s2;	return; }
-	if(input == ""){ st.error_status = ALL_OK; return; }
+	if(s2 != ALL_OK){ return s2; }
+	if(input == ""){ return ALL_OK; }
 	
 	vector<string> vec;
 	vec.push_back("import");
 	vec.push_back(input);
 	status s = import_(st,vec);
-	st.error_status = s;
 	
-	if(output == "") return;
-	
+	if(output == ""){ return s; }
 	
 	vector<string> vec2;
 	vec2.push_back("export");
@@ -30,13 +29,15 @@ void init(state& st, const vector<string>& v)
 	vec2.push_back("-o");
 	vec2.push_back(output);
 	
-	status s3 = export_(st,vec2); //fixme: ignored
-	exit(0); //fixme
+	status s3 = export_(st,vec2); 
+	ret = s3;
+	return EXIT_ALL;
 }
 
 int main(int argc, char** argv)
 {
 	state st;
+	int ret = 0;
 	if(argc >= 2)
 	{
 		vector<string> vec;
@@ -45,7 +46,13 @@ int main(int argc, char** argv)
 		{
 			vec.push_back(argv[k]);
 		}
-		init(st,vec);
+		status s6 = init(ret,st,vec);
+		st.error_status = s6;
+		switch(s6)
+		{
+			case EXIT_ALL: goto end; 
+			default: break; /* do nothing */
+		}
 	}
 	
 	while(true)
@@ -62,5 +69,5 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	end: return 0;
+	end: return ret;
 }
