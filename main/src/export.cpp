@@ -1,5 +1,6 @@
 #include "fileselect.h"
 #include "export.h"
+#include "parsearg.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -56,33 +57,6 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 		str += "],";
 	}
 	str += "\"end\"]";
-	return ALL_OK;
-}
-
-static status parse_arg(string& input, string& output, const vector<string>& vec)
-{
-	bool after_o = false;
-	for(size_t j = 1; j < vec.size(); ++j)
-	{
-		if(after_o)
-		{
-			output = vec[j];
-			after_o = false;
-		}
-		else if(vec[j] == (string)"-o")
-		{
-			after_o = true;
-		}
-		else
-		{
-			input = vec[j];
-		}
-	}
-	if(after_o)
-	{
-		cerr << "Invalid arguments: No file name after '-o'" << endl; cout << endl;
-		return SOMETHING_WRONG;
-	}
 	return ALL_OK;
 }
 
