@@ -6,19 +6,29 @@
 
 using namespace std;
 
+void init(state& st, const vector<string>& v)
+{
+	vector<string> vec;
+	vec.push_back("import");
+	for(size_t k = 0; k < v.size(); k++)
+	{
+		vec.push_back(v[k]);
+	}
+	status s = import_(st,vec);
+	st.error_status = s;
+}
+
 int main(int argc, char** argv)
 {
 	state st;
 	if(argc >= 2)
 	{
 		vector<string> vec;
-		vec.push_back("import");
 		for(int k = 1; k < argc; k++)
 		{
 			vec.push_back(argv[k]);
 		}
-		status s = import_(st,vec);
-		st.error_status = s;
+		init(st,vec);
 	}
 	
 	while(true)
