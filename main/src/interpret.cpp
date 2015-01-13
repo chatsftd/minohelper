@@ -18,6 +18,13 @@ static void parse(vector<string>& vec, const string& a)
 	}
 }
 
+static status status_(state& st, const vector<string>& vec)
+{
+	status s = st.error_status;
+	cout << s << '(' << (int)s << ')' << endl << endl;
+	return s; // inherit the status
+}
+
 status interpret(state& st, const string& a)
 {
 	vector<string> vec;
@@ -31,6 +38,7 @@ status interpret(state& st, const string& a)
 	}
 	else if2("import") return import_(st,vec);
 	else if2("export") return export_(st,vec);
+	else if2("status") return status_(st,vec);
 	else if2("help"  ) return   help_(st,vec);
 	else
 	{
