@@ -28,7 +28,7 @@ status parsemeta(SyntaxTree2& st, vector<string>& plane)
 					if(paren_stack.empty() || paren_end(paren_stack.top()) != c)
 					{
 						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl; cout << endl;
-						return SOMETHING_WRONG;
+						return INVALID_META; // invalid meta
 					}
 					paren_stack.pop();
 					ignore_close = true;

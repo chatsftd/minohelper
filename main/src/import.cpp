@@ -13,7 +13,7 @@ static status import_file(state& st, const string& filename)
 	if(!ifs)
 	{
 		cerr << "File \"" << filename << "\" does not exist." << endl; cout << endl;
-		return NO_FILE; // error
+		return INVALID_FILEPATH;
 	}
 	
 	vector<string> plane;
@@ -34,7 +34,7 @@ static status import_file(state& st, const string& filename)
 	
 	if(mD.isNothing())
 	{
-		return SOMETHING_WRONG;
+		return SOMETHING_WRONG; // ?
 	}
 	st.content[filename] = mD.unJust();
 	cout << "OK, \"" << filename << "\" loaded." << endl << endl;

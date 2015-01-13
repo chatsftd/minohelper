@@ -3,7 +3,8 @@
 
 enum status
 {
-	NO_FILE = -3,
+	INVALID_META = -4,
+	INVALID_FILEPATH,
 	SOMETHING_WRONG,
 	EXIT_ALL,
 	ALL_OK
