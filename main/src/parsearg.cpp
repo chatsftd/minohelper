@@ -24,7 +24,7 @@ status parse_arg(string& input, string& output, const vector<string>& vec)
 	if(after_o)
 	{
 		cerr << "Invalid arguments: No file name after '-o'" << endl; cout << endl;
-		return SOMETHING_WRONG;
+		return INVALID_ARGS;
 	}
 	return ALL_OK;
 }
