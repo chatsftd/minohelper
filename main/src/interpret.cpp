@@ -35,6 +35,6 @@ status interpret(state& st, const string& a)
 	else
 	{
 		cerr << "\"" << vec[0] << "\" is not a valid command." << endl; cout << endl;
-		return SOMETHING_WRONG; // invalid command
+		return NO_SUCH_COMMAND;
 	}
 }

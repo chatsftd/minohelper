@@ -34,7 +34,7 @@ static status import_file(state& st, const string& filename)
 	
 	if(mD.isNothing())
 	{
-		return SOMETHING_WRONG; // ?
+		return IMPROPER_MINO;
 	}
 	st.content[filename] = mD.unJust();
 	cout << "OK, \"" << filename << "\" loaded." << endl << endl;
