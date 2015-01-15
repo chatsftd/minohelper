@@ -1,5 +1,5 @@
 (colordef
-	$%#&@ black
+	() black
 	H pink
 	N blue
 )
