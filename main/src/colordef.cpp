@@ -46,11 +46,6 @@ static Maybe<Color> get_color(const string& str)
 
 status colordef_(state2& st, const vector<string>& tokens, Paren p)
 {
-	if(tokens.size()%2 == 0) //odd number argument + "colordef"
-	{
-		cerr << "Meta info 'colordef' cannot have odd number of arguments" << endl; cout << endl;
-		return INVALID_META;
-	}
 	if(tokens.size() < 2)
 	{
 		cerr << "Meta info 'colordef' needs arguments" << endl; cout << endl;
@@ -58,6 +53,12 @@ status colordef_(state2& st, const vector<string>& tokens, Paren p)
 	}
 	for(size_t i = 1; i < tokens.size(); i += 2) //parse two tokens at once
 	{
+		bool default_col = false;
+		if(tokens[i] == (string)"(" && tokens[i+1] == (string)")")
+		{
+			i++; // increment one more
+			default_col = true;
+		}
 		Maybe<Color> co = get_color(tokens[i+1]);
 		if(co.isNothing())
 		{
@@ -65,12 +66,20 @@ status colordef_(state2& st, const vector<string>& tokens, Paren p)
 			return INVALID_META;
 		}
 		Color col = co.unJust();
-		const string& str = tokens[i];
-		for(size_t j = 0; j < str.size(); j++)
+		if(default_col)
 		{
-			st.palette.p[str[j]] = col; //fixme: collision undetected
-			cout << "colordef: '" << str[j] << "' is " << col_to_str(col) << endl;
+			st.palette.default_color = col;
 		}
+		else
+		{
+			const string& str = tokens[i];
+			for(size_t j = 0; j < str.size(); j++)
+			{
+				st.palette.p[str[j]] = col; //fixme: collision undetected
+				cout << "colordef: '" << str[j] << "' is " << col_to_str(col) << endl;
+			}
+		}
+		
 	}
 	return ALL_OK;
 }

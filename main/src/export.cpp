@@ -10,7 +10,8 @@ using namespace std;
 static string export4(const mino& m, color_palette palette)
 {
 	stringstream ans;
-	ans << '"' << static_cast<int>(palette.p[m.ch]);
+	bool def_col = (palette.p.find(m.ch) == palette.p.end()); // if not found  
+	ans << '"' << static_cast<int>(def_col ? palette.default_color : palette.p[m.ch]);
 	ans << '_' << static_cast<int>(m.get_shape_num());
 	ans << '_' << "0";
 	ans << '_' << m.top_left().second;
