@@ -8,7 +8,7 @@ static status interpretmeta2(state2& st, meta m);
 
 static status direction_(state2& st, const vector<string>& tokens, Paren p)
 {
-	return ALL_OK;
+	return ALL_OK; // fixme
 }
 
 static status comment_(state2& st, const vector<string>& tokens, Paren p)
