@@ -1,9 +1,9 @@
 #include "state2.h"
 using namespace std;
 
-string col_to_str(Color c)
+string Color::to_str() const
 {
-	switch(c)
+	switch(this->inside)
 	{
 		case RED: return "red";
 		case ORANGE: return "orange";
@@ -14,6 +14,27 @@ string col_to_str(Color c)
 		case PURPLE: return "purple";
 		case BLACK: return "black";
 		case WHITE: return "white";
-		default: return "heal";
+		case HEAL: return "heal";
+		default: return "Null";
 	}
+}
+
+ostream& operator<<(ostream& o, const Color& p)
+{
+	return o << p.to_str();
+}
+
+int Color::to_int() const
+{
+	return static_cast<int>(this->inside);
+}
+
+bool Color::operator !() const
+{
+	return this->inside == Null;
+}
+
+bool color_palette::exist(char c) const
+{
+	return this->p.find(c) != this->p.end(); // checks whether it exist
 }
