@@ -20,8 +20,23 @@ static void parse(vector<string>& vec, const string& a)
 
 static status status_(state& st, const vector<string>& vec)
 {
+	size_t size = st.content.size();
+	if(!size)
+	{
+		cout << "No files loaded." << endl;	
+	}
+	else
+	{
+		cout << "File" << (size == 1 ? "" : "s") << " loaded:" << endl;		
+		for(map<string,data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
+		{
+			cout << "\t\"" << (it->first) << '"' << endl;
+		}
+		cout << endl;
+	}
+	
 	status s = st.error_status;
-	cout << s << '(' << (int)s << ')' << endl << endl;
+	cout << "Error code: " << s << '(' << (int)s << ')' << endl << endl;
 	return s; // inherit the status
 }
 

@@ -8,7 +8,7 @@ static const char help[] = (
  "     import   Import file(s) to minohelper\n"
  "     export   Export file(s) to minohelper\n"
  "     exit     Exit minohelper\n"
- "     status   Display former command's error code\n"
+ "     status   Display minohelper's status\n"
  "     help     Display this list\n"
  );
 
