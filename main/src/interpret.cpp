@@ -27,7 +27,7 @@ static status status_(state& st, const vector<string>& vec)
 	}
 	else
 	{
-		cout << "File" << (size == 1 ? "" : "s") << " loaded:" << endl;		
+		cout << "Loaded " << (size == 1 ? "file" : "files") << ":" << endl;		
 		for(map<string,data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
 		{
 			cout << "\t\"" << (it->first) << '"' << endl;
