@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-status parse_arg(string& input, string& output, const vector<string>& vec)
+status parse_arg(string& input, string& output, const arguments& vec)
 {
 	bool after_o = false;
 	for(size_t j = 1; j < vec.size(); ++j)

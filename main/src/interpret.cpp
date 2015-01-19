@@ -2,12 +2,13 @@
 #include "import.h"
 #include "export.h"
 #include "help.h"
+#include "type/args.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
 using namespace std;
 
-static void parse(vector<string>& vec, const string& a)
+static void parse(arguments& vec, const string& a)
 {
 	stringstream input;
 	input.str(a);
@@ -18,7 +19,7 @@ static void parse(vector<string>& vec, const string& a)
 	}
 }
 
-static status status_(state& st, const vector<string>& vec)
+static status status_(state& st, const arguments& vec)
 {
 	size_t size = st.content.size();
 	if(!size)
@@ -42,7 +43,7 @@ static status status_(state& st, const vector<string>& vec)
 
 status interpret(state& st, const string& a)
 {
-	vector<string> vec;
+	arguments vec;
 	parse(vec,a);
 	
 	if(vec.empty()){return ALL_OK;}
