@@ -8,17 +8,6 @@
 #include <vector>
 using namespace std;
 
-static void parse(arguments2& vec, const string& a)
-{
-	stringstream input;
-	input.str(a);
-	string b;
-	while(input >> b)
-	{
-		vec.push_back(b);
-	}
-}
-
 static status status_(state& st, const arguments2& vec)
 {
 	size_t size = st.content.size();
@@ -44,7 +33,7 @@ static status status_(state& st, const arguments2& vec)
 status interpret(state& st, const string& a)
 {
 	arguments2 vec;
-	parse(vec,a);
+	vec.parse(a);
 	
 	if(vec.empty()){return ALL_OK;}
 #define if2(a) if(vec[0] == string(a))	

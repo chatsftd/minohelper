@@ -1,5 +1,6 @@
 #include "args.h"
 #include "../lib/debug.h"
+#include <sstream>
 using namespace std;
 string& arguments2::operator [](size_t n)
 {
@@ -19,4 +20,15 @@ string arguments2::operator [](size_t n) const
 	str = this->inside[n];
 #endif
 	return str;
+}
+
+void arguments2::parse(const string& a)
+{
+	stringstream input;
+	input.str(a);
+	string b;
+	while(input >> b)
+	{
+		this->push_back(b);
+	}
 }
