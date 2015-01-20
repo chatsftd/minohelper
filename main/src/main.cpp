@@ -8,7 +8,7 @@
 
 using namespace std;
 
-static status init(int& ret, state& st, const arguments& v)
+static status init(int& ret, state& st, const arguments2& v)
 {
 	string input, output;
 	ret = 0;
@@ -16,14 +16,14 @@ static status init(int& ret, state& st, const arguments& v)
 	if(s2 != ALL_OK){ return s2; }
 	if(input == ""){ return ALL_OK; }
 	
-	arguments vec;
+	arguments2 vec;
 	vec.push_back("import");
 	vec.push_back(input);
 	status s = import_(st,vec);
 	
 	if(output == ""){ return s; }
 	
-	arguments vec2;
+	arguments2 vec2;
 	vec2.push_back("export");
 	vec2.push_back(input);
 	vec2.push_back("-o");
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 	int ret = 0;
 	if(argc >= 2)
 	{
-		arguments vec;
+		arguments2 vec;
 		vec.push_back("import");
 		for(int k = 1; k < argc; k++)
 		{

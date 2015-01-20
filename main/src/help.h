@@ -6,6 +6,6 @@
 #include "state.h"
 
 
-status help_(state& st, const arguments& vec);
+status help_(state& st, const arguments2& vec);
 
 #endif/*HELP_H_DEFINED_F1FC336F79C37C83D065E055B36F9878D839C133*/

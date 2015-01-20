@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-static void parse(arguments& vec, const string& a)
+static void parse(arguments2& vec, const string& a)
 {
 	stringstream input;
 	input.str(a);
@@ -19,7 +19,7 @@ static void parse(arguments& vec, const string& a)
 	}
 }
 
-static status status_(state& st, const arguments& vec)
+static status status_(state& st, const arguments2& vec)
 {
 	size_t size = st.content.size();
 	if(!size)
@@ -43,7 +43,7 @@ static status status_(state& st, const arguments& vec)
 
 status interpret(state& st, const string& a)
 {
-	arguments vec;
+	arguments2 vec;
 	parse(vec,a);
 	
 	if(vec.empty()){return ALL_OK;}

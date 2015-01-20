@@ -12,7 +12,7 @@ static const char help[] = (
  "     help     Display this list\n"
  );
 
-status help_(state& st, const arguments& vec)
+status help_(state& st, const arguments2& vec)
 {
 	cout << help << endl;
 	return ALL_OK;

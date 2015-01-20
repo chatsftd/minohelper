@@ -42,7 +42,7 @@ static status import_file(state& st, const string& filename)
 }
 
 
-status import_(state& st, const arguments& vec)
+status import_(state& st, const arguments2& vec)
 {
 	status ret_val = ALL_OK;
 	if(vec.size() < 2)
