@@ -61,12 +61,14 @@ int main(int argc, char** argv)
 		cout << "> " << flush;
 		getline(cin,tmp);
 		status s = interpret(st,tmp);
-		st.error_status = s;
 		switch(s)
 		{
-			case EXIT_ALL: goto end; /* escape from while-true */
+			case EXIT_ALL:
+				ret = st.error_status;
+				goto end; /* escape from while-true */
 			default: break; /* do nothing */
 		}
+		st.error_status = s;
 	}
 	
 	end: return ret;
