@@ -42,10 +42,10 @@ static status import_file(state& st, const string& filename)
 }
 
 
-status import_(state& st, const arguments2& vec)
+status import_(state& st, const arguments2& args)
 {
 	status ret_val = ALL_OK;
-	if(vec.size() < 2)
+	if(args.size() < 2)
 	{
 		string str;
 		cout << "File name?" << endl;
@@ -53,9 +53,9 @@ status import_(state& st, const arguments2& vec)
 		getline(cin,str);
 		return import_file(st,str);
 	}
-	for(size_t j = 1; j < vec.size(); ++j)
+	for(size_t j = 1; j < args.size(); ++j)
 	{
-		status s = import_file(st,vec[j]);
+		status s = import_file(st,args[j]);
 		if(ret_val == ALL_OK)
 		{
 			ret_val = s; // return the first error code

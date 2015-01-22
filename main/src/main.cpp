@@ -8,28 +8,28 @@
 
 using namespace std;
 
-static status init(int& ret, state& st, const arguments2& v)
+static status init(int& ret, state& st, const arguments2& args)
 {
 	string input, output;
 	ret = 0;
-	status s2 = parse_arg(input,output,v);
+	status s2 = parse_arg(input,output,args);
 	if(s2 != ALL_OK){ return s2; }
 	if(input == ""){ return ALL_OK; }
 	
-	arguments2 vec;
-	vec.push_back("import");
-	vec.push_back(input);
-	status s = import_(st,vec);
+	arguments2 args2;
+	args2.push_back("import");
+	args2.push_back(input);
+	status s = import_(st,args2);
 	
 	if(output == ""){ return s; }
 	
-	arguments2 vec2;
-	vec2.push_back("export");
-	vec2.push_back(input);
-	vec2.push_back("-o");
-	vec2.push_back(output);
+	arguments2 args3;
+	args3.push_back("export");
+	args3.push_back(input);
+	args3.push_back("-o");
+	args3.push_back(output);
 	
-	status s3 = export_(st,vec2); 
+	status s3 = export_(st,args3); 
 	ret = s3;
 	return EXIT_ALL;
 }
@@ -40,13 +40,13 @@ int main(int argc, char** argv)
 	int ret = 0;
 	if(argc >= 2)
 	{
-		arguments2 vec;
-		vec.push_back("import");
+		arguments2 args;
+		args.push_back("import");
 		for(int k = 1; k < argc; k++)
 		{
-			vec.push_back(argv[k]);
+			args.push_back(argv[k]);
 		}
-		status s6 = init(ret,st,vec);
+		status s6 = init(ret,st,args);
 		st.error_status = s6;
 		switch(s6)
 		{

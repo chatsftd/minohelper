@@ -66,10 +66,10 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 	return ALL_OK;
 }
 
-status export_(state& st, const arguments2& vec)
+status export_(state& st, const arguments2& args)
 {
 	string input, output;
-	status s2 = parse_arg(input,output,vec);
+	status s2 = parse_arg(input,output,args);
 	if(s2 != ALL_OK) return s2;
 	
 	if(input == "")

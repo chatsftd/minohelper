@@ -2,23 +2,23 @@
 #include <iostream>
 using namespace std;
 
-status parse_arg(string& input, string& output, const arguments2& vec)
+status parse_arg(string& input, string& output, const arguments2& args)
 {
 	bool after_o = false;
-	for(size_t j = 1; j < vec.size(); ++j)
+	for(size_t j = 1; j < args.size(); ++j)
 	{
 		if(after_o)
 		{
-			output = vec[j];
+			output = args[j];
 			after_o = false;
 		}
-		else if(vec[j] == (string)"-o")
+		else if(args[j] == (string)"-o")
 		{
 			after_o = true;
 		}
 		else
 		{
-			input = vec[j];
+			input = args[j];
 		}
 	}
 	if(after_o)
