@@ -16,8 +16,7 @@ typedef std::map<std::string, std::vector<std::vector<std::string> > > ret_data;
  */
 std::string last_valid(std::vector<std::vector<std::string> > dat);
 arg_info default_arg_info();
-status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args);
 
-status parse_arg(std::string& input, std::string& output, const arguments2& args);
+status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args);
 
 #endif/*PARSEARG_H_DEFINED_EB1F28CC7DDEDAD49229495C94BD0C7875C30C88*/
