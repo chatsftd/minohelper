@@ -3,6 +3,13 @@
 #include "type/status.h"
 #include "type/args.h"
 #include <string>
+#include <map>
+#include <vector>
+
+typedef std::map<std::string, std::size_t> arg_info; 
+typedef std::map<std::string, std::vector<std::vector<std::string> > > ret_data;
+
+status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args);
 
 status parse_arg(std::string& input, std::string& output, const arguments2& args);
 
