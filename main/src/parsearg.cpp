@@ -2,12 +2,26 @@
 #include <iostream>
 using namespace std;
 
+string last_valid(std::vector<std::vector<std::string> > dat)
+{
+	string ans = "";
+	for(size_t i = 0; i < dat.size(); i++)
+	{
+		for(size_t j = 0; j < dat[i].size(); j++)
+		{
+			ans = dat[i][j];
+		}
+	}
+	return ans;
+}
 
-/*
- * args: "A","-o","abc","-i","B","-o","def","C","-p","123","456","-p","567","890","-i"
- * arg_info: '-o' takes one argument, '-i' takes none...
- * ret_data: {"": [["A"],["B"],["C"]], "-o": [["abc"],["def"]], "-p": [["123","456"],["567","890"]], "-i": [[],[]]}
- */
+arg_info default_arg_info()
+{
+	arg_info this_;
+	this_["-o"] = 1;
+	return this_;
+}
+
 status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args)
 {
 	string opt_now = "";

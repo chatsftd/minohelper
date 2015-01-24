@@ -68,8 +68,10 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 
 status export_(state& st, const arguments2& args)
 {
-	string input, output;
-	status s2 = parse_arg(input,output,args);
+	ret_data ret;
+	status s2 = parse_arg2(default_arg_info(),ret,args);
+	string input  = last_valid(ret[""]);
+	string output = last_valid(ret["-o"]);
 	if(s2 != ALL_OK) return s2;
 	
 	if(input == "")
