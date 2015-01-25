@@ -4,11 +4,12 @@ using namespace std;
 
 string ret_data::last_valid(string opt)
 {
-	vector<vector<string> > dat = this->inside[opt];
+	vector<vector<string> > dat = this->inside;
 	string ans = "";
 	for(size_t i = 0; i < dat.size(); i++)
 	{
-		for(size_t j = 0; j < dat[i].size(); j++)
+		if(dat[i][0] != opt) continue;
+		for(size_t j = 1; j < dat[i].size(); j++)
 		{
 			ans = dat[i][j];
 		}
@@ -21,6 +22,10 @@ arg_info default_arg_info()
 	arg_info this_;
 	this_["-o"] = 1;
 	return this_;
+}
+vector<vector<string> > ret_data::options()
+{
+	return this->inside;
 }
 
 status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
@@ -41,13 +46,14 @@ status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 				cerr << "Invalid arguments: Encountered unknown option '" << args[j] << "'" << endl; cout << endl;
 				return INVALID_ARGS;
 			}
-			
+
 			count = info.find(args[j])->second; // means `info[args[j]]`
 			if(count)
 			{
 				opt_now = args[j];
 				vector<string> vec;
-				this->inside[opt_now].push_back(vec);
+				vec.push_back(opt_now);
+				this->inside.push_back(vec);
 			}
 			
 		}
@@ -55,15 +61,16 @@ status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 		{
 			if(count)
 			{
-				this->inside[opt_now].back().push_back(args[j]);
+				this->inside.back().push_back(args[j]);
 				count--;
 				if(count == 0) opt_now = "";
 			}
 			else
 			{
 				vector<string> vec;
+				vec.push_back("");
 				vec.push_back(args[j]);
-				this->inside[opt_now].push_back(vec);
+				this->inside.push_back(vec);
 			}
 			
 		}
