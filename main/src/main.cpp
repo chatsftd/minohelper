@@ -10,9 +10,13 @@ using namespace std;
 
 static status init(int& ret, state& st, const arguments2& args)
 {
-	string input, output;
 	ret = 0;
-	status s2 = parse_arg(input,output,args);
+
+	ret_data retd;
+	status s2 = retd.parse_arg2(default_arg_info(),args);
+	string input  = retd.last_valid("");
+	string output = retd.last_valid("-o");
+	
 	if(s2 != ALL_OK){ return s2; }
 	if(input == ""){ return ALL_OK; }
 	
