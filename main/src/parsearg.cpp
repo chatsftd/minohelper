@@ -2,8 +2,9 @@
 #include <iostream>
 using namespace std;
 
-string last_valid(std::vector<std::vector<std::string> > dat)
+string ret_data::last_valid(string opt)
 {
+	vector<vector<string> > dat = this->inside[opt];
 	string ans = "";
 	for(size_t i = 0; i < dat.size(); i++)
 	{
@@ -22,7 +23,7 @@ arg_info default_arg_info()
 	return this_;
 }
 
-status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args)
+status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 {
 	string opt_now = "";
 	size_t count = 0;
@@ -46,7 +47,7 @@ status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args)
 			{
 				opt_now = args[j];
 				vector<string> vec;
-				ret[opt_now].push_back(vec);
+				this->inside[opt_now].push_back(vec);
 			}
 			
 		}
@@ -54,7 +55,7 @@ status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args)
 		{
 			if(count)
 			{
-				ret[opt_now].back().push_back(args[j]);
+				this->inside[opt_now].back().push_back(args[j]);
 				count--;
 				if(count == 0) opt_now = "";
 			}
@@ -62,7 +63,7 @@ status parse_arg2(const arg_info& info, ret_data& ret, const arguments2& args)
 			{
 				vector<string> vec;
 				vec.push_back(args[j]);
-				ret[opt_now].push_back(vec);
+				this->inside[opt_now].push_back(vec);
 			}
 			
 		}

@@ -13,9 +13,9 @@ static status init(int& ret, state& st, const arguments2& args)
 	ret = 0;
 
 	ret_data retd;
-	status s2 = parse_arg2(default_arg_info(),retd,args);
-	string input  = last_valid(retd[""]);
-	string output = last_valid(retd["-o"]);
+	status s2 = retd.parse_arg2(default_arg_info(),args);
+	string input  = retd.last_valid("");
+	string output = retd.last_valid("-o");
 	
 	if(s2 != ALL_OK){ return s2; }
 	if(input == ""){ return ALL_OK; }
