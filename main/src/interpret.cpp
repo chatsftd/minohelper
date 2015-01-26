@@ -2,6 +2,7 @@
 #include "import.h"
 #include "export.h"
 #include "help.h"
+#include "config.h"
 #include "type/args.h"
 #include <iostream>
 #include <sstream>
@@ -45,6 +46,7 @@ status interpret(state& st, const string& a)
 	else if2("export") return export_(st,args);
 	else if2("status") return status_(st,args);
 	else if2("help"  ) return   help_(st,args);
+	else if2("config") return config_(st,args);
 	else
 	{
 		cerr << "\"" << args[0] << "\" is not a valid command." << endl; cout << endl;
