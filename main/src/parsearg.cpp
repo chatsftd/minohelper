@@ -48,13 +48,10 @@ status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 			}
 
 			count = info.find(args[j])->second; // means `info[args[j]]`
-			if(count)
-			{
-				opt_now = args[j];
-				vector<string> vec;
-				vec.push_back(opt_now);
-				this->inside.push_back(vec);
-			}
+			vector<string> vec;
+			vec.push_back(args[j]);
+			this->inside.push_back(vec);
+			if(count){ opt_now = args[j]; }
 			
 		}
 		else //not option
