@@ -1,6 +1,8 @@
 #include "config.h"
 #include "parsearg.h"
 #include "lib/debug.h"
+#include "lib/pathroot.h"
+#include <fstream>
 using namespace std;
 
 status config_(state& st, const arguments2& args)
@@ -20,12 +22,25 @@ status config_(state& st, const arguments2& args)
 		cout << "__HELP__CONFIG__" << endl << endl; //fixme
 		return ALL_OK;
 	}
+	
+	string path = path_root() + "minohelper_config.txt";
+	cout << "File path: " << path << endl;
+	
 	const vector<string> opt = opts[0];
 	
 	switch(opt.size())
 	{
 		case 3: //set
-			cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
+			{
+				cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
+				ofstream ofs(path.c_str(), ios::out | ios::app);
+				if(!ofs)
+				{
+					cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
+					return CONFIG_WRITE_FAILED;
+				}
+				ofs << '\n' << opt[1] << " = " << opt[2] << endl;
+			}
 		break;
 		
 		case 2: //get
