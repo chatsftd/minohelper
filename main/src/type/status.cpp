@@ -14,6 +14,10 @@ string status::to_str() const
 		case_(NO_SUCH_COMMAND);
 		case_(NO_SUCH_INDEX);
 		case_(INVALID_FILEPATH);
+		case_(CONFIG_WRITE_FAILED);
+		case_(CONFIG_READ_FAILED);
+		case_(CONFIG_VAR_NOT_FOUND);
+		case_(CONFIG_FORMAT_WRONG);
 		case_(SOMETHING_WRONG);
 		default: return "ALL_OK";
 	}

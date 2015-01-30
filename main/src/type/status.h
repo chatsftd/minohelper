@@ -2,7 +2,7 @@
 #define HEADER_H_DEFINED_2014_10_12_cikbjhewcbqxepjnjpeuiiszzqcse
 #include <string>
 #include <iostream>
-enum status_i
+enum status_i /* DON'T FORGET TO MODIFY status::to_str() TOO */
 {
 	EXIT_ALL = -1,
 	ALL_OK = 0,
@@ -14,6 +14,9 @@ enum status_i
 	NO_SUCH_INDEX,
 	INVALID_FILEPATH,
 	CONFIG_WRITE_FAILED,
+	CONFIG_READ_FAILED,
+	CONFIG_FORMAT_WRONG,
+	CONFIG_VAR_NOT_FOUND,
 	SOMETHING_WRONG = 0xCCCC
 };
 
