@@ -8,7 +8,7 @@
 using namespace std;
 
 static inline bool is_varname_init_char(char a){ return isalpha(a) || (a == '_'); }
-static inline bool is_varname_more_char(char a){ return isalnum(a) || (a == '_'); }
+static inline bool is_varname_more_char(char a){ return isalnum(a) || (a == '_') || (a == '.'); }
 
 enum parsestat
 {
