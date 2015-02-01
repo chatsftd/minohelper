@@ -10,6 +10,16 @@ using namespace std;
 static inline bool is_varname_init_char(char a){ return isalpha(a) || (a == '_'); }
 static inline bool is_varname_more_char(char a){ return isalnum(a) || (a == '_') || (a == '.'); }
 
+static bool is_varname(const string& str)
+{
+	if(str.empty() || !is_varname_init_char(str[0])){ return false; }
+	for(size_t i = 1; i < str.size(); i++)
+	{
+		if(!is_varname_more_char(str[i])){ return false;}
+	}
+	return true;
+}
+
 enum parsestat
 {
 	EMPTY_LINE,
@@ -125,21 +135,39 @@ status config_(state& st, const arguments2& args)
 	{
 		case 3: //set
 			{
-				//fixme: check if opt[1] and opt[2] are valid
-				cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
+				if(!is_varname(opt[1]))
+				{
+					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
+					return INVALID_ARGS;
+				}
+				
+				stringstream ss(opt[2].c_str());
+				int num;
+				ss >> num;
+				if(!ss)
+				{
+					cerr << "'" << opt[2] << "' is not a valid value for config variable." << endl; cout << endl;
+					return INVALID_ARGS;
+				}
+				
+				cout << "set " << opt[1] << " = " << num << endl << endl;
 				ofstream ofs(path.c_str(), ios::out | ios::app);
 				if(!ofs)
 				{
 					cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
 					return CONFIG_WRITE_FAILED;
 				}
-				ofs << '\n' << opt[1] << " = " << opt[2] << endl;
+				ofs << '\n' << opt[1] << " = " << num << endl;
 			}
 		break;
 		
 		case 2: //get
 			{
-				//fixme: check if opt[1] is valid
+				if(!is_varname(opt[1]))
+				{
+					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
+					return INVALID_ARGS;
+				}
 				cout << "get " << opt[1] << endl;
 				ifstream ifs(path.c_str());
 				if(!ifs)
