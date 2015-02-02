@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include <map>
 using namespace std;
 
 static inline bool is_varname_init_char(char a){ return isalpha(a) || (a == '_'); }
@@ -74,11 +75,27 @@ static parsestat parse_line(const string& str, string& varname, int& num)
 	
 }
 
+static status get_all(istream& ifs, map<string,int>& list);
+
 static status get_data(istream& ifs, const string& name, int& num2)
 {
-	bool is_set = false;
-	string str;
+	map<string,int> list;
+	status s = get_all(ifs,list);
+	if(s != ALL_OK) return s;
 	
+	if(list.find(name) == list.end()) //not found
+	{
+		cerr << "Config variable '" << name << "' not found" << endl; cout << endl;
+		return CONFIG_VAR_NOT_FOUND;
+	}
+	
+	num2 = list[name];
+	return ALL_OK;
+}
+
+static status get_all(istream& ifs, map<string,int>& list)
+{
+	string str;
 	while(getline(ifs, str))
 	{
 		string vname;
@@ -87,25 +104,13 @@ static status get_data(istream& ifs, const string& name, int& num2)
 		switch(s)
 		{ 
 			case EMPTY_LINE: continue;
-			case VALID_LINE:
-				if(vname == name)
-				{
-					num2 = num;
-					is_set = true;
-				}
-			break;
+			case VALID_LINE: list[vname] = num; break;
 			case INVALID_LINE:
 				cerr << "Config line '" << str << "' is invalid" << endl; cout << endl;
 			return CONFIG_FORMAT_WRONG;
-				
 		} 
 	}
-	if(is_set){ return ALL_OK; }
-	else
-	{
-		cerr << "Config '" << name << "' not found" << endl; cout << endl;
-		return CONFIG_VAR_NOT_FOUND;
-	}
+	return ALL_OK;
 }
 
 status config_(state& st, const arguments2& args)
@@ -183,7 +188,23 @@ status config_(state& st, const arguments2& args)
 		break;
 		
 		case 1:
-			cout << "list" << endl << endl;
+			{
+				cout << "list:" << endl;
+				ifstream ifs(path.c_str());
+				if(!ifs)
+				{
+					cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
+					return CONFIG_READ_FAILED;
+				}
+				map<string,int> list;
+				status s = get_all(ifs,list);
+				if(s != ALL_OK) return s;
+				for(map<string,int>::iterator it = list.begin(); it != list.end(); ++it)
+				{
+					cout << "    " << (it->first) << " = " << (it->second) << endl;
+				}
+				cout << endl;
+			}
 		break;
 	}
 	
