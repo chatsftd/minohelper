@@ -10,7 +10,7 @@ static const char help[] = (
  "     exit     Exit minohelper\n"
  "     status   Display minohelper's status\n"
  "     help     Display this list\n"
- // "     config   Set, get and list the config\n"
+ "     config   Set, get and list the config\n"
  );
 
 status help_(state& st, const arguments2& args)

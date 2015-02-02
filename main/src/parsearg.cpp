@@ -73,5 +73,10 @@ status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 		}
 		
 	}
+	if(count != 0)
+	{
+		cerr << "Invalid arguments: Encountered end of line while parsing option '" << opt_now << "'" << endl; cout << endl;
+		return INVALID_ARGS;
+	}
 	return ALL_OK;
 }

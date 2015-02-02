@@ -31,7 +31,7 @@ std::string path_root()
 {
     std::string root_path = "";
 	const std::string cache = getenv_limited("EX_CACHE", MAX_SAFE_PATH);
-	root_path = cache.empty() ? "~/sample_cache/" : cache;
+	root_path = cache.empty() ? "~/" : cache;
 
 	if(root_path[root_path.length() - 1] != '/'){ root_path += "/"; }
 
