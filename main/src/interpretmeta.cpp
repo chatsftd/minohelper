@@ -6,12 +6,12 @@ static vector<string> tokenize(const string& str);
 static status interpretmeta2(state2& st, meta m);
 
 
-static status direction_(state2& st, const vector<string>& tokens, Paren p)
+static status direction_(state2& /*st**/, const vector<string>& /*tokens**/, Paren /*p**/)
 {
 	return ALL_OK; // fixme
 }
 
-static status comment_(state2& st, const vector<string>& tokens, Paren p)
+static status comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p**/)
 {
 	string last_token = tokens[tokens.size()-1];
 	if(last_token[last_token.size()-1] != '-')

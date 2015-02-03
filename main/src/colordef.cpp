@@ -44,7 +44,7 @@ static Maybe<Color> get_color(const string& str)
 	else return Nothing<Color>();
 }
 
-status colordef_(state2& st, const vector<string>& tokens, Paren p)
+status colordef_(state2& st, const vector<string>& tokens, Paren /*p**/)
 {
 	if(tokens.size() < 2)
 	{

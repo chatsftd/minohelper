@@ -36,9 +36,9 @@ static status export3(string& str, const vector<mino>& minos, color_palette pale
 	}
 	
 	
-	for(size_t j = result.size()-1; j >= 0; --j) // remove empty vector<mino>
+	while(!result.empty()) // remove empty vector<mino>
 	{
-		if(result[j].empty()) result.pop_back();
+		if(result.back().empty()) result.pop_back();
 		else break;
 	}
 	

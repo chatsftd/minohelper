@@ -13,7 +13,7 @@ static const char help[] = (
  "     config   Set, get and list the config\n"
  );
 
-status help_(state& st, const arguments2& args)
+status help_(state& /*st**/, const arguments2& /*args**/)
 {
 	cout << help << endl;
 	return ALL_OK;

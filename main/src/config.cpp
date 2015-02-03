@@ -113,7 +113,7 @@ static status get_all(istream& ifs, map<string,int>& list)
 	return ALL_OK;
 }
 
-status config_(state& st, const arguments2& args)
+status config_(state& /*st**/, const arguments2& args)
 {
 	ret_data ret;
 	arg_info info;
@@ -155,14 +155,14 @@ status config_(state& st, const arguments2& args)
 					return INVALID_ARGS;
 				}
 				
-				cout << "set " << opt[1] << " = " << num << endl << endl;
+				cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
 				ofstream ofs(path.c_str(), ios::out | ios::app);
 				if(!ofs)
 				{
 					cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
 					return CONFIG_WRITE_FAILED;
 				}
-				ofs << '\n' << opt[1] << " = " << num << endl;
+				ofs << '\n' << opt[1] << " = " << opt[2] << endl;
 			}
 		break;
 		

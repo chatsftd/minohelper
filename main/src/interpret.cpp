@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-static status status_(state& st, const arguments2& args)
+static status status_(state& st, const arguments2& /*args**/)
 {
 	size_t size = st.content.size();
 	if(!size)
