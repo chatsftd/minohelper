@@ -1,5 +1,6 @@
 #include "config.h"
 #include "parsearg.h"
+#include "help.h"
 #include "lib/debug.h"
 #include "lib/pathroot.h"
 #include <fstream>
@@ -127,7 +128,7 @@ status config_(state& /*st**/, const arguments2& args)
 	
 	if(opts.empty())
 	{
-		cout << "__HELP__CONFIG__" << endl << endl; //fixme
+		cout << help_message("config") << endl;
 		return ALL_OK;
 	}
 	

@@ -16,7 +16,7 @@ static const char help[] = (
  "For more information, see 'help <command>'.\n"
  );
 
-static string each_help(const string& command)
+string help_message(const string& command)
 { 
 	if(command == "import")
 	{
@@ -67,7 +67,7 @@ static string each_help(const string& command)
 			"       config --get <varname>\n"
 			"       config --list\n"
 			"  Set, get and list the config\n"
-			//"  If called with no arguments, it will display this help.\n"
+			"  If called with no arguments, it will display this help.\n"
 			);
 	}
 	else{ return "";}
@@ -88,7 +88,7 @@ status help_(state& /*st**/, const arguments2& args)
 	}
 	vector<string> opt = opts[0];
 	string command = opt[1];
-	string text = each_help(command);
+	string text = help_message(command);
 	if(text.empty())
 	{
 		cerr << "\"" << command << "\" is not a valid command." << endl; cout << endl;
