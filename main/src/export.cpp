@@ -1,6 +1,7 @@
 #include "fileselect.h"
 #include "export.h"
 #include "parsearg.h"
+#include "import.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -70,14 +71,29 @@ status export_(state& st, const arguments2& args)
 {
 	ret_data ret;
 	status s2 = ret.parse_arg2(default_arg_info(),args);
-	string input  = ret.last_valid("");
-	string output = ret.last_valid("-o");
 	if(s2 != ALL_OK) return s2;
 	
+	string input  = ret.last_valid("");
+	string output = ret.last_valid("-o");
 	if(input == "")
 	{
 		status s = file_select(input, st);
 		if(s != ALL_OK) return s;
+	}
+	
+	if(st.content.find(input) == st.content.end()) // if input is not found
+	{
+		/*
+		 * create args from thin air and 
+		 * import the file
+		 */
+		
+		arguments2 new_args;
+		new_args.push_back("import");
+		new_args.push_back(input); 
+		
+		status s9 = import_(st,new_args);
+		if(s9 != ALL_OK) return s9;
 	}
 	
 	if(output == "")
