@@ -40,6 +40,7 @@ struct color_palette
 	Color default_color;
 	color_palette(void) : p(), default_color(RED) {}
 	bool exist(char c) const;
+	Color get_color_of(char c) const;
 };
 
 struct state2

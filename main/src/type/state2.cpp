@@ -38,3 +38,15 @@ bool color_palette::exist(char c) const
 {
 	return this->p.find(c) != this->p.end(); // checks whether it exist
 }
+
+Color color_palette::get_color_of(char c) const
+{
+	if(this->exist(c))
+	{
+		return this->p.find(c)->second;
+	}
+	else
+	{
+		return this->default_color;
+	}
+}
