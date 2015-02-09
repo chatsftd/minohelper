@@ -8,10 +8,10 @@
 using namespace std;
 
 
-static string export4(const mino& m, color_palette palette)
+static string export4(const mino& m, const color_palette& palette)
 {
 	stringstream ans;
-	ans << '"' << (palette.exist(m.ch) ? palette.p[m.ch] : palette.default_color).to_int();
+	ans << '"' << palette.get_color_of(m.ch).to_int();
 	ans << '_' << static_cast<int>(m.get_shape_num());
 	ans << '_' << "0";
 	ans << '_' << m.top_left().second;
@@ -20,7 +20,7 @@ static string export4(const mino& m, color_palette palette)
 	return ans.str();
 }
 
-static status export3(string& str, const vector<mino>& minos, color_palette palette)
+static status export3(string& str, const vector<mino>& minos, const color_palette& palette)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i) //look for down_most

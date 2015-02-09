@@ -7,6 +7,7 @@ string status::to_str() const
 	switch(this->inside)
 	{
 		case_(EXIT_ALL);
+		case_(ALL_OK);
 		case_(INVALID_META);
 		case_(IMPROPER_MINO);
 		case_(INVALID_ARGS);
@@ -16,10 +17,9 @@ string status::to_str() const
 		case_(INVALID_FILEPATH);
 		case_(CONFIG_WRITE_FAILED);
 		case_(CONFIG_READ_FAILED);
-		case_(CONFIG_VAR_NOT_FOUND);
 		case_(CONFIG_FORMAT_WRONG);
-		case_(SOMETHING_WRONG);
-		default: return "ALL_OK";
+		case_(CONFIG_VAR_NOT_FOUND);
+		default: return "SOMETHING_WRONG";
 	}
 }
 
