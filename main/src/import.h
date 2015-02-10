@@ -1,6 +1,6 @@
 #ifndef IMPORT_H_DEFINED_2014_10_12_ELEAFLRCWYMEMDNHQSDALBVAKKNMNM
 #define IMPORT_H_DEFINED_2014_10_12_ELEAFLRCWYMEMDNHQSDALBVAKKNMNM
-#include "type/status.h"
+#include "type/errorlevel.h"
 #include "type/args.h"
 #include "state.h"
 

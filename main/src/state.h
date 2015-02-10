@@ -1,7 +1,7 @@
 #ifndef STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
 #define STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
 #include "constructmino.h"
-#include "type/status.h"
+#include "type/errorlevel.h"
 #include "type/state2.h"
 #include <map>
 #include <string>

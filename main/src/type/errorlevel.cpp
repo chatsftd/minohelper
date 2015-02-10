@@ -1,4 +1,4 @@
-#include "status.h"
+#include "errorlevel.h"
 using namespace std;
 
 string error_level::to_str() const
