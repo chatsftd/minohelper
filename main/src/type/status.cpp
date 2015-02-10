@@ -1,7 +1,7 @@
 #include "status.h"
 using namespace std;
 
-string status::to_str() const
+string error_level::to_str() const
 {
 #define case_(a) case (a): return (string)(#a)
 	switch(this->inside)
@@ -23,12 +23,12 @@ string status::to_str() const
 	}
 }
 
-ostream& operator<<(ostream& o, const status& s)
+ostream& operator<<(ostream& o, const error_level& s)
 {
 	return o << s.to_str();	
 }
 
-status::operator int() const
+error_level::operator int() const
 {
 	return static_cast<int>(this->inside);
 }

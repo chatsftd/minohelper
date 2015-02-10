@@ -16,7 +16,7 @@ public:
 	ret_data() : inside() {}
 	std::string last_valid(std::string opt);
 	std::vector<std::vector<std::string> > options();
-	status parse_arg2(const arg_info& info, const arguments2& args);
+	error_level parse_arg2(const arg_info& info, const arguments2& args);
 };
 
 /*

@@ -76,12 +76,12 @@ static parsestat parse_line(const string& str, string& varname, int& num)
 	
 }
 
-static status get_all(istream& ifs, map<string,int>& list);
+static error_level get_all(istream& ifs, map<string,int>& list);
 
-static status get_data(istream& ifs, const string& name, int& num2)
+static error_level get_data(istream& ifs, const string& name, int& num2)
 {
 	map<string,int> list;
-	status s = get_all(ifs,list);
+	error_level s = get_all(ifs,list);
 	if(s != ALL_OK) return s;
 	
 	if(list.find(name) == list.end()) //not found
@@ -94,7 +94,7 @@ static status get_data(istream& ifs, const string& name, int& num2)
 	return ALL_OK;
 }
 
-static status get_all(istream& ifs, map<string,int>& list)
+static error_level get_all(istream& ifs, map<string,int>& list)
 {
 	string str;
 	while(getline(ifs, str))
@@ -114,14 +114,14 @@ static status get_all(istream& ifs, map<string,int>& list)
 	return ALL_OK;
 }
 
-status config_(state& /*st**/, const arguments2& args)
+error_level config_(state& /*st**/, const arguments2& args)
 {
 	ret_data ret;
 	arg_info info;
 	info["--set" ] = 2; // config --set verbosity 3
 	info["--get" ] = 1; // config --get verbosity
 	info["--list"] = 0; // config --list
-	status s2 = ret.parse_arg2(info,args);
+	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
 	
 	const vector<vector<string> > opts = ret.options();
@@ -182,7 +182,7 @@ status config_(state& /*st**/, const arguments2& args)
 					return CONFIG_READ_FAILED;
 				}
 				int num;
-				status s = get_data(ifs,opt[1],num);
+				error_level s = get_data(ifs,opt[1],num);
 				if(s != ALL_OK) return s;
 				cout << num << endl << endl;
 			}
@@ -198,7 +198,7 @@ status config_(state& /*st**/, const arguments2& args)
 					return CONFIG_READ_FAILED;
 				}
 				map<string,int> list;
-				status s = get_all(ifs,list);
+				error_level s = get_all(ifs,list);
 				if(s != ALL_OK) return s;
 				for(map<string,int>::iterator it = list.begin(); it != list.end(); ++it)
 				{

@@ -28,7 +28,7 @@ vector<vector<string> > ret_data::options()
 	return this->inside;
 }
 
-status ret_data::parse_arg2(const arg_info& info, const arguments2& args)
+error_level ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 {
 	string opt_now = "";
 	size_t count = 0;

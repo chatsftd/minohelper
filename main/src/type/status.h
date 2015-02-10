@@ -2,7 +2,7 @@
 #define HEADER_H_DEFINED_2014_10_12_cikbjhewcbqxepjnjpeuiiszzqcse
 #include <string>
 #include <iostream>
-enum status_i /* DON'T FORGET TO MODIFY status::to_str() TOO */
+enum error_level_i /* DON'T FORGET TO MODIFY error_level::to_str() TOO */
 {
 	EXIT_ALL = -1,
 	ALL_OK = 0,
@@ -20,15 +20,13 @@ enum status_i /* DON'T FORGET TO MODIFY status::to_str() TOO */
 	SOMETHING_WRONG = 0xCCCC
 };
 
-struct status
+struct error_level
 {
-	status_i inside;
-	status(status_i s) : inside(s) {} /* no explicit */
+	error_level_i inside;
+	error_level(error_level_i s) : inside(s) {} /* no explicit */
 	operator int() const;
 	std::string to_str() const;
-	friend std::ostream& operator<<(std::ostream& o, const status& s);
+	friend std::ostream& operator<<(std::ostream& o, const error_level& s);
 };
-
-
 
 #endif/*HEADER_H_DEFINED_2014_10_12_cikbjhewcbqxepjnjpeuiiszzqcse*/

@@ -4,6 +4,6 @@
 #include "state.h"
 #include <string>
 
-status interpret(state& st, const std::string& a);
+error_level interpret(state& st, const std::string& a);
 
 #endif/*INTERPRET_H_DEFINED_2014_10_10_AYMLLTEJQANCDOG*/

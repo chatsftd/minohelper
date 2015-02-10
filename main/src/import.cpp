@@ -6,7 +6,7 @@
 #include <sstream>
 using namespace std;
 
-static status import_file(state& st, const string& filename)
+static error_level import_file(state& st, const string& filename)
 {
 	cout << "Loading \"" << filename << "\" ..." << endl;
 	ifstream ifs(filename.c_str());
@@ -27,7 +27,7 @@ static status import_file(state& st, const string& filename)
 		}
 	}
 	state2 st2;
-	status s = interpretmeta(st2,plane);
+	error_level s = interpretmeta(st2,plane);
 	if(s != ALL_OK) return s;
 	
 	const Maybe<data>& mD = parse_mino(st2,plane);
@@ -42,9 +42,9 @@ static status import_file(state& st, const string& filename)
 }
 
 
-status import_(state& st, const arguments2& args)
+error_level import_(state& st, const arguments2& args)
 {
-	status ret_val = ALL_OK;
+	error_level ret_val = ALL_OK;
 	if(args.size() < 2)
 	{
 		string str;
@@ -55,7 +55,7 @@ status import_(state& st, const arguments2& args)
 	}
 	for(size_t j = 1; j < args.size(); ++j)
 	{
-		status s = import_file(st,args[j]);
+		error_level s = import_file(st,args[j]);
 		if(ret_val == ALL_OK)
 		{
 			ret_val = s; // return the first error code

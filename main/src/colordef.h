@@ -6,6 +6,6 @@
 #include <vector>
 #include <string>
 
-status colordef_(state2& st, const std::vector<std::string>& tokens, Paren p);
+error_level colordef_(state2& st, const std::vector<std::string>& tokens, Paren p);
 
 #endif/*COLORDEF_H_3830C1B6422B43A44F2EB10D7C2AA16C6FB3F1C6*/

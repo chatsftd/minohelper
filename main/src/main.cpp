@@ -8,12 +8,12 @@
 
 using namespace std;
 
-static status init(int& ret, state& st, const arguments2& args)
+static error_level init(int& ret, state& st, const arguments2& args)
 {
 	ret = 0;
 
 	ret_data retd;
-	status s2 = retd.parse_arg2(default_arg_info(),args);
+	error_level s2 = retd.parse_arg2(default_arg_info(),args);
 	string input  = retd.last_valid("");
 	string output = retd.last_valid("-o");
 	
@@ -23,7 +23,7 @@ static status init(int& ret, state& st, const arguments2& args)
 	arguments2 args2;
 	args2.push_back("import");
 	args2.push_back(input);
-	status s = import_(st,args2);
+	error_level s = import_(st,args2);
 	
 	if(output == ""){ return s; }
 	
@@ -33,7 +33,7 @@ static status init(int& ret, state& st, const arguments2& args)
 	args3.push_back("-o");
 	args3.push_back(output);
 	
-	status s3 = export_(st,args3); 
+	error_level s3 = export_(st,args3); 
 	ret = s3;
 	return EXIT_ALL;
 }
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 		{
 			args.push_back(argv[k]);
 		}
-		status s6 = init(ret,st,args);
+		error_level s6 = init(ret,st,args);
 		st.error_status = s6;
 		switch(s6)
 		{
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 		string tmp = "";
 		cout << "> " << flush;
 		getline(cin,tmp);
-		status s = interpret(st,tmp);
+		error_level s = interpret(st,tmp);
 		switch(s)
 		{
 			case EXIT_ALL:

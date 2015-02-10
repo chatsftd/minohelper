@@ -22,7 +22,7 @@ struct meta
 };
 typedef std::vector<meta> SyntaxTree2;
 
-status parsemeta(SyntaxTree2& st, std::vector<std::string>& plane);
+error_level parsemeta(SyntaxTree2& st, std::vector<std::string>& plane);
 
 
 

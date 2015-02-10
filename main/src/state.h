@@ -20,7 +20,7 @@ class state
 {
 public:
 	std::map<std::string,data> content;
-	status error_status;
+	error_level error_status;
 	state(void);
 };
 

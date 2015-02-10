@@ -20,7 +20,7 @@ static string export4(const mino& m, const color_palette& palette)
 	return ans.str();
 }
 
-static status export3(string& str, const vector<mino>& minos, const color_palette& palette)
+static error_level export3(string& str, const vector<mino>& minos, const color_palette& palette)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i) //look for down_most
@@ -67,17 +67,17 @@ static status export3(string& str, const vector<mino>& minos, const color_palett
 	return ALL_OK;
 }
 
-status export_(state& st, const arguments2& args)
+error_level export_(state& st, const arguments2& args)
 {
 	ret_data ret;
-	status s2 = ret.parse_arg2(default_arg_info(),args);
+	error_level s2 = ret.parse_arg2(default_arg_info(),args);
 	if(s2 != ALL_OK) return s2;
 	
 	string input  = ret.last_valid("");
 	string output = ret.last_valid("-o");
 	if(input == "")
 	{
-		status s = file_select(input, st);
+		error_level s = file_select(input, st);
 		if(s != ALL_OK) return s;
 	}
 	
@@ -92,7 +92,7 @@ status export_(state& st, const arguments2& args)
 		new_args.push_back("import");
 		new_args.push_back(input); 
 		
-		status s9 = import_(st,new_args);
+		error_level s9 = import_(st,new_args);
 		if(s9 != ALL_OK) return s9;
 	}
 	
@@ -108,7 +108,7 @@ status export_(state& st, const arguments2& args)
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
 		
 	string str = "";
-	status s3 = export3(str,st.content[input].minos,st.content[input].palette);
+	error_level s3 = export3(str,st.content[input].minos,st.content[input].palette);
 	if(s3 != ALL_OK) return s3;
 	
 	ofs << str << endl;

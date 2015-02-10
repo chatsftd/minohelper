@@ -4,7 +4,7 @@ using namespace std;
 static char paren_begin(Paren p);
 static char paren_end(Paren p);
 
-status parsemeta(SyntaxTree2& st, vector<string>& plane)
+error_level parsemeta(SyntaxTree2& st, vector<string>& plane)
 {
 	stack<Paren> paren_stack;
 	vector<string> plane2;

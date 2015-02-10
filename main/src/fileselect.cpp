@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace std;
 
-status file_select(string& filename, const state& st)
+error_level file_select(string& filename, const state& st)
 {
 	size_t size = st.content.size();
 	

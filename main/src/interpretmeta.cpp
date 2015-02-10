@@ -3,15 +3,15 @@
 #include "colordef.h"
 using namespace std;
 static vector<string> tokenize(const string& str);
-static status interpretmeta2(state2& st, meta m);
+static error_level interpretmeta2(state2& st, meta m);
 
 
-static status direction_(state2& /*st**/, const vector<string>& /*tokens**/, Paren /*p**/)
+static error_level direction_(state2& /*st**/, const vector<string>& /*tokens**/, Paren /*p**/)
 {
 	return ALL_OK; // fixme
 }
 
-static status comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p**/)
+static error_level comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p**/)
 {
 	string last_token = tokens[tokens.size()-1];
 	if(last_token[last_token.size()-1] != '-')
@@ -22,7 +22,7 @@ static status comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p*
 	return ALL_OK;
 }
 
-static status interpretmeta2(state2& st, meta m)
+static error_level interpretmeta2(state2& st, meta m)
 {
 	vector<string> tokens = tokenize(m.content);
 	Paren p = m.paren;
@@ -45,15 +45,15 @@ static status interpretmeta2(state2& st, meta m)
 	return ALL_OK;
 }
 
-status interpretmeta(state2& st, vector<string>& plane)
+error_level interpretmeta(state2& st, vector<string>& plane)
 {
 	SyntaxTree2 tree2;
-	status s = parsemeta(tree2,plane);
+	error_level s = parsemeta(tree2,plane);
 	if(s != ALL_OK) return s;
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
 	{
 		cout << "meta #" << (i+1) << ": " << tree2[i] << endl;
-		status s2 = interpretmeta2(st,tree2[i]);
+		error_level s2 = interpretmeta2(st,tree2[i]);
 		if(s2 != ALL_OK) return s2;
 	}
 	return ALL_OK;

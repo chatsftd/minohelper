@@ -73,11 +73,11 @@ string help_message(const string& command)
 	else{ return "";}
 }  
 
-status help_(state& /*st**/, const arguments2& args)
+error_level help_(state& /*st**/, const arguments2& args)
 {
 	ret_data ret;
 	arg_info info;
-	status s2 = ret.parse_arg2(info,args);
+	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
 	
 	vector<vector<string> > opts = ret.options();

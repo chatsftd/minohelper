@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-static status status_(state& st, const arguments2& /*args**/)
+static error_level status_(state& st, const arguments2& /*args**/)
 {
 	size_t size = st.content.size();
 	if(!size)
@@ -26,12 +26,12 @@ static status status_(state& st, const arguments2& /*args**/)
 		cout << endl;
 	}
 	
-	status s = st.error_status;
+	error_level s = st.error_status;
 	cout << "Error code: " << s << '(' << (int)s << ')' << endl << endl;
-	return s; // inherit the status
+	return s; // inherit the error level
 }
 
-status interpret(state& st, const string& a)
+error_level interpret(state& st, const string& a)
 {
 	arguments2 args;
 	args.parse(a);
