@@ -34,6 +34,11 @@ bool Color::operator !() const
 	return this->inside == Null;
 }
 
+bool Color::is_null() const
+{
+	return this->inside == Null;
+}
+
 bool color_palette::exist(char c) const
 {
 	return this->p.find(c) != this->p.end(); // checks whether it exist

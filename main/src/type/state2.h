@@ -28,6 +28,7 @@ struct Color
 	int to_int() const;
 	std::string to_str() const;
 	bool operator !() const;
+	bool is_null() const;
 	friend std::ostream& operator<<(std::ostream& o, const Color& p);
 };
 
