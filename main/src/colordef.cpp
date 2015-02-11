@@ -82,7 +82,7 @@ error_level colordef_(state2& st, const vector<string>& tokens, Paren /*p**/)
 				}
 				else
 				{
-					cerr << "conflicting colordef: " << col << " and " << st.palette.p[str[j]] << " assigned to '" << str[j] << "'" << endl; cout << endl;
+					cerr << "conflicting colordef: " << col << " and " << st.palette.get_color_of(str[j]) << " assigned to '" << str[j] << "'" << endl; cout << endl;
 				}
 			}
 		}
