@@ -41,7 +41,8 @@ bool Color::is_null() const
 
 bool color_palette::exist(char c) const
 {
-	return this->p.find(c) != this->p.end(); // checks whether it exist
+	if(this->p.find(c) == this->p.end()) return false;
+	return !(this->p.find(c)->second.is_null());
 }
 
 Color color_palette::get_color_of(char c) const

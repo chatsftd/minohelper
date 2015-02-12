@@ -75,7 +75,7 @@ error_level colordef_(state2& st, const vector<string>& tokens, Paren /*p**/)
 			const string& str = tokens[i];
 			for(size_t j = 0; j < str.size(); j++)
 			{
-				if(!st.palette.exist(str[j]) || !st.palette.p[str[j]])
+				if(!st.palette.exist(str[j]))
 				{
 					st.palette.p[str[j]] = col;
 					cout << "colordef: '" << str[j] << "' is " << col << endl;
