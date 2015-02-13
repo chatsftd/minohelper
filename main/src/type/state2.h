@@ -35,9 +35,11 @@ struct Color
 
 
 
-struct color_palette
+class color_palette
 {
 	std::map<char,Color> p;
+	
+public:
 	Color default_color;
 	color_palette(void) : p(), default_color(RED) {}
 	bool exist(char c) const;
