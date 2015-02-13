@@ -45,6 +45,11 @@ bool color_palette::exist(char c) const
 	return !(this->p.find(c)->second.is_null());
 }
 
+void color_palette::set_color_of(char c, Color col)
+{
+	this->p[c] = col;
+}
+
 Color color_palette::get_color_of(char c) const
 {
 	if(this->exist(c))
