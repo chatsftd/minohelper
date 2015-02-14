@@ -2,6 +2,7 @@
 #include "import.h"
 #include "export.h"
 #include "parsearg.h"
+#include "version.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,6 +60,8 @@ int main(int argc, char** argv)
 		}
 	}
 	
+	cout << "minohelper (ver " << VERSION << ")" << endl;
+	cout << "Type 'help' for help." << endl;
 	while(true)
 	{
 		string tmp = "";
