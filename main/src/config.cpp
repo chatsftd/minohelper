@@ -17,7 +17,7 @@ static bool is_varname(const string& str)
 	if(str.empty() || !is_varname_init_char(str[0])){ return false; }
 	for(size_t i = 1; i < str.size(); i++)
 	{
-		if(!is_varname_more_char(str[i])){ return false;}
+		if(!is_varname_more_char(str[i])){ return false; }
 	}
 	return true;
 }
@@ -40,14 +40,14 @@ static parsestat parse_line(const string& str, string& varname, int& num)
 	{
 		if(!isspace(str[pos])) break;
 		pos++;
-		if(pos >= str.size()) return EMPTY_LINE;
+		if(pos >= str.size()){ return EMPTY_LINE; } 
 	}
 	
 	char init_char = str[pos];
-	if(!is_varname_init_char(init_char)){return INVALID_LINE;} 
+	if(!is_varname_init_char(init_char)){ return INVALID_LINE; } 
 	varname += empty + init_char;
 	pos++;
-	if(pos >= str.size()){return INVALID_LINE;} 
+	if(pos >= str.size()){ return INVALID_LINE; } 
 	
 	while(true)
 	{
@@ -55,18 +55,18 @@ static parsestat parse_line(const string& str, string& varname, int& num)
 		if(!is_varname_more_char(str[pos])) break;
 		pos++;
 		varname += empty + a;
-		if(pos >= str.size()){return INVALID_LINE;} 
+		if(pos >= str.size()){ return INVALID_LINE; } 
 	}
 	
 	while(true) // after varname
 	{
 		if(!isspace(str[pos])) break;
 		pos++;
-		if(pos >= str.size()){return INVALID_LINE;} 
+		if(pos >= str.size()){ return INVALID_LINE; } 
 	}
 	
-	if(str[pos++] != '='){return INVALID_LINE;} 
-	if(pos >= str.size()){return INVALID_LINE;} 
+	if(str[pos++] != '='){ return INVALID_LINE; } 
+	if(pos >= str.size()){ return INVALID_LINE; } 
 	
 	string leftover = str.substr(pos);
 	stringstream ss(leftover.c_str());
@@ -136,11 +136,8 @@ error_level config_(state& /*st**/, const arguments2& args)
 	cout << "File path: " << path << endl;
 	
 	const vector<string> opt = opts[0];
-	
-	switch(opt.size())
+	if(opt[0] == "--set")
 	{
-		case 3: //set
-			{
 				if(!is_varname(opt[1]))
 				{
 					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
@@ -164,11 +161,9 @@ error_level config_(state& /*st**/, const arguments2& args)
 					return CONFIG_WRITE_FAILED;
 				}
 				ofs << '\n' << opt[1] << " = " << opt[2] << endl;
-			}
-		break;
-		
-		case 2: //get
-			{
+	}
+	else if(opt[0] == "--get")
+	{
 				if(!is_varname(opt[1]))
 				{
 					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
@@ -185,11 +180,9 @@ error_level config_(state& /*st**/, const arguments2& args)
 				error_level s = get_data(ifs,opt[1],num);
 				if(s != ALL_OK) return s;
 				cout << num << endl << endl;
-			}
-		break;
-		
-		case 1:
-			{
+	}
+	else if(opt[0] == "--list")
+	{
 				cout << "list:" << endl;
 				ifstream ifs(path.c_str());
 				if(!ifs)
@@ -205,8 +198,6 @@ error_level config_(state& /*st**/, const arguments2& args)
 					cout << "    " << (it->first) << " = " << (it->second) << endl;
 				}
 				cout << endl;
-			}
-		break;
 	}
 	
 	return ALL_OK;

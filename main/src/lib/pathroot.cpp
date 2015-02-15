@@ -37,7 +37,7 @@ std::string path_root()
 
 	if(root_path[0] == '~'){
 		std::string home = getenv_limited(ENV_HOME, MAX_SAFE_PATH);
-		root_path.replace( 0, 1, home);
+		root_path.replace(0, 1, home);
 	}
     return root_path;
 }
