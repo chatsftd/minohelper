@@ -38,8 +38,10 @@ string help_message(const string& command)
 	else if(command == "exit")
 	{
 		return( 
-			"usage: exit\n"
+			"usage: exit [<num>]\n"
 			"  Exit minohelper\n"
+			"  If called with an argument, \n"
+			"  this command will return it as the error code."
 			);
 	}
 	else if(command == "status")

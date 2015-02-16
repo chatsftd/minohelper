@@ -31,6 +31,21 @@ static error_level status_(state& st, const arguments2& /*args**/)
 	return s; // inherit the error level
 }
 
+static error_level exit_(state& st, const arguments2& args)
+{
+	if(args.size() < 2){ return EXIT_ALL; }
+	stringstream ss(args[1].c_str());
+	int num;
+	ss >> num;
+	if(!ss){ return EXIT_ALL; }
+	else
+	{
+		st.error_status = static_cast<error_level_i>(num);
+		return EXIT_ALL;
+	}
+	
+}
+
 error_level interpret(state& st, const string& a)
 {
 	arguments2 args;
@@ -38,10 +53,7 @@ error_level interpret(state& st, const string& a)
 	
 	if(args.empty()){return ALL_OK;}
 #define if2(a) if(args[0] == string(a))	
-	if2("exit")
-	{
-		return EXIT_ALL;
-	}
+	     if2("exit"  ) return   exit_(st,args);
 	else if2("import") return import_(st,args);
 	else if2("export") return export_(st,args);
 	else if2("status") return status_(st,args);
