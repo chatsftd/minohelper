@@ -1,4 +1,5 @@
 #include "config.h"
+#include "parseconfig.h"
 #include "parsearg.h"
 #include "help.h"
 #include "lib/debug.h"
@@ -9,78 +10,12 @@
 #include <map>
 using namespace std;
 
-static inline bool is_varname_init_char(char a){ return isalpha(a) || (a == '_'); }
-static inline bool is_varname_more_char(char a){ return isalnum(a) || (a == '_') || (a == '.'); }
 
-static bool is_varname(const string& str)
+static error_level get_all(istream& ifs, map<string,config_value>& list);
+
+static error_level get_data(istream& ifs, const string& name, config_value& num2)
 {
-	if(str.empty() || !is_varname_init_char(str[0])){ return false; }
-	for(size_t i = 1; i < str.size(); i++)
-	{
-		if(!is_varname_more_char(str[i])){ return false; }
-	}
-	return true;
-}
-
-enum parsestat
-{
-	EMPTY_LINE,
-	VALID_LINE,
-	INVALID_LINE
-};
-
-static parsestat parse_line(const string& str, string& varname, int& num)
-{
-	size_t pos = 0;
-	varname = "";
-	const static string empty = "";
-	if(str.size() == 0){ return EMPTY_LINE; }
-	
-	while(true) // before varname
-	{
-		if(!isspace(str[pos])) break;
-		pos++;
-		if(pos >= str.size()){ return EMPTY_LINE; } 
-	}
-	
-	char init_char = str[pos];
-	if(!is_varname_init_char(init_char)){ return INVALID_LINE; } 
-	varname += empty + init_char;
-	pos++;
-	if(pos >= str.size()){ return INVALID_LINE; } 
-	
-	while(true)
-	{
-		char a = str[pos];
-		if(!is_varname_more_char(str[pos])) break;
-		pos++;
-		varname += empty + a;
-		if(pos >= str.size()){ return INVALID_LINE; } 
-	}
-	
-	while(true) // after varname
-	{
-		if(!isspace(str[pos])) break;
-		pos++;
-		if(pos >= str.size()){ return INVALID_LINE; } 
-	}
-	
-	if(str[pos++] != '='){ return INVALID_LINE; } 
-	if(pos >= str.size()){ return INVALID_LINE; } 
-	
-	string leftover = str.substr(pos);
-	stringstream ss(leftover.c_str());
-	ss >> num;
-	if(!ss){return INVALID_LINE;} 
-	return VALID_LINE;
-	
-}
-
-static error_level get_all(istream& ifs, map<string,int>& list);
-
-static error_level get_data(istream& ifs, const string& name, int& num2)
-{
-	map<string,int> list;
+	map<string,config_value> list;
 	error_level s = get_all(ifs,list);
 	if(s != ALL_OK) return s;
 	
@@ -94,13 +29,13 @@ static error_level get_data(istream& ifs, const string& name, int& num2)
 	return ALL_OK;
 }
 
-static error_level get_all(istream& ifs, map<string,int>& list)
+static error_level get_all(istream& ifs, map<string,config_value>& list)
 {
 	string str;
 	while(getline(ifs, str))
 	{
 		string vname;
-		int num;
+		config_value num;
 		parsestat s = parse_line(str,vname,num);
 		switch(s)
 		{ 
@@ -145,7 +80,7 @@ error_level config_(state& /*st**/, const arguments2& args)
 				}
 				
 				stringstream ss(opt[2].c_str());
-				int num;
+				config_value num;
 				ss >> num;
 				if(!ss)
 				{
@@ -176,7 +111,7 @@ error_level config_(state& /*st**/, const arguments2& args)
 					cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
 					return CONFIG_READ_FAILED;
 				}
-				int num;
+				config_value num;
 				error_level s = get_data(ifs,opt[1],num);
 				if(s != ALL_OK) return s;
 				cout << num << endl << endl;
@@ -190,10 +125,10 @@ error_level config_(state& /*st**/, const arguments2& args)
 					cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
 					return CONFIG_READ_FAILED;
 				}
-				map<string,int> list;
+				map<string,config_value> list;
 				error_level s = get_all(ifs,list);
 				if(s != ALL_OK) return s;
-				for(map<string,int>::iterator it = list.begin(); it != list.end(); ++it)
+				for(map<string,config_value>::iterator it = list.begin(); it != list.end(); ++it)
 				{
 					cout << "    " << (it->first) << " = " << (it->second) << endl;
 				}
