@@ -49,6 +49,24 @@ static error_level get_all(istream& ifs, map<string,config_value>& list)
 	return ALL_OK;
 }
 
+static error_level write_all(ostream& os, const string& path)
+{
+	ifstream ifs(path.c_str());
+	if(!ifs)
+	{
+		cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
+		return CONFIG_READ_FAILED;
+	}
+	map<string,config_value> list;
+	error_level s = get_all(ifs,list);
+	if(s != ALL_OK) return s;
+	for(map<string,config_value>::iterator it = list.begin(); it != list.end(); ++it)
+	{
+		os << "    " << (it->first) << " = " << (it->second) << endl;
+	}
+	return ALL_OK;
+}
+
 error_level config_(state& /*st**/, const arguments2& args)
 {
 	ret_data ret;
@@ -56,6 +74,7 @@ error_level config_(state& /*st**/, const arguments2& args)
 	info["--set" ] = 2; // config --set verbosity 3
 	info["--get" ] = 1; // config --get verbosity
 	info["--list"] = 0; // config --list
+	info["--compress"] = 0; // config --compress
 	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
 	
@@ -119,20 +138,13 @@ error_level config_(state& /*st**/, const arguments2& args)
 	else if(opt[0] == "--list")
 	{
 				cout << "list:" << endl;
-				ifstream ifs(path.c_str());
-				if(!ifs)
-				{
-					cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
-					return CONFIG_READ_FAILED;
-				}
-				map<string,config_value> list;
-				error_level s = get_all(ifs,list);
-				if(s != ALL_OK) return s;
-				for(map<string,config_value>::iterator it = list.begin(); it != list.end(); ++it)
-				{
-					cout << "    " << (it->first) << " = " << (it->second) << endl;
-				}
+		error_level e = write_all(cout,path);
+		if(e != ALL_OK) return e;
 				cout << endl;
+	}
+	else if(opt[0] == "--compress")
+	{
+		
 	}
 	
 	return ALL_OK;
