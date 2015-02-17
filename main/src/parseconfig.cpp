@@ -2,6 +2,20 @@
 #include <sstream>
 using namespace std;
 
+
+ostream& operator<<(ostream& os, const config_value& val)
+{
+  os << val.inside;
+  return os;
+}
+
+istream& operator>>(istream& is, config_value& val)
+{
+  is >> val.inside;
+  if(!is){ is.setstate(ios::failbit); }
+  return is;
+}
+
 static inline bool is_varname_init_char(char a){ return isalpha(a) || (a == '_'); }
 static inline bool is_varname_more_char(char a){ return isalnum(a) || (a == '_') || (a == '.'); }
 
