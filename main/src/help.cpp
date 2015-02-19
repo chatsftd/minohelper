@@ -68,8 +68,10 @@ string help_message(const string& command)
 			"usage: config --set <varname> <value>\n"
 			"       config --get <varname>\n"
 			"       config --list\n"
+			"       config --compress\n"
 			"  Set, get and list the config\n"
 			"  If called with no arguments, it will display this help.\n"
+			"  'config --compress' removes the redundancy in the config file.\n"
 			);
 	}
 	else{ return "";}

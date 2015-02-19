@@ -49,7 +49,7 @@ static error_level get_all(istream& ifs, map<string,config_value>& list)
 	return ALL_OK;
 }
 
-static error_level write_all(ostream& os, const string& path)
+static error_level write_all(ostream& os, const string& path, bool padding)
 {
 	ifstream ifs(path.c_str());
 	if(!ifs)
@@ -62,7 +62,7 @@ static error_level write_all(ostream& os, const string& path)
 	if(s != ALL_OK) return s;
 	for(map<string,config_value>::iterator it = list.begin(); it != list.end(); ++it)
 	{
-		os << "    " << (it->first) << " = " << (it->second) << endl;
+		os << (padding ? "    " : "") << (it->first) << " = " << (it->second) << endl;
 	}
 	return ALL_OK;
 }
@@ -138,13 +138,26 @@ error_level config_(state& /*st**/, const arguments2& args)
 	else if(opt[0] == "--list")
 	{
 				cout << "list:" << endl;
-		error_level e = write_all(cout,path);
+		error_level e = write_all(cout,path,true);
 		if(e != ALL_OK) return e;
 				cout << endl;
 	}
 	else if(opt[0] == "--compress")
 	{
+		stringstream ss;
+		error_level e = write_all(ss,path,false);
+		if(e != ALL_OK) return e;
 		
+		ofstream ofs(path.c_str(), ios::out);
+		if(!ofs)
+		{
+			cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
+			return CONFIG_WRITE_FAILED;
+		}
+		
+		const string str = ss.str(); 
+		ofs << str << flush;
+		cout << "The config file was successfully compressed." << endl << endl;
 	}
 	
 	return ALL_OK;
