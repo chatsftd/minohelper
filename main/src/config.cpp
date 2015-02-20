@@ -10,8 +10,25 @@
 #include <map>
 using namespace std;
 
-
-static error_level get_all(istream& ifs, map<string,config_value>& list);
+static error_level get_all(istream& ifs, map<string,config_value>& list)
+{
+	string str;
+	while(getline(ifs, str))
+	{
+		string vname;
+		config_value val;
+		parsestat s = parse_line(str,vname,val);
+		switch(s)
+		{ 
+			case EMPTY_LINE: continue;
+			case VALID_LINE: list[vname] = val; break;
+			case INVALID_LINE:
+				cerr << "Config line '" << str << "' is invalid" << endl; cout << endl;
+			return CONFIG_FORMAT_WRONG;
+		} 
+	}
+	return ALL_OK;
+}
 
 static error_level get_data(istream& ifs, const string& name, config_value& num2)
 {
@@ -26,26 +43,6 @@ static error_level get_data(istream& ifs, const string& name, config_value& num2
 	}
 	
 	num2 = list[name];
-	return ALL_OK;
-}
-
-static error_level get_all(istream& ifs, map<string,config_value>& list)
-{
-	string str;
-	while(getline(ifs, str))
-	{
-		string vname;
-		config_value num;
-		parsestat s = parse_line(str,vname,num);
-		switch(s)
-		{ 
-			case EMPTY_LINE: continue;
-			case VALID_LINE: list[vname] = num; break;
-			case INVALID_LINE:
-				cerr << "Config line '" << str << "' is invalid" << endl; cout << endl;
-			return CONFIG_FORMAT_WRONG;
-		} 
-	}
 	return ALL_OK;
 }
 
@@ -99,15 +96,14 @@ error_level config_(state& /*st**/, const arguments2& args)
 		}
 		
 		stringstream ss(opt[2].c_str());
-		config_value num;
-		ss >> num;
+		config_value val;
+		ss >> val;
 		if(!ss)
 		{
 			cerr << "'" << opt[2] << "' is not a valid value for config variable." << endl; cout << endl;
 			return INVALID_ARGS;
 		}
 		
-		cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
 		ofstream ofs(path.c_str(), ios::out | ios::app);
 		if(!ofs)
 		{
@@ -115,6 +111,9 @@ error_level config_(state& /*st**/, const arguments2& args)
 			return CONFIG_WRITE_FAILED;
 		}
 		ofs << '\n' << opt[1] << " = " << opt[2] << endl;
+
+		
+		cout << "set " << opt[1] << " = " << opt[2] << endl;
 	}
 	else if(opt[0] == "--get")
 	{
@@ -130,17 +129,16 @@ error_level config_(state& /*st**/, const arguments2& args)
 			cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
 			return CONFIG_READ_FAILED;
 		}
-		config_value num;
-		error_level s = get_data(ifs,opt[1],num);
+		config_value val;
+		error_level s = get_data(ifs,opt[1],val);
 		if(s != ALL_OK) return s;
-		cout << num << endl << endl;
+		cout << val << endl;
 	}
 	else if(opt[0] == "--list")
 	{
 		cout << "list:" << endl;
 		error_level e = write_all(cout,path,true);
 		if(e != ALL_OK) return e;
-		cout << endl;
 	}
 	else if(opt[0] == "--compress")
 	{
@@ -157,8 +155,8 @@ error_level config_(state& /*st**/, const arguments2& args)
 		
 		const string str = ss.str(); 
 		ofs << str << flush;
-		cout << "The config file was successfully compressed." << endl << endl;
+		cout << "The config file was successfully compressed." << endl;
 	}
-	
+	cout << endl;
 	return ALL_OK;
 }
