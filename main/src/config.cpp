@@ -71,9 +71,9 @@ error_level config_(state& /*st**/, const arguments2& args)
 {
 	ret_data ret;
 	arg_info info;
-	info["--set" ] = 2; // config --set verbosity 3
-	info["--get" ] = 1; // config --get verbosity
-	info["--list"] = 0; // config --list
+	info["--set"     ] = 2; // config --set verbosity 3
+	info["--get"     ] = 1; // config --get verbosity
+	info["--list"    ] = 0; // config --list
 	info["--compress"] = 0; // config --compress
 	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
@@ -92,55 +92,55 @@ error_level config_(state& /*st**/, const arguments2& args)
 	const vector<string> opt = opts[0];
 	if(opt[0] == "--set")
 	{
-				if(!is_varname(opt[1]))
-				{
-					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
-					return INVALID_ARGS;
-				}
-				
-				stringstream ss(opt[2].c_str());
-				config_value num;
-				ss >> num;
-				if(!ss)
-				{
-					cerr << "'" << opt[2] << "' is not a valid value for config variable." << endl; cout << endl;
-					return INVALID_ARGS;
-				}
-				
-				cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
-				ofstream ofs(path.c_str(), ios::out | ios::app);
-				if(!ofs)
-				{
-					cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
-					return CONFIG_WRITE_FAILED;
-				}
-				ofs << '\n' << opt[1] << " = " << opt[2] << endl;
+		if(!is_varname(opt[1]))
+		{
+			cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		
+		stringstream ss(opt[2].c_str());
+		config_value num;
+		ss >> num;
+		if(!ss)
+		{
+			cerr << "'" << opt[2] << "' is not a valid value for config variable." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		
+		cout << "set " << opt[1] << " = " << opt[2] << endl << endl;
+		ofstream ofs(path.c_str(), ios::out | ios::app);
+		if(!ofs)
+		{
+			cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
+			return CONFIG_WRITE_FAILED;
+		}
+		ofs << '\n' << opt[1] << " = " << opt[2] << endl;
 	}
 	else if(opt[0] == "--get")
 	{
-				if(!is_varname(opt[1]))
-				{
-					cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
-					return INVALID_ARGS;
-				}
-				cout << "get " << opt[1] << endl;
-				ifstream ifs(path.c_str());
-				if(!ifs)
-				{
-					cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
-					return CONFIG_READ_FAILED;
-				}
-				config_value num;
-				error_level s = get_data(ifs,opt[1],num);
-				if(s != ALL_OK) return s;
-				cout << num << endl << endl;
+		if(!is_varname(opt[1]))
+		{
+			cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		cout << "get " << opt[1] << endl;
+		ifstream ifs(path.c_str());
+		if(!ifs)
+		{
+			cerr << "Unable to read from '" << path << "'" << endl; cout << endl;
+			return CONFIG_READ_FAILED;
+		}
+		config_value num;
+		error_level s = get_data(ifs,opt[1],num);
+		if(s != ALL_OK) return s;
+		cout << num << endl << endl;
 	}
 	else if(opt[0] == "--list")
 	{
-				cout << "list:" << endl;
+		cout << "list:" << endl;
 		error_level e = write_all(cout,path,true);
 		if(e != ALL_OK) return e;
-				cout << endl;
+		cout << endl;
 	}
 	else if(opt[0] == "--compress")
 	{
