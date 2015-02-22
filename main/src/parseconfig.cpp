@@ -44,6 +44,11 @@ parsestat parse_line(const string& str, string& varname, config_value& num)
 	}
 	
 	char init_char = str[pos];
+	if(init_char == '~')
+	{
+		pos++;
+		goto parse_deletion_line; //located at the end of the function
+	} 
 	if(!is_varname_init_char(init_char)){ return INVALID_LINE; } 
 	varname += empty + init_char;
 	pos++;
@@ -68,9 +73,39 @@ parsestat parse_line(const string& str, string& varname, config_value& num)
 	if(str[pos++] != '='){ return INVALID_LINE; } 
 	if(pos >= str.size()){ return INVALID_LINE; } 
 	
-	string leftover = str.substr(pos);
-	stringstream ss(leftover.c_str());
-	ss >> num;
-	if(!ss){return INVALID_LINE;} 
+	{ /* goto cannot jump over initialization */
+		string leftover = str.substr(pos);
+		stringstream ss(leftover.c_str());
+		ss >> num;
+		if(!ss){return INVALID_LINE;} 
+	}
 	return VALID_LINE;
+	
+	
+	/************
+	 * DELETION *
+	 ************/
+parse_deletion_line:
+	while(true) // before varname
+	{
+		if(!isspace(str[pos])) break;
+		pos++;
+		if(pos >= str.size()){ return INVALID_LINE; } 
+	}
+	
+	char init_char2 = str[pos];
+	if(!is_varname_init_char(init_char2)){ return INVALID_LINE; } 
+	varname += empty + init_char2;
+	pos++;
+	if(pos >= str.size()){ return DELETION_LINE; } 
+	
+	while(true)
+	{
+		char a = str[pos];
+		if(!is_varname_more_char(str[pos])) break;
+		pos++;
+		varname += empty + a;
+		if(pos >= str.size()) break;
+	}
+	return DELETION_LINE;
 }

@@ -22,6 +22,7 @@ static error_level get_all(istream& ifs, map<string,config_value>& list)
 		{ 
 			case EMPTY_LINE: continue;
 			case VALID_LINE: list[vname] = val; break;
+			case DELETION_LINE: list.erase(vname); break;
 			case INVALID_LINE:
 				cerr << "Config line '" << str << "' is invalid" << endl; cout << endl;
 			return CONFIG_FORMAT_WRONG;
@@ -70,8 +71,9 @@ error_level config_(state& /*st**/, const arguments2& args)
 	arg_info info;
 	info["--set"     ] = 2; // config --set verbosity 3
 	info["--get"     ] = 1; // config --get verbosity
-	info["--list"    ] = 0; // config --list
-	info["--compress"] = 0; // config --compress
+	info["--delete"  ] = 1; // config --delete verbosity
+	info["--list"    ] = 0;
+	info["--compress"] = 0;
 	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
 	
@@ -114,6 +116,24 @@ error_level config_(state& /*st**/, const arguments2& args)
 
 		
 		cout << "set " << opt[1] << " = " << opt[2] << endl;
+	}
+	else if(opt[0] == "--delete")
+	{
+		if(!is_varname(opt[1]))
+		{
+			cerr << "'" << opt[1] << "' is not a valid name for config variable." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		
+		ofstream ofs(path.c_str(), ios::out | ios::app);
+		if(!ofs)
+		{
+			cerr << "Unable to write to '" << path << "'" << endl; cout << endl;
+			return CONFIG_WRITE_FAILED;
+		}
+		ofs << '\n' << '~' << opt[1] << endl;
+		
+		cout << "delete " << opt[1] << endl;
 	}
 	else if(opt[0] == "--get")
 	{

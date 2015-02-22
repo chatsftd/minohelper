@@ -11,7 +11,7 @@ static const char help[] = (
  "     exit     Exit minohelper\n"
  "     status   Display minohelper's status\n"
  "     help     Display this list\n"
- "     config   Set, get and list the config\n"
+ "     config   Set, get, delete and list the config\n"
  "\n"
  "For more information, see 'help <command>'.\n"
  );
@@ -67,9 +67,10 @@ string help_message(const string& command)
 		return( 
 			"usage: config --set <varname> <value>\n"
 			"       config --get <varname>\n"
+			"       config --delete <varname>\n"
 			"       config --list\n"
 			"       config --compress\n"
-			"  Set, get and list the config\n"
+			"  Set, get, delete and list the config\n"
 			"  If called with no arguments, it will display this help.\n"
 			"  'config --compress' removes the redundancy in the config file.\n"
 			);

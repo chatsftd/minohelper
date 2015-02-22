@@ -7,6 +7,7 @@ enum parsestat
 {
 	EMPTY_LINE,
 	VALID_LINE,
+	DELETION_LINE,
 	INVALID_LINE
 };
 
