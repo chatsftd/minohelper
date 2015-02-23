@@ -79,7 +79,12 @@ error_level config_(state& /*st**/, const arguments2& args)
 	
 	const vector<vector<string> > opts = ret.options();
 	
-	if(opts.empty())
+	bool valid_option_exists = false;
+	for(size_t i = 0; i < opts.size(); i++)
+	{
+		if(opts[i][0] != "") valid_option_exists = true;
+	}
+	if(!valid_option_exists)
 	{
 		cout << help_message("config") << endl;
 		return ALL_OK;
@@ -88,7 +93,10 @@ error_level config_(state& /*st**/, const arguments2& args)
 	string path = path_root() + "minohelper_config.txt";
 	cout << "File path: " << path << endl;
 	
-	const vector<string> opt = opts[0];
+	for(size_t i = 0; i < opts.size(); i++)
+	{
+/*indent*/
+	const vector<string> opt = opts[i];
 	if(opt[0] == "--set")
 	{
 		if(!is_varname(opt[1]))
@@ -178,5 +186,8 @@ error_level config_(state& /*st**/, const arguments2& args)
 		cout << "The config file was successfully compressed." << endl;
 	}
 	cout << endl;
+/*indent*/	
+	
+	}
 	return ALL_OK;
 }

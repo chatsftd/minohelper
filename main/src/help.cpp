@@ -72,6 +72,7 @@ string help_message(const string& command)
 			"       config --compress\n"
 			"  Set, get, delete and list the config\n"
 			"  If called with no arguments, it will display this help.\n"
+			"  If called with many options, it will execute them left-to-right.\n"
 			"  'config --compress' removes the redundancy in the config file.\n"
 			);
 	}
