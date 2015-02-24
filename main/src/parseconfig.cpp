@@ -33,7 +33,6 @@ parsestat parse_line(const string& str, string& varname, config_value& num)
 {
 	size_t pos = 0;
 	varname = "";
-	const static string empty = "";
 	if(str.size() == 0){ return EMPTY_LINE; }
 	
 	while(true) // before varname
@@ -50,7 +49,7 @@ parsestat parse_line(const string& str, string& varname, config_value& num)
 		goto parse_deletion_line; //located at the end of the function
 	} 
 	if(!is_varname_init_char(init_char)){ return INVALID_LINE; } 
-	varname += empty + init_char;
+	varname.append(1,init_char);
 	pos++;
 	if(pos >= str.size()){ return INVALID_LINE; } 
 	
@@ -59,7 +58,7 @@ parsestat parse_line(const string& str, string& varname, config_value& num)
 		char a = str[pos];
 		if(!is_varname_more_char(str[pos])) break;
 		pos++;
-		varname += empty + a;
+		varname.append(1,a);
 		if(pos >= str.size()){ return INVALID_LINE; } 
 	}
 	
@@ -95,16 +94,16 @@ parse_deletion_line:
 	
 	char init_char2 = str[pos];
 	if(!is_varname_init_char(init_char2)){ return INVALID_LINE; } 
-	varname += empty + init_char2;
+	varname.append(1,init_char2);
 	pos++;
 	if(pos >= str.size()){ return DELETION_LINE; } 
 	
 	while(true)
 	{
 		char a = str[pos];
-		if(!is_varname_more_char(str[pos])) break;
+		if(!is_varname_more_char(str[pos])){ return INVALID_LINE; } 
 		pos++;
-		varname += empty + a;
+		varname.append(1,a);
 		if(pos >= str.size()) break;
 	}
 	return DELETION_LINE;
