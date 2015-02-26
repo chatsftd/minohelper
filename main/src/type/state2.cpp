@@ -61,3 +61,17 @@ Color color_palette::get_color_of(char c) const
 		return this->default_color;
 	}
 }
+
+direction dir_info::get_direction(point p) const
+{
+	direction ans = TO_SOUTH; //default
+	for(map<point,direction>::const_iterator it = this->inside.begin(); it != this->inside.end(); ++it)
+	{
+		if(it->first > p) break;
+		ans = it->second;
+	}
+	return ans;
+}
+
+direction dir_info::get_direction(size_t f, size_t s) const{return this->get_direction(point(f,s));}
+

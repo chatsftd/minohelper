@@ -1,6 +1,7 @@
 #ifndef STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #define STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #include "../lib/maybe.h"
+#include "point.h"
 #include <map>
 #include <string>
 #include <iostream>
@@ -32,7 +33,25 @@ struct Color
 	friend std::ostream& operator<<(std::ostream& o, const Color& p);
 };
 
+enum direction
+{
+	TO_SOUTH,
+	TO_EAST,
+	TO_NORTH,
+	TO_WEST
+};
 
+class dir_info
+{
+	std::map<point,direction> inside;
+	
+public:
+	void set_direction(point p, direction dir){ this->inside[p] = dir; }
+	void set_direction(size_t f, size_t s, direction dir){ this->inside[point(f,s)] = dir; }
+	direction get_direction(point p) const;
+	direction get_direction(size_t f, size_t s) const;
+};
+ 
 
 
 class color_palette
@@ -50,6 +69,7 @@ public:
 struct state2
 {
 	color_palette palette;
+	dir_info dir;
 };
 
 #endif/*STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC*/
