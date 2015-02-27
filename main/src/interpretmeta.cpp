@@ -2,7 +2,6 @@
 #include "parsemeta.h"
 #include "colordef.h"
 using namespace std;
-static vector<string> tokenize(const string& str);
 static error_level interpretmeta2(state2& st, meta m);
 
 
@@ -24,7 +23,7 @@ static error_level comment_(state2& /*st**/, const vector<string>& tokens, Paren
 
 static error_level interpretmeta2(state2& st, meta m)
 {
-	vector<string> tokens = tokenize(m.content);
+	vector<string> tokens = m.get_tokens();
 	Paren p = m.paren;
 	
 	if(tokens.empty()){ return ALL_OK; }
@@ -58,52 +57,4 @@ error_level interpretmeta(state2& st, vector<string>& plane)
 	}
 	return ALL_OK;
 }
-
-static vector<string> tokenize(const string& str)
-{
-	vector<string> res;
-	string tmp = "";
-	static const string empty = "";
-	for(size_t i = 0, n = str.size(); i < n; i++)
-	{
-		char c = str[i];
-		switch(c)
-		{
-			case ' ' : /*FALLTHROUGH*/
-			case '\t':
-			case '\n':
-				if(!tmp.empty())
-				{
-					res.push_back(tmp);
-					tmp = "";
-				}
-				break;
-				
-			case '(': /*FALLTHROUGH*/
-			case '{': /*FALLTHROUGH*/
-			case '[': /*FALLTHROUGH*/
-			case ')': /*FALLTHROUGH*/
-			case '}': /*FALLTHROUGH*/
-			case ']':
-				if(!tmp.empty())
-				{
-					res.push_back(tmp);
-					tmp = "";
-				}
-				res.push_back(empty + c);
-				break;
-				
-			default:
-				tmp += c;
-				break;
-		}
-	}
-	if(!tmp.empty())
-	{
-		res.push_back(tmp);
-		tmp = "";
-	}
-	return res;
-}
-
 

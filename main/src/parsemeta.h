@@ -18,6 +18,7 @@ struct meta
 	std::string content;
 	point pos;
 	meta(Paren pa, point po) : paren(pa), content(""), pos(po) {}
+	std::vector<std::string> get_tokens();
 	friend std::ostream& operator<<(std::ostream& o, const meta& p);
 };
 typedef std::vector<meta> all_meta;
