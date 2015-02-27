@@ -47,7 +47,7 @@ static error_level interpretmeta2(state2& st, meta m)
 
 error_level interpretmeta(state2& st, vector<string>& plane)
 {
-	SyntaxTree2 tree2;
+	all_meta tree2;
 	error_level s = parsemeta(tree2,plane);
 	if(s != ALL_OK) return s;
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
