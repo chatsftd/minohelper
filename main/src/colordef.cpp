@@ -44,7 +44,7 @@ static Maybe<Color> get_color(const string& str)
 	else return Nothing<Color>();
 }
 
-error_level colordef_(state2& st, meta m)
+error_level colordef_(state2& st, const meta& m)
 {
 	const vector<string> tokens = m.get_tokens();
 	if(tokens.size() < 2)

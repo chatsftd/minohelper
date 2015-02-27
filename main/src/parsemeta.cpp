@@ -69,7 +69,7 @@ ostream& operator<<(ostream& o, const meta& m)
 	return o << paren_begin(m.paren) << m.content << paren_end(m.paren) << " at " << m.pos;
 }
 
-std::vector<std::string> meta::get_tokens()
+vector<string> meta::get_tokens() const
 {
 	vector<string> res;
 	string tmp = "";

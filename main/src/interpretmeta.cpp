@@ -2,17 +2,17 @@
 #include "parsemeta.h"
 #include "colordef.h"
 using namespace std;
-static error_level interpretmeta2(state2& st, meta m);
+static error_level interpretmeta2(state2& st, const meta& m);
 
 
-static error_level direction_(state2& /*st**/, meta /*m**/)
+static error_level direction_(state2& /*st**/, const meta& /*m**/)
 {
 	return ALL_OK; // fixme
 }
 
-static error_level comment_(state2& /*st**/, meta m)
+static error_level comment_(state2& /*st**/, const meta& m)
 {
-	string last_token = m.get_tokens().back();
+	const string last_token = m.get_tokens().back();
 	if(last_token[last_token.size()-1] != '-')
 	{
 		cerr << "The comment is unterminated." << endl; cout << endl;
@@ -21,9 +21,9 @@ static error_level comment_(state2& /*st**/, meta m)
 	return ALL_OK;
 }
 
-static error_level interpretmeta2(state2& st, meta m)
+static error_level interpretmeta2(state2& st, const meta& m)
 {
-	vector<string> tokens = m.get_tokens();
+	const vector<string> tokens = m.get_tokens();
 	Paren p = m.paren;
 	
 	if(tokens.empty()){ return ALL_OK; }
