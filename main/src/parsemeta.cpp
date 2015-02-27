@@ -71,13 +71,12 @@ ostream& operator<<(ostream& o, const meta& m)
 
 std::vector<std::string> meta::get_tokens()
 {
-#define str this->content
 	vector<string> res;
 	string tmp = "";
 	static const string empty = "";
-	for(size_t i = 0, n = str.size(); i < n; i++)
+	for(size_t i = 0, n = this->content.size(); i < n; i++)
 	{
-		char c = str[i];
+		char c = this->content[i];
 		switch(c)
 		{
 			case ' ' : /*FALLTHROUGH*/
