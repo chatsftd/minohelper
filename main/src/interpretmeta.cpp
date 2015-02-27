@@ -5,14 +5,14 @@ using namespace std;
 static error_level interpretmeta2(state2& st, meta m);
 
 
-static error_level direction_(state2& /*st**/, const vector<string>& /*tokens**/, Paren /*p**/)
+static error_level direction_(state2& /*st**/, meta /*m**/)
 {
 	return ALL_OK; // fixme
 }
 
-static error_level comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p**/)
+static error_level comment_(state2& /*st**/, meta m)
 {
-	string last_token = tokens[tokens.size()-1];
+	string last_token = m.get_tokens().back();
 	if(last_token[last_token.size()-1] != '-')
 	{
 		cerr << "The comment is unterminated." << endl; cout << endl;
@@ -30,12 +30,12 @@ static error_level interpretmeta2(state2& st, meta m)
 #define if2(a) if(tokens[0] == string(a))
 	if(tokens[0][0] == '-' && p == Brace)
 	{
-		return comment_  (st,tokens,p);
+		return comment_  (st,m);
 	}
-	else if2("colordefine"){ return colordef_ (st,tokens,p); }
-	else if2("colordef"   ){ return colordef_ (st,tokens,p); }
-	else if2("direction"  ){ return direction_(st,tokens,p); }
-	else if2("dir"        ){ return direction_(st,tokens,p); }
+	else if2("colordefine"){ return colordef_ (st,m); }
+	else if2("colordef"   ){ return colordef_ (st,m); }
+	else if2("direction"  ){ return direction_(st,m); }
+	else if2("dir"        ){ return direction_(st,m); }
 	else
 	{
 		cerr << "Warning: unknown meta info " << m << endl;
