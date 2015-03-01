@@ -1,12 +1,56 @@
 #include "interpretmeta.h"
 #include "parsemeta.h"
 #include "colordef.h"
+#include "lib/maybe.h"
 using namespace std;
 static error_level interpretmeta2(state2& st, const meta& m);
 
+static Maybe<direction> str_to_dir(const string& str)
+{ 
+#define if2(a) if(str == static_cast<string>(a))
+#define JD(a) Just<direction>(a)
+	if2("tosouth"){ return JD(TO_SOUTH); }
+	if2("toeast" ){ return JD(TO_EAST ); }
+	if2("tonorth"){ return JD(TO_NORTH); }
+	if2("towest" ){ return JD(TO_WEST ); }
+	
+	if2("fromnorth"){ return JD(TO_SOUTH); }
+	if2("fromwest" ){ return JD(TO_EAST ); }
+	if2("fromsouth"){ return JD(TO_NORTH); }
+	if2("fromeast" ){ return JD(TO_WEST ); }
+	
+	if2("tobottom"){ return JD(TO_SOUTH); }
+	if2("toright" ){ return JD(TO_EAST ); }
+	if2("totop"   ){ return JD(TO_NORTH); }
+	if2("toleft"  ){ return JD(TO_WEST ); }
+	
+	if2("fromtop"   ){ return JD(TO_SOUTH); }
+	if2("fromleft"  ){ return JD(TO_EAST ); }
+	if2("frombottom"){ return JD(TO_NORTH); }
+	if2("fromright" ){ return JD(TO_WEST ); }
+	else return Nothing<direction>();
+#undef if2	
+} 
 
-static error_level direction_(state2& /*st**/, const meta& /*m**/)
+static error_level direction_(state2& st, const meta& m)
 {
+	const vector<string> tokens = m.get_tokens();
+	if(tokens.size() < 2)
+	{
+		cerr << "Meta info 'direction' needs an argument" << endl; cout << endl;
+		return INVALID_META;
+	}
+	
+	Maybe<direction> mdir = str_to_dir(tokens[1]);
+	if(mdir.isNothing())
+	{
+		cerr << "Invalid direction '" << tokens[1] << "' inside a meta info 'direction'" << endl; cout << endl;
+		return INVALID_META;
+	}
+		
+	direction dir = mdir.unJust();
+	st.dir.set_direction(m.pos,dir);
+	
 	return ALL_OK; // fixme
 }
 
