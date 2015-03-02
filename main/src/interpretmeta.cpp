@@ -5,6 +5,17 @@
 using namespace std;
 static error_level interpretmeta2(state2& st, const meta& m);
 
+static string dir_to_str(direction dir)
+{
+	switch(dir)
+	{
+		case TO_SOUTH: return "to_south";
+		case TO_EAST : return "to_east" ;
+		case TO_NORTH: return "to_north";
+		default      : return "to_west" ;
+	}
+}
+
 static Maybe<direction> str_to_dir(const string& str)
 { 
 #define if2(a) if(str == static_cast<string>(a))
@@ -50,6 +61,8 @@ static error_level direction_(state2& st, const meta& m)
 		
 	direction dir = mdir.unJust();
 	st.dir.set_direction(m.pos,dir);
+	cout << "direction: " << dir_to_str(dir) << " after " << m.pos << endl;
+	
 	
 	return ALL_OK; // fixme
 }
