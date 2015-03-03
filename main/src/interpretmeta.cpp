@@ -2,6 +2,7 @@
 #include "parsemeta.h"
 #include "colordef.h"
 #include "lib/maybe.h"
+#include <sstream>
 using namespace std;
 static error_level interpretmeta2(state2& st, const meta& m);
 
@@ -51,6 +52,11 @@ static error_level direction_(state2& st, const meta& m)
 		cerr << "Meta info 'direction' needs an argument" << endl; cout << endl;
 		return INVALID_META;
 	}
+	if(tokens.size() % 2) //odd number == "direction" + even number 
+	{
+		cerr << "Meta info 'direction' needs odd number of arguments" << endl; cout << endl;
+		return INVALID_META;
+	}
 	
 	Maybe<direction> mdir = str_to_dir(tokens[1]);
 	if(mdir.isNothing())
@@ -63,6 +69,22 @@ static error_level direction_(state2& st, const meta& m)
 	st.dir.set_direction(m.pos,dir);
 	cout << "direction: " << dir_to_str(dir) << " after " << m.pos << endl;
 	
+	const string col_or_row = static_cast<int>(dir)%2 ? "column" : "row";
+	for(size_t i = 2; i < tokens.size(); i += 2) //parse two tokens at once
+	{
+		const string label_name = tokens[i];
+		stringstream ss(tokens[i+1]);
+		int num;
+		ss >> num;
+		if(!ss)
+		{
+			cerr << "Invalid " << col_or_row << " number ";
+			cerr << "'" << tokens[i+1] << "' inside a meta info 'direction'" << endl; cout << endl;
+			return INVALID_META;
+		}
+		cout << "direction.label: '" << tokens[i] << "' is " << col_or_row << " " << num << endl;
+		//fixme: add actual code
+	}
 	
 	return ALL_OK; // fixme
 }
