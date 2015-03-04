@@ -18,11 +18,12 @@ struct meta
 	std::string content;
 	point pos;
 	meta(Paren pa, point po) : paren(pa), content(""), pos(po) {}
+	std::vector<std::string> get_tokens() const;
 	friend std::ostream& operator<<(std::ostream& o, const meta& p);
 };
-typedef std::vector<meta> SyntaxTree2;
+typedef std::vector<meta> all_meta;
 
-error_level parsemeta(SyntaxTree2& st, std::vector<std::string>& plane);
+error_level parsemeta(all_meta& st, std::vector<std::string>& plane);
 
 
 

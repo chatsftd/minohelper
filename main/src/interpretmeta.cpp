@@ -1,19 +1,98 @@
 #include "interpretmeta.h"
 #include "parsemeta.h"
 #include "colordef.h"
+#include "lib/maybe.h"
+#include <sstream>
 using namespace std;
-static vector<string> tokenize(const string& str);
-static error_level interpretmeta2(state2& st, meta m);
+static error_level interpretmeta2(state2& st, const meta& m);
 
-
-static error_level direction_(state2& /*st**/, const vector<string>& /*tokens**/, Paren /*p**/)
+static string dir_to_str(direction dir)
 {
+	switch(dir)
+	{
+		case TO_SOUTH: return "to_south";
+		case TO_EAST : return "to_east" ;
+		case TO_NORTH: return "to_north";
+		default      : return "to_west" ;
+	}
+}
+
+static Maybe<direction> str_to_dir(const string& str)
+{ 
+#define if2(a) if(str == static_cast<string>(a))
+#define JD(a) Just<direction>(a)
+	if2("tosouth"){ return JD(TO_SOUTH); }
+	if2("toeast" ){ return JD(TO_EAST ); }
+	if2("tonorth"){ return JD(TO_NORTH); }
+	if2("towest" ){ return JD(TO_WEST ); }
+	
+	if2("fromnorth"){ return JD(TO_SOUTH); }
+	if2("fromwest" ){ return JD(TO_EAST ); }
+	if2("fromsouth"){ return JD(TO_NORTH); }
+	if2("fromeast" ){ return JD(TO_WEST ); }
+	
+	if2("tobottom"){ return JD(TO_SOUTH); }
+	if2("toright" ){ return JD(TO_EAST ); }
+	if2("totop"   ){ return JD(TO_NORTH); }
+	if2("toleft"  ){ return JD(TO_WEST ); }
+	
+	if2("fromtop"   ){ return JD(TO_SOUTH); }
+	if2("fromleft"  ){ return JD(TO_EAST ); }
+	if2("frombottom"){ return JD(TO_NORTH); }
+	if2("fromright" ){ return JD(TO_WEST ); }
+	else return Nothing<direction>();
+#undef if2	
+} 
+
+static error_level direction_(state2& st, const meta& m)
+{
+	const vector<string> tokens = m.get_tokens();
+	if(tokens.size() < 2)
+	{
+		cerr << "Meta info 'direction' needs an argument" << endl; cout << endl;
+		return INVALID_META;
+	}
+	if(tokens.size() % 2) //odd number == "direction" + even number 
+	{
+		cerr << "Meta info 'direction' needs odd number of arguments" << endl; cout << endl;
+		return INVALID_META;
+	}
+	
+	Maybe<direction> mdir = str_to_dir(tokens[1]);
+	if(mdir.isNothing())
+	{
+		cerr << "Invalid direction '" << tokens[1] << "' inside a meta info 'direction'" << endl; cout << endl;
+		return INVALID_META;
+	}
+		
+	direction dir = mdir.unJust();
+	st.dir.set_direction(m.pos,dir);
+	cout << "direction: " << dir_to_str(dir) << " after " << m.pos << endl;
+	
+	const string col_or_row = static_cast<int>(dir)%2 ? "column" : "row";
+	for(size_t i = 2; i < tokens.size(); i += 2) //parse two tokens at once
+	{
+		const string label_name = tokens[i];
+		stringstream ss(tokens[i+1]);
+		int num;
+		ss >> num;
+		if(!ss)
+		{
+			cerr << "Invalid " << col_or_row << " number ";
+			cerr << "'" << tokens[i+1] << "' inside a meta info 'direction'" << endl; cout << endl;
+			return INVALID_META;
+		}
+		cout << "direction.label: '" << tokens[i] << "' is " << col_or_row << " " << num << endl;
+		
+		st.labels.set_label(tokens[i],num);
+	}
+	
 	return ALL_OK; // fixme
 }
 
-static error_level comment_(state2& /*st**/, const vector<string>& tokens, Paren /*p**/)
+static error_level comment_(state2& /*st**/, const meta& m)
 {
-	string last_token = tokens[tokens.size()-1];
+	const string last_token = m.get_tokens().back();
 	if(last_token[last_token.size()-1] != '-')
 	{
 		cerr << "The comment is unterminated." << endl; cout << endl;
@@ -22,21 +101,21 @@ static error_level comment_(state2& /*st**/, const vector<string>& tokens, Paren
 	return ALL_OK;
 }
 
-static error_level interpretmeta2(state2& st, meta m)
+static error_level interpretmeta2(state2& st, const meta& m)
 {
-	vector<string> tokens = tokenize(m.content);
+	const vector<string> tokens = m.get_tokens();
 	Paren p = m.paren;
 	
 	if(tokens.empty()){ return ALL_OK; }
 #define if2(a) if(tokens[0] == string(a))
 	if(tokens[0][0] == '-' && p == Brace)
 	{
-		return comment_  (st,tokens,p);
+		return comment_  (st,m);
 	}
-	else if2("colordefine"){ return colordef_ (st,tokens,p); }
-	else if2("colordef"   ){ return colordef_ (st,tokens,p); }
-	else if2("direction"  ){ return direction_(st,tokens,p); }
-	else if2("dir"        ){ return direction_(st,tokens,p); }
+	else if2("colordefine"){ return colordef_ (st,m); }
+	else if2("colordef"   ){ return colordef_ (st,m); }
+	else if2("direction"  ){ return direction_(st,m); }
+	else if2("dir"        ){ return direction_(st,m); }
 	else
 	{
 		cerr << "Warning: unknown meta info " << m << endl;
@@ -47,7 +126,7 @@ static error_level interpretmeta2(state2& st, meta m)
 
 error_level interpretmeta(state2& st, vector<string>& plane)
 {
-	SyntaxTree2 tree2;
+	all_meta tree2;
 	error_level s = parsemeta(tree2,plane);
 	if(s != ALL_OK) return s;
 	for(size_t i = 0, n = tree2.size(); i < n; i++)
@@ -58,52 +137,4 @@ error_level interpretmeta(state2& st, vector<string>& plane)
 	}
 	return ALL_OK;
 }
-
-static vector<string> tokenize(const string& str)
-{
-	vector<string> res;
-	string tmp = "";
-	static const string empty = "";
-	for(size_t i = 0, n = str.size(); i < n; i++)
-	{
-		char c = str[i];
-		switch(c)
-		{
-			case ' ' : /*FALLTHROUGH*/
-			case '\t':
-			case '\n':
-				if(!tmp.empty())
-				{
-					res.push_back(tmp);
-					tmp = "";
-				}
-				break;
-				
-			case '(': /*FALLTHROUGH*/
-			case '{': /*FALLTHROUGH*/
-			case '[': /*FALLTHROUGH*/
-			case ')': /*FALLTHROUGH*/
-			case '}': /*FALLTHROUGH*/
-			case ']':
-				if(!tmp.empty())
-				{
-					res.push_back(tmp);
-					tmp = "";
-				}
-				res.push_back(empty + c);
-				break;
-				
-			default:
-				tmp += c;
-				break;
-		}
-	}
-	if(!tmp.empty())
-	{
-		res.push_back(tmp);
-		tmp = "";
-	}
-	return res;
-}
-
 

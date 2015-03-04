@@ -44,8 +44,9 @@ static Maybe<Color> get_color(const string& str)
 	else return Nothing<Color>();
 }
 
-error_level colordef_(state2& st, const vector<string>& tokens, Paren /*p**/)
+error_level colordef_(state2& st, const meta& m)
 {
+	const vector<string> tokens = m.get_tokens();
 	if(tokens.size() < 2)
 	{
 		cerr << "Meta info 'colordef' needs arguments" << endl; cout << endl;

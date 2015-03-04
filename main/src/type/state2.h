@@ -66,10 +66,17 @@ public:
 	void set_color_of(char c, Color col);
 };
 
+class label_info
+{
+public:
+	void set_label(const std::string& /*name**/, int /*num**/) {/*FIXME*/}
+};
+
 struct state2
 {
 	color_palette palette;
 	dir_info dir;
+	label_info labels;
 };
 
 #endif/*STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC*/
