@@ -68,6 +68,8 @@ public:
 
 class label_info
 {
+public:
+	void set_label(const std::string& /*name**/, int /*num**/) {/*FIXME*/}
 };
 
 struct state2

@@ -83,7 +83,8 @@ static error_level direction_(state2& st, const meta& m)
 			return INVALID_META;
 		}
 		cout << "direction.label: '" << tokens[i] << "' is " << col_or_row << " " << num << endl;
-		//fixme: add actual code
+		
+		st.labels.set_label(tokens[i],num);
 	}
 	
 	return ALL_OK; // fixme
