@@ -1,7 +1,7 @@
 #include "interpretmeta.h"
 #include "parsemeta.h"
 #include "colordef.h"
-#include "lib/maybe.h"
+#include "../lib/maybe.h"
 #include <sstream>
 using namespace std;
 static error_level interpretmeta2(state2& st, const meta& m);

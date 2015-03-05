@@ -2,7 +2,7 @@
 #define STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ
 #include "constructmino.h"
 #include "type/errorlevel.h"
-#include "type/state2.h"
+#include "meta/state2.h"
 #include <map>
 #include <string>
 #include <vector>

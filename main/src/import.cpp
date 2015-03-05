@@ -1,6 +1,6 @@
 #include "import.h"
 #include "parsemino.h"
-#include "interpretmeta.h"
+#include "meta/interpretmeta.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

@@ -1,7 +1,7 @@
 #ifndef STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #define STATE2_H_DEFINED_1373E8A8C125AF49724367EE8ADFD116500B73AC
 #include "../lib/maybe.h"
-#include "point.h"
+#include "../type/point.h"
 #include <map>
 #include <string>
 #include <iostream>

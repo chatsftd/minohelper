@@ -1,7 +1,7 @@
 #ifndef PAREN_H_567C1AADBF97F81448B7B541BA41F4C9A1E734F9
 #define PAREN_H_567C1AADBF97F81448B7B541BA41F4C9A1E734F9
-#include "type/errorlevel.h"
-#include "type/state2.h"
+#include "../type/errorlevel.h"
+#include "state2.h"
 #include <vector>
 #include <string>
 

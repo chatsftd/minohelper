@@ -1,5 +1,5 @@
 #include "colordef.h"
-#include "lib/maybe.h"
+#include "../lib/maybe.h"
 #include <iostream>
 using namespace std;
 
