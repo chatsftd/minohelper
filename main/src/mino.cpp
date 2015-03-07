@@ -1,4 +1,4 @@
-#include "constructmino.h"
+#include "mino.h"
 #include "lib/debug.h"
 
 using namespace std;

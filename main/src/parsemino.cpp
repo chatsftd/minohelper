@@ -1,6 +1,6 @@
 #include "parsemino.h"
 #include "lib/union.h"
-#include "constructmino.h"
+#include "mino.h"
 #include <iostream>
 #include <map>
 using namespace std;
