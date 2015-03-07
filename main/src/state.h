@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 
-
 class state
 {
 public:
@@ -24,7 +23,8 @@ public:
 	state(void) : content(), error_status(ALL_OK) {}
 };
 
-
+typedef std::string file_path;
+typedef std::map<file_path,state::file_data> file_map;
 
 
 #endif/*STATE_H_DEFINED_2014_10_13_BXAKBVZLZEASKXZAPKFYDFRHSFCBFQ*/

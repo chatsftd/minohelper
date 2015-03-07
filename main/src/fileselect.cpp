@@ -28,7 +28,7 @@ error_level file_select(string& filename, const state& st)
 	
 	Index i = 1;
 	map<Index, string> map_;
-	for(map<string,state::file_data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
+	for(file_map::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
 	{
 		cout << '\t' << i << ": \"" << it->first << '"' << endl;
 		map_[i] = it->first;
