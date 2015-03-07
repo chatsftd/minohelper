@@ -19,7 +19,7 @@ static error_level status_(state& st, const arguments2& /*args**/)
 	else
 	{
 		cout << "Loaded " << (size == 1 ? "file" : "files") << ":" << endl;		
-		for(map<string,data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
+		for(map<string,state::file_data>::const_iterator it = st.content.begin(); it != st.content.end(); ++it)
 		{
 			cout << "\t\"" << (it->first) << '"' << endl;
 		}

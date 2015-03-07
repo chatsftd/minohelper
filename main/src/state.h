@@ -6,22 +6,22 @@
 #include <map>
 #include <string>
 #include <vector>
-class data
-{
-public:
-	std::vector<mino> minos;
-	color_palette palette;
-	data(void);
-	data(const std::vector<mino>& minos_, color_palette pal);
-};
 
 
 class state
 {
 public:
-	std::map<std::string,data> content;
+	class file_data
+	{
+	public:
+		std::vector<mino> minos;
+		color_palette palette;
+		file_data(void) : minos(), palette() {}
+		file_data(const std::vector<mino>& m, color_palette pal) : minos(m), palette(pal) {}
+	};
+	std::map<std::string,state::file_data> content;
 	error_level error_status;
-	state(void);
+	state(void) : content(), error_status(ALL_OK) {}
 };
 
 

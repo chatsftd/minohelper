@@ -30,7 +30,7 @@ static error_level import_file(state& st, const string& filename)
 	error_level s = interpretmeta(st2,plane);
 	if(s != ALL_OK) return s;
 	
-	const Maybe<data>& mD = parse_mino(st2,plane);
+	const Maybe<state::file_data>& mD = parse_mino(st2,plane);
 	
 	if(mD.isNothing())
 	{
