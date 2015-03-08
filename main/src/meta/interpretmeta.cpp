@@ -82,7 +82,7 @@ static error_level direction_(state2& st, const meta& m)
 			cerr << "'" << tokens[i+1] << "' inside a meta info 'direction'" << endl; cout << endl;
 			return INVALID_META;
 		}
-		cout << "direction.label: '" << tokens[i] << "' is " << col_or_row << " " << num << endl;
+		cout << "direction: label '" << tokens[i] << "' is at " << col_or_row << " " << num << endl;
 		
 		st.labels.set_label(tokens[i],num);
 	}
