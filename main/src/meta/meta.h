@@ -21,8 +21,11 @@ struct meta
 	Paren paren;
 	std::string content;
 	point first_pos;
+	point last_pos;
+	
 	meta(Paren pa, point po) : paren(pa), content(""), first_pos(po) {}
 	std::vector<std::string> get_tokens() const;
+	void set_last_pos(point p) { this->last_pos = p; }
 	friend std::ostream& operator<<(std::ostream& o, const meta& p);
 };
 

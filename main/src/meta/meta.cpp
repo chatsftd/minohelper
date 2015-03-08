@@ -23,7 +23,7 @@ char paren_end(Paren p)
 
 ostream& operator<<(ostream& o, const meta& m)
 {
-	return o << paren_begin(m.paren) << m.content << paren_end(m.paren) << " at " << m.first_pos;
+	return o << paren_begin(m.paren) << m.content << paren_end(m.paren) << " from " << m.first_pos << " to " << m.last_pos;
 }
 
 vector<string> meta::get_tokens() const
