@@ -66,8 +66,8 @@ static error_level direction_(state2& st, const meta& m)
 	}
 		
 	direction dir = mdir.unJust();
-	st.dir.set_direction(m.pos,dir);
-	cout << "direction: " << dir_to_str(dir) << " after " << m.pos << endl;
+	st.dir.set_direction(m.first_pos,dir);
+	cout << "direction: " << dir_to_str(dir) << " after " << m.first_pos << endl;
 	
 	const string col_or_row = static_cast<int>(dir)%2 ? "column" : "row";
 	for(size_t i = 2; i < tokens.size(); i += 2) //parse two tokens at once
