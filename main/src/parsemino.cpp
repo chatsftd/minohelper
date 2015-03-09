@@ -24,10 +24,18 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 	ID id = 0;
 	for(size_t i = 0, n = content.size(); i < n; i++)
 	{
+		set<size_t> xs = st2.labels.last_x_positions();
+		bool safe = !(xs.count(i)); // danger === directly after (direction ... )
+		
 		vector<atom> tmp;
 		atom_plane.push_back(tmp);
 		for(size_t j = 0, m = content[i].size(); j < m; j++)
 		{
+			if(!safe && content[i][j] != ' ')
+			{
+				cerr << "Minos cannot exist directly after meta info 'direction'" << endl; cout << endl;
+				return Nothing<state::file_data>();
+			}
 			atom_plane[i].push_back(atom(id,content[i][j]));
 			ItoP[id] = point(i,j);
 			id++;
