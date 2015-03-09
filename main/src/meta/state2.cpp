@@ -75,3 +75,11 @@ direction dir_info::get_direction(point p) const
 
 direction dir_info::get_direction(size_t f, size_t s) const{return this->get_direction(point(f,s));}
 
+
+void label_info::set_label(const std::string& name, int num, point last_pos, direction dir)
+{
+	label_content content(num,last_pos,dir);
+	multimap<string,label_content>::value_type key(name,content);
+	this->inside.insert(key);
+}
+

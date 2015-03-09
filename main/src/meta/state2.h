@@ -68,8 +68,18 @@ public:
 
 class label_info
 {
+	struct label_content
+	{
+		int num;
+		point last_pos;
+		direction dir;
+		label_content(int n, point p, direction d) : num(n), last_pos(p), dir(d) {}
+	};
+	
+	std::multimap<std::string,label_content> inside;
+	
 public:
-	void set_label(const std::string& /*name**/, int /*num**/) {/*FIXME*/}
+	void set_label(const std::string& name, int num, point last_pos, direction dir); 
 };
 
 struct state2

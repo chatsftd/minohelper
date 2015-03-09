@@ -84,7 +84,7 @@ static error_level direction_(state2& st, const meta& m)
 		}
 		cout << "direction: label '" << tokens[i] << "' is at " << col_or_row << " " << num << endl;
 		
-		st.labels.set_label(tokens[i],num);
+		st.labels.set_label(tokens[i], num, m.last_pos, dir);
 	}
 	
 	return ALL_OK; // fixme
