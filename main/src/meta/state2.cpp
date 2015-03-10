@@ -83,3 +83,22 @@ void label_info::set_label(const std::string& name, int num, point last_pos, dir
 	this->inside.insert(key);
 }
 
+set<point> label_info::last_positions() const
+{
+	set<point> ps;
+	for(multimap<string,label_content>::const_iterator it = this->inside.begin(); it != this->inside.end(); ++it)
+	{
+		ps.insert(it->second.last_pos);
+	}
+	return ps;
+}
+
+set<size_t> label_info::last_x_positions() const
+{
+	set<size_t> xs;
+	for(multimap<string,label_content>::const_iterator it = this->inside.begin(); it != this->inside.end(); ++it)
+	{
+		xs.insert(it->second.last_pos.first);
+	}
+	return xs;
+}

@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <set>
 
 enum Color_
 {
@@ -80,6 +81,8 @@ class label_info
 	
 public:
 	void set_label(const std::string& name, int num, point last_pos, direction dir); 
+	std::set<point> last_positions() const;
+	std::set<size_t> last_x_positions() const;
 };
 
 struct state2
