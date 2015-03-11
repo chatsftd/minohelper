@@ -20,7 +20,13 @@ static string export4(const mino& m, const color_palette& palette)
 	return ans.str();
 }
 
-static error_level export3(string& str, const vector<mino>& minos, const color_palette& palette)
+struct mjsn
+{
+	vector< vector<mino> > inside;
+	void make_mjsn(const vector<mino>& minos);
+};
+
+void mjsn::make_mjsn(const vector<mino>& minos)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i) //look for down_most
@@ -42,6 +48,15 @@ static error_level export3(string& str, const vector<mino>& minos, const color_p
 		if(result.back().empty()) result.pop_back();
 		else break;
 	}
+	
+	this->inside = result;
+}
+
+static error_level export3(string& str, const vector<mino>& minos, const color_palette& palette)
+{
+	mjsn m;
+	m.make_mjsn(minos);
+	vector< vector<mino> > result = m.inside;
 	
 	str = "[\"\",";
 	for(size_t j = 0; j < result.size(); ++j)
