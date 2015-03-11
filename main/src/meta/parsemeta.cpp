@@ -28,15 +28,22 @@ error_level parsemeta(all_meta& st, vector<string>& plane)
 						cerr << "At " << point(i,j) << ": \"" << c << "\" is unmatched." << endl; cout << endl;
 						return INVALID_META;
 					}
+					
 					paren_stack.pop();
+					
+					if(paren_stack.empty())
+					{
+						st.back().set_last_pos(point(i,j));
+					}
+					
 					ignore_close = true;
 					break;
 			}
 			
-			if(!paren_stack.empty() && !ignore_open){ st[st.size()-1].content += c; }
+			if(!paren_stack.empty() && !ignore_open){ st.back().content += c; }
 			plane2[i] += paren_stack.empty() && !ignore_close ? c : ' ';
 		}
-		if(!paren_stack.empty()){ st[st.size()-1].content += '\n';}
+		if(!paren_stack.empty()){ st.back().content += '\n';}
 	}
 	plane = plane2;
 	return ALL_OK;
