@@ -24,6 +24,7 @@ struct mjsn
 {
 	vector< vector<mino> > inside;
 	void make_mjsn(const vector<mino>& minos);
+	string to_str(const color_palette& palette) const;
 };
 
 void mjsn::make_mjsn(const vector<mino>& minos)
@@ -52,13 +53,10 @@ void mjsn::make_mjsn(const vector<mino>& minos)
 	this->inside = result;
 }
 
-static string export3(const vector<mino>& minos, const color_palette& palette)
+string mjsn::to_str(const color_palette& palette) const
 {
-	mjsn m;
-	m.make_mjsn(minos);
-	vector< vector<mino> > result = m.inside;
-	
 	string str = "[\"\",";
+#define result (this->inside)
 	for(size_t j = 0; j < result.size(); ++j)
 	{
 		if(result[j].empty())
@@ -80,6 +78,14 @@ static string export3(const vector<mino>& minos, const color_palette& palette)
 	}
 	str += "\"end\"]";
 	return str;
+#undef result
+}
+
+static string export3(const vector<mino>& minos, const color_palette& palette)
+{
+	mjsn m;
+	m.make_mjsn(minos);
+	return m.to_str(palette);
 }
 
 error_level export_(state& st, const arguments2& args)
@@ -119,7 +125,7 @@ error_level export_(state& st, const arguments2& args)
 	}
 	
 	ofstream ofs(output.c_str());
-	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;		
+	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
 	ofs << export3(st.content[input].minos,st.content[input].palette) << endl;
 	cout << "Finished." << endl << endl;
 	return ALL_OK;
