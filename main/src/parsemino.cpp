@@ -113,7 +113,7 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 		cout << "mino #" << i+1 << ": " << groups2[i] << endl;
 	}
 	
-	state::file_data dat(groups2, st2.palette);
+	state::file_data dat(groups2, st2.palette, st2.labels);
 	return Just(dat);
 }
 

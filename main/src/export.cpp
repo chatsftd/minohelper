@@ -20,7 +20,14 @@ static string export4(const mino& m, const color_palette& palette)
 	return ans.str();
 }
 
-static error_level export3(string& str, const vector<mino>& minos, const color_palette& palette)
+struct mjsn
+{
+	vector< vector<mino> > inside;
+	void make_mjsn(const vector<mino>& minos);
+	string to_str(const color_palette& palette) const;
+};
+
+void mjsn::make_mjsn(const vector<mino>& minos)
 {
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i) //look for down_most
@@ -43,7 +50,13 @@ static error_level export3(string& str, const vector<mino>& minos, const color_p
 		else break;
 	}
 	
-	str = "[\"\",";
+	this->inside = result;
+}
+
+string mjsn::to_str(const color_palette& palette) const
+{
+	string str = "[\"\",";
+#define result (this->inside)
 	for(size_t j = 0; j < result.size(); ++j)
 	{
 		if(result[j].empty())
@@ -64,7 +77,15 @@ static error_level export3(string& str, const vector<mino>& minos, const color_p
 		str += "],";
 	}
 	str += "\"end\"]";
-	return ALL_OK;
+	return str;
+#undef result
+}
+
+static string export3(const vector<mino>& minos, const color_palette& palette)
+{
+	mjsn m;
+	m.make_mjsn(minos);
+	return m.to_str(palette);
 }
 
 error_level export_(state& st, const arguments2& args)
@@ -104,14 +125,8 @@ error_level export_(state& st, const arguments2& args)
 	}
 	
 	ofstream ofs(output.c_str());
-	
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
-		
-	string str = "";
-	error_level s3 = export3(str,st.content[input].minos,st.content[input].palette);
-	if(s3 != ALL_OK) return s3;
-	
-	ofs << str << endl;
+	ofs << export3(st.content[input].minos,st.content[input].palette) << endl;
 	cout << "Finished." << endl << endl;
 	return ALL_OK;
 }
