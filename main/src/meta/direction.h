@@ -1,0 +1,9 @@
+#ifndef DIRECTION_H_DEFINED_1648439464A7268ADD838D09613DF666D11B5B9B
+#define DIRECTION_H_DEFINED_1648439464A7268ADD838D09613DF666D11B5B9B
+#include "../type/errorlevel.h"
+#include "meta.h"
+#include "state2.h"
+
+error_level direction_(state2& st, const meta& m);
+
+#endif/*DIRECTION_H_DEFINED_1648439464A7268ADD838D09613DF666D11B5B9B*/
