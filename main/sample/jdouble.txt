@@ -1,0 +1,29 @@
+(colordef
+    % blue
+    A pink
+)
+
+(direction tosouth
+    first_label 5 
+)
+                   %%%
+                    %
+                     
+                     
+    {- here -}       
+                     
+                    %
+                    %
+                   %%
+
+
+(direction tosouth
+    first_label 3 
+)
+                    A
+                    A
+    {- here -}      A
+                    A
+                     
+                AA   
+                 AA  
