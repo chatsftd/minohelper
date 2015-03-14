@@ -9,11 +9,11 @@
 using namespace std;
 
 
-static string export3(const vector<mino>& minos, const color_palette& palette)
+static string export3(state::file_data dat)
 {
 	mjsn m;
-	m.make_mjsn(minos);
-	return m.to_str(palette);
+	m.make_mjsn(dat.minos);
+	return m.to_str(dat.palette);
 }
 
 error_level export_(state& st, const arguments2& args)
@@ -54,7 +54,9 @@ error_level export_(state& st, const arguments2& args)
 	
 	ofstream ofs(output.c_str());
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
-	ofs << export3(st.content[input].minos,st.content[input].palette) << endl;
+	
+	
+	ofs << export3(st.content[input]) << endl;
 	cout << "Finished." << endl << endl;
 	return ALL_OK;
 }
