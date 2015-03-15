@@ -16,8 +16,9 @@ public:
 		std::vector<mino> minos;
 		color_palette palette;
 		label_info labels;
+		dir_info dir;
 		file_data(void) : minos(), palette() {}
-		file_data(const std::vector<mino>& m, color_palette pal, label_info lab) : minos(m), palette(pal), labels(lab) {}
+		file_data(const std::vector<mino>& m, color_palette pal, label_info lab, dir_info d) : minos(m), palette(pal), labels(lab), dir(d) {}
 	};
 	std::map<std::string,state::file_data> content;
 	error_level error_status;
