@@ -51,6 +51,7 @@ public:
 	void set_direction(size_t f, size_t s, direction dir){ this->inside[point(f,s)] = dir; }
 	direction get_direction(point p) const;
 	direction get_direction(size_t f, size_t s) const;
+	std::map<point,direction> get_all_points() const { return this->inside; }
 };
  
 
