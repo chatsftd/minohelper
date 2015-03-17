@@ -3,6 +3,7 @@
 #include "parsearg.h"
 #include "import.h"
 #include "mjsn.h"
+#include "lib/debug.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -23,11 +24,11 @@ static string export3(state::file_data dat)
 	mjsn m;
 	
 	typedef map<point,direction> dirmap_t;
-	const dirmap_t& dir_map = dat.dir.get_all_points();
+	dirmap_t dir_map = dat.dir.get_all_points();
 	vector<mino> minos = dat.minos;
 	
 	/* classification */
-	vector< vector<mino> > minos_separated;
+	deque< vector<mino> > minos_separated;
 	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
 	{
 		vector<mino> e;
@@ -39,7 +40,6 @@ static string export3(state::file_data dat)
 			if (it2->top_left() < p)
 			{
 				e.push_back(*it2);
-				cout << *it2 << " is before " << p << endl;
 				it2 = minos.erase(it2);
 			}
 			else{ ++it2; }
@@ -49,6 +49,35 @@ static string export3(state::file_data dat)
 	}
 	minos_separated.push_back(minos);
 	/* classification end */
+	
+	vector<mino_map_segment> segments;
+	
+	dir_map.insert(dirmap_t::value_type(point(-1,-1),TO_SOUTH));
+	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
+	{
+		vector<mino> minos2 = minos_separated.front();
+		point p = it->first;
+		map<point,point> trans = dat.dir.get_transform();
+		
+		assert2("geraesdfx", (p == point(-1,-1)) || trans.count(p));
+		
+		point p2 = (p == point(-1,-1)) ? point(-1,-1) : trans[p]; //last_pos
+		
+		for(size_t i = 0; i < minos2.size(); i++)
+		{
+			minos2[i] -= p2.first + 1; 
+			// it is guaranteed that minos are not on the same line as the direction
+		}
+		cout << "segment after " << p2 << ":" << endl;
+		
+		for(size_t i = 0; i < minos2.size(); i++)
+		{
+			cout << "    " << minos2[i] << endl;
+		}
+		
+		segments.push_back(mino_map_segment(minos2,p2,it->second));
+		minos_separated.pop_front();
+	}
 	
 	m.make_mjsn(dat.minos);
 	return m.to_str(dat.palette);
