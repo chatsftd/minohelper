@@ -51,9 +51,17 @@ public:
 	friend std::ostream& operator<<(std::ostream& o, const mino& m);
 	point top_left() const;
 	shape_num get_shape_num() const;
-
+	mino& operator-=(size_t x) 
+	{ 
+		this->p0 -= x;
+		this->p1 -= x;
+		this->p2 -= x;
+		this->p3 -= x;
+		return *this; 
+	}
 };
 
+inline mino operator-(mino lhs, size_t rhs) { lhs -= rhs; return lhs; }
 
 
 
