@@ -52,16 +52,19 @@ static string export3(state::file_data dat)
 	
 	vector<mino_map_segment> segments;
 	
-	dir_map.insert(dirmap_t::value_type(point(-1,-1),TO_SOUTH));
+	vector<mino> first_segment = minos_separated.front();
+	minos_separated.pop_front();
+	
+	
 	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
 	{
 		vector<mino> minos2 = minos_separated.front();
 		point p = it->first;
 		map<point,point> trans = dat.dir.get_transform();
 		
-		assert2("geraesdfx", (p == point(-1,-1)) || trans.count(p));
+		assert2("geraesdfx", trans.count(p));
 		
-		point p2 = (p == point(-1,-1)) ? point(-1,-1) : trans[p]; //last_pos
+		point p2 = trans[p]; //last_pos
 		
 		for(size_t i = 0; i < minos2.size(); i++)
 		{
@@ -79,7 +82,7 @@ static string export3(state::file_data dat)
 		minos_separated.pop_front();
 	}
 	
-	m.make_mjsn(dat.minos);
+	m.make_mjsn(first_segment);
 	return m.to_str(dat.palette);
 }
 
