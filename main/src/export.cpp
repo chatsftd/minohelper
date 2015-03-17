@@ -6,7 +6,16 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <deque>
 using namespace std;
+
+struct mino_map_segment
+{
+	vector<mino> minos;
+	point last_pos;
+	direction dir;
+	mino_map_segment(vector<mino> m, point p, direction d) : minos(m), last_pos(p), dir(d) {}
+};
 
 
 static string export3(state::file_data dat)
