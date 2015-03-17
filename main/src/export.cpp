@@ -12,6 +12,35 @@ using namespace std;
 static string export3(state::file_data dat)
 {
 	mjsn m;
+	
+	typedef map<point,direction> dirmap_t;
+	const dirmap_t& dir_map = dat.dir.get_all_points();
+	vector<mino> minos = dat.minos;
+	
+	/* classification */
+	vector< vector<mino> > minos_separated;
+	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
+	{
+		vector<mino> e;
+		point p = it->first;
+		
+		vector<mino>::iterator it2 = minos.begin();
+		while (it2 != minos.end())
+		{
+			if (it2->top_left() < p)
+			{
+				e.push_back(*it2);
+				cout << *it2 << " is before " << p << endl;
+				it2 = minos.erase(it2);
+			}
+			else{ ++it2; }
+		}
+
+		minos_separated.push_back(e);
+	}
+	minos_separated.push_back(minos);
+	/* classification end */
+	
 	m.make_mjsn(dat.minos);
 	return m.to_str(dat.palette);
 }
