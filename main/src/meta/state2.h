@@ -45,13 +45,16 @@ enum direction
 class dir_info
 {
 	std::map<point,direction> inside;
+	std::map<point,point> from_first_to_last;
 	
 public:
 	void set_direction(point p, direction dir){ this->inside[p] = dir; }
 	void set_direction(size_t f, size_t s, direction dir){ this->inside[point(f,s)] = dir; }
+	void set_transform(point p, point p2){ this->from_first_to_last[p] = p2; }
 	direction get_direction(point p) const;
 	direction get_direction(size_t f, size_t s) const;
 	std::map<point,direction> get_all_points() const { return this->inside; }
+	std::map<point,point> get_transform() const { return this->from_first_to_last; }
 };
  
 
