@@ -18,6 +18,17 @@ struct mino_map_segment
 	mino_map_segment(vector<mino> m, point p, direction d) : minos(m), last_pos(p), dir(d) {}
 };
 
+vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
+{
+	vector<mino_with_dir> ans;
+	for(size_t i = 0; i < minos.size(); i++)
+	{
+		ans.push_back(mino_with_dir(minos[i],dir));
+	}
+	return ans;
+}
+
+
 
 static string export3(state::file_data dat)
 {
@@ -52,7 +63,7 @@ static string export3(state::file_data dat)
 	
 	vector<mino_map_segment> segments;
 	
-	vector<mino> first_segment = minos_separated.front();
+	vector<mino_with_dir> first_segment = add_dir(minos_separated.front(),TO_SOUTH);
 	minos_separated.pop_front();
 	
 	

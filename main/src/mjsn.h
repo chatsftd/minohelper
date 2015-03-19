@@ -3,11 +3,14 @@
 #include "state.h"
 #include <vector>
 #include <string>
+#include <utility>
+
+typedef std::pair<mino,direction> mino_with_dir;
 
 struct mjsn
 {
-	std::vector< std::vector<mino> > inside;
-	void make_mjsn(const std::vector<mino>& minos);
+	std::vector< std::vector<mino_with_dir> > inside;
+	void make_mjsn(const std::vector<mino_with_dir>& minos);
 	std::string to_str(const color_palette& palette) const;
 };
 
