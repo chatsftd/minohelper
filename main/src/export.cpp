@@ -82,16 +82,20 @@ static string export3(state::file_data dat)
 			minos2[i] -= p2.first + 1; 
 			// it is guaranteed that minos are not on the same line as the direction
 		}
-		cout << "segment after " << p2 << ":" << endl;
-		
-		for(size_t i = 0; i < minos2.size(); i++)
-		{
-			cout << "    " << minos2[i] << endl;
-		}
 		
 		segments.push_back(mino_map_segment(minos2,p2,it->second));
 		minos_separated.pop_front();
 	}
+	
+	for(size_t i = 0; i < segments.size(); i++)
+	{
+		cout << "segment after " << segments[i].last_pos << ":" << endl;
+		
+		for(size_t j = 0; j < segments[i].minos.size(); j++)
+		{
+			cout << "    " << segments[i].minos[i] << endl;
+		}
+	} 
 	
 	m.make_mjsn(first_segment);
 	return m.to_str(dat.palette);
