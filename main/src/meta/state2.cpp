@@ -102,3 +102,13 @@ set<size_t> label_info::last_x_positions() const
 	}
 	return xs;
 }
+
+multimap<string,label_info::label_content> label_info::get_labels_from_pos(point p) const
+{
+	multimap<string,label_info::label_content> mm;
+	for(multimap<string,label_info::label_content>::const_iterator it = this->inside.begin(); it != this->inside.end(); ++it)
+	{
+		if(it->second.last_pos == p){ mm.insert(*it); }
+	}
+	return mm;
+}

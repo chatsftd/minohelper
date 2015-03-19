@@ -73,6 +73,7 @@ public:
 
 class label_info
 {
+public:
 	struct label_content
 	{
 		int num;
@@ -81,12 +82,14 @@ class label_info
 		label_content(int n, point p, direction d) : num(n), last_pos(p), dir(d) {}
 	};
 	
+private:
 	std::multimap<std::string,label_content> inside;
 	
 public:
 	void set_label(const std::string& name, int num, point last_pos, direction dir); 
 	std::set<point> last_positions() const;
 	std::set<size_t> last_x_positions() const;
+	std::multimap<std::string,label_content> get_labels_from_pos(point p) const;
 };
 
 struct state2
