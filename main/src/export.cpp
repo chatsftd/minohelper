@@ -28,6 +28,34 @@ vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
 	return ans;
 }
 
+class core
+{
+	vector<mino_with_dir> inside;
+	map<size_t,string> label_table;
+	
+public:
+	core() : inside(), label_table() {}
+	core(vector<mino_with_dir> i, map<size_t,string> l) : inside(i), label_table(l) {}
+	core(const mino_map_segment& segment, const label_info& labels);
+	vector<mino_with_dir> get_inside() const { return this->inside; }
+	
+};
+
+core::core(const mino_map_segment& segment, const label_info& labels)
+{
+	vector<mino_with_dir> mds = add_dir(segment.minos,segment.dir);
+		
+	map<size_t,string> table;
+	
+	typedef multimap<string,label_info::label_content> label_map;
+	label_map labels2 = labels.get_labels_from_pos(segment.last_pos);
+	for(label_map::const_iterator it = labels2.begin(); it != labels2.end(); ++it)
+	{
+		table[it->second.num] = it->first;
+	}
+	this->inside = mds;
+	this->label_table = table;
+}
 
 
 static string export3(state::file_data dat)
