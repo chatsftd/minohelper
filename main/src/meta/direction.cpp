@@ -67,6 +67,7 @@ error_level direction_(state2& st, const meta& m)
 		
 	direction dir = mdir.unJust();
 	st.dir.set_direction(m.first_pos,dir);
+	st.dir.set_transform(m.first_pos,m.last_pos);
 	cout << "direction: " << dir_to_str(dir) << " after " << m.first_pos << endl;
 	
 	const string col_or_row = static_cast<int>(dir)%2 ? "column" : "row";
