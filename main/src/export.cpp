@@ -28,6 +28,13 @@ vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
 	return ans;
 }
 
+enum merge_status
+{
+	MERGE_SUCCESS,
+	MERGE_CONFLICT,
+	MERGE_NOT_FOUND
+};
+
 class core
 {
 	vector<mino_with_dir> inside;
@@ -39,6 +46,7 @@ public:
 	core(const mino_map_segment& segment, const label_info& labels);
 	vector<mino_with_dir> get_inside() const { return this->inside; }
 	
+	merge_status merge(const core& c);
 };
 
 core::core(const mino_map_segment& segment, const label_info& labels)
@@ -55,6 +63,12 @@ core::core(const mino_map_segment& segment, const label_info& labels)
 	}
 	this->inside = mds;
 	this->label_table = table;
+}
+
+merge_status core::merge(const core& c)
+{
+	//FIXME
+	return MERGE_SUCCESS;
 }
 
 
