@@ -1,6 +1,7 @@
 #ifndef MERGE_SEGMENT_H_DEFINED_B55426BCA554843245E9542E0E7318F8B6D57FE8
 #define MERGE_SEGMENT_H_DEFINED_B55426BCA554843245E9542E0E7318F8B6D57FE8
 #include "../mjsn.h"
+#include <set>
 
 struct mino_map_segment
 {
@@ -25,6 +26,8 @@ struct label_table
 	bool empty() const { return this->inside.empty(); }
 	size_t size() const { return this->inside.size(); }
 };
+
+std::set<std::string> common_labels(const label_table& t1, const label_table& t2);
 
 class core
 {

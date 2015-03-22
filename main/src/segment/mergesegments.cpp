@@ -31,6 +31,22 @@ core::core(const mino_map_segment& segment, const label_info& labels)
 	this->table = tabl;
 }
 
+set<string> common_labels(const label_table& t1, const label_table& t2)
+{
+	set<string> tmp;
+	set<string> res;
+	for(map<size_t,string>::const_iterator it = t1.inside.begin(); it != t1.inside.end(); ++it)
+	{
+		tmp.insert(it->second);
+	}
+	
+	for(map<size_t,string>::const_iterator it = t2.inside.begin(); it != t2.inside.end(); ++it)
+	{
+		if(tmp.count(it->second)) {	res.insert(it->second);	}
+	}
+	return res;
+}
+
 merge_status core::merge(const core& c)
 {
 	//FIXME
