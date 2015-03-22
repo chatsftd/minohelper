@@ -4,73 +4,12 @@
 #include "import.h"
 #include "mjsn.h"
 #include "lib/debug.h"
+#include "segment/mergesegments.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <deque>
 using namespace std;
-
-struct mino_map_segment
-{
-	vector<mino> minos;
-	point last_pos;
-	direction dir;
-	mino_map_segment(vector<mino> m, point p, direction d) : minos(m), last_pos(p), dir(d) {}
-};
-
-vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
-{
-	vector<mino_with_dir> ans;
-	for(size_t i = 0; i < minos.size(); i++)
-	{
-		ans.push_back(mino_with_dir(minos[i],dir));
-	}
-	return ans;
-}
-
-enum merge_status
-{
-	MERGE_SUCCESS,
-	MERGE_CONFLICT,
-	MERGE_NOT_FOUND
-};
-
-class core
-{
-	vector<mino_with_dir> inside;
-	map<size_t,string> label_table;
-	
-public:
-	core() : inside(), label_table() {}
-	core(vector<mino_with_dir> i, map<size_t,string> l) : inside(i), label_table(l) {}
-	core(const mino_map_segment& segment, const label_info& labels);
-	vector<mino_with_dir> get_inside() const { return this->inside; }
-	
-	merge_status merge(const core& c);
-};
-
-core::core(const mino_map_segment& segment, const label_info& labels)
-{
-	vector<mino_with_dir> mds = add_dir(segment.minos,segment.dir);
-		
-	map<size_t,string> table;
-	
-	typedef multimap<string,label_info::label_content> label_map;
-	label_map labels2 = labels.get_labels_from_pos(segment.last_pos);
-	for(label_map::const_iterator it = labels2.begin(); it != labels2.end(); ++it)
-	{
-		table[it->second.num] = it->first;
-	}
-	this->inside = mds;
-	this->label_table = table;
-}
-
-merge_status core::merge(const core& c)
-{
-	//FIXME
-	return MERGE_SUCCESS;
-}
-
 
 static string export3(state::file_data dat)
 {
@@ -138,6 +77,9 @@ static string export3(state::file_data dat)
 			cout << "    " << segments[i].minos[i] << endl;
 		}
 	} 
+	
+	vector<mino_with_dir> merged = merge_segments(segments,dat.labels);
+	
 	
 	m.make_mjsn(first_segment);
 	return m.to_str(dat.palette);
