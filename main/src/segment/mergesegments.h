@@ -20,9 +20,9 @@ enum merge_status
 
 struct label_table
 {
-	std::map<size_t,std::string> inside;
+	std::map<std::string,size_t> inside;
 	label_table() : inside() {}
-	label_table(std::map<size_t,std::string> i) : inside(i) {}
+	label_table(std::map<std::string,size_t> i) : inside(i) {}
 	bool empty() const { return this->inside.empty(); }
 	size_t size() const { return this->inside.size(); }
 };
@@ -36,7 +36,7 @@ class core
 	
 public:
 	core() : inside(), table() {}
-	core(std::vector<mino_with_dir> i, std::map<size_t,std::string> l) : inside(i), table(l) {}
+	core(std::vector<mino_with_dir> i, std::map<std::string,size_t> l) : inside(i), table(l) {}
 	core(const mino_map_segment& segment, const label_info& labels);
 	std::vector<mino_with_dir> get_inside() const { return this->inside; }
 	

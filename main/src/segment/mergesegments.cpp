@@ -19,13 +19,13 @@ core::core(const mino_map_segment& segment, const label_info& labels)
 {
 	vector<mino_with_dir> mds = add_dir(segment.minos,segment.dir);
 		
-	map<size_t,string> tabl;
+	map<string,size_t> tabl;
 	
 	typedef multimap<string,label_info::label_content> label_map;
 	label_map labels2 = labels.get_labels_from_pos(segment.last_pos);
 	for(label_map::const_iterator it = labels2.begin(); it != labels2.end(); ++it)
 	{
-		tabl[it->second.num] = it->first;
+		tabl[it->first] = it->second.num;
 	}
 	this->inside = mds;
 	this->table = tabl;
@@ -35,14 +35,14 @@ set<string> common_labels(const label_table& t1, const label_table& t2)
 {
 	set<string> tmp;
 	set<string> res;
-	for(map<size_t,string>::const_iterator it = t1.inside.begin(); it != t1.inside.end(); ++it)
+	for(map<string,size_t>::const_iterator it = t1.inside.begin(); it != t1.inside.end(); ++it)
 	{
-		tmp.insert(it->second);
+		tmp.insert(it->first);
 	}
 	
-	for(map<size_t,string>::const_iterator it = t2.inside.begin(); it != t2.inside.end(); ++it)
+	for(map<string,size_t>::const_iterator it = t2.inside.begin(); it != t2.inside.end(); ++it)
 	{
-		if(tmp.count(it->second)) {	res.insert(it->second);	}
+		if(tmp.count(it->first)) {	res.insert(it->first);	}
 	}
 	return res;
 }
