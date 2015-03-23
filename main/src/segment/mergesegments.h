@@ -40,12 +40,12 @@ public:
 	core(std::vector<mino_with_dir> i, std::map<std::string,size_t> l) : inside(i), table(l) {}
 	core(const mino_map_segment& segment, const label_info& labels);
 	std::vector<mino_with_dir> get_inside() const { return this->inside; }
-	
 	merge_status merge(const core& c);
+	core& operator+=(size_t x); 
 };
 
 std::vector<mino_with_dir> add_dir(const std::vector<mino>& minos, direction dir);
 std::vector<mino_with_dir> merge_segments(const std::vector<mino_map_segment>& segments, label_info labels);
-
+inline core operator+(core lhs, size_t rhs) { lhs += rhs; return lhs; }
 
 #endif/*MERGE_SEGMENT_H_DEFINED_B55426BCA554843245E9542E0E7318F8B6D57FE8*/

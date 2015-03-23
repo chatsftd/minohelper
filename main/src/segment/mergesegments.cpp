@@ -61,6 +61,17 @@ merge_status core::merge(const core& c)
 	return MERGE_SUCCESS;
 }
 
+core& core::operator+=(size_t x)
+{
+	for(size_t i = 0; i < this->inside.size(); i++)
+	{
+		inside[i].first += x;
+	}
+	this->table.add_offset(x);
+	return *this;
+}
+
+
 static core merge_segments_core(const vector<mino_map_segment>& segments, const label_info& labels)
 {
 	vector<core> cores;
