@@ -25,6 +25,7 @@ struct label_table
 	label_table(std::map<std::string,size_t> i) : inside(i) {}
 	bool empty() const { return this->inside.empty(); }
 	size_t size() const { return this->inside.size(); }
+	void add_offset(int x); 
 };
 
 std::set<std::string> common_labels(const label_table& t1, const label_table& t2);

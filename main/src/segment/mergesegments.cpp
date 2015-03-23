@@ -15,6 +15,14 @@ vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
 	return ans;
 }
 
+void label_table::add_offset(int x)
+{
+	for(std::map<std::string,size_t>::iterator it = this->inside.begin(); it != this->inside.end(); ++it)
+	{
+		it->second += x;
+	}
+}
+
 core::core(const mino_map_segment& segment, const label_info& labels)
 {
 	vector<mino_with_dir> mds = add_dir(segment.minos,segment.dir);
