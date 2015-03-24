@@ -13,8 +13,6 @@ using namespace std;
 
 static string export3(state::file_data dat)
 {
-	mjsn m;
-	
 	typedef map<point,direction> dirmap_t;
 	dirmap_t dir_map = dat.dir.get_all_points();
 	vector<mino> minos = dat.minos;
@@ -78,10 +76,24 @@ static string export3(state::file_data dat)
 		}
 	} 
 	
+	
+	mjsn m;
 	vector<mino_with_dir> merged = merge_segments(segments,dat.labels);
 	
+	if(merged.empty())
+	{
+		m.make_mjsn(first_segment);
+	}
+	else if(first_segment.empty())
+	{
+		m.make_mjsn(merged);
+	}
+	else
+	{
+#warning 'throw 3'
+		throw 3;
+	}
 	
-	m.make_mjsn(first_segment);
 	return m.to_str(dat.palette);
 }
 

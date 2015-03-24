@@ -18,9 +18,16 @@ struct point
 		this->first -= x;
 		return *this; 
 	}
+	
+	point& operator+=(size_t x) 
+	{ 
+		this->first += x;
+		return *this; 
+	}
 };
 
 inline point operator-(point lhs, size_t rhs) { lhs -= rhs; return lhs; }
+inline point operator+(point lhs, size_t rhs) { lhs += rhs; return lhs; }
 inline bool operator==(const point& lhs, const point& rhs){return (lhs.first == rhs.first) && (lhs.second == rhs.second);}
 inline bool operator!=(const point& lhs, const point& rhs){return !operator==(lhs,rhs);}
 inline bool operator< (const point& lhs, const point& rhs){return (lhs.first+1 < rhs.first+1) ? true : (lhs.first+1 > rhs.first+1) ? false : (lhs.second+1 < rhs.second+1);}
