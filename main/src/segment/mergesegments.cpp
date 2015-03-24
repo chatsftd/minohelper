@@ -55,9 +55,63 @@ set<string> common_labels(const label_table& t1, const label_table& t2)
 	return res;
 }
 
-merge_status core::merge(const core& c)
+merge_status core::merge(const core& that)
 {
-	//FIXME
+	if(that.inside.empty())
+	{
+		return MERGE_SUCCESS; //do nothing
+	}
+	
+	if(this->inside.empty())
+	{
+		core tmp(that); //copy
+		*this = tmp;
+		return MERGE_SUCCESS;
+	}
+	
+	if(this->table.empty()) return MERGE_NOT_FOUND;
+	if( that.table.empty()) return MERGE_NOT_FOUND;
+	
+	set<string> common_labs = common_labels(this->table,that.table);
+	if(common_labs.empty()) return MERGE_NOT_FOUND;
+	
+	
+	string first_label = *(common_labs.begin());
+	size_t row1 = this->table.inside.find(first_label)->second; //this->table.inside.at(first_label);
+	size_t row2 =  that.table.inside.find(first_label)->second;
+	
+	core this2 = *this + row2; //criss-cross
+	core that2 =  that + row1;
+
+#define all(c) (c).begin(),(c).end()	
+	this2.inside.insert(this2.inside.end(), all(that2.inside));	//append
+	
+	multimap<std::string,size_t> mss;
+	mss.insert(all(this2.table.inside));
+	mss.insert(all(that2.table.inside));
+	//merge all the table
+	for(multimap<std::string,size_t>::const_iterator it = mss.begin(); it != mss.end(); ++it)
+	{
+		if(mss.count(it->first) > 1) //duplicate
+		{
+			size_t i1 = this2.table.inside[it->first];
+			size_t i2 = that2.table.inside[it->first];
+			if(i1 == i2) continue;
+			else
+			{
+				cerr << "conflict occurred with '" << it->first << "' "
+				"while adjusting '" << first_label << "'" << endl;
+				return MERGE_CONFLICT;
+			}
+		}
+	}
+	
+	map<std::string,size_t> res;
+	res.insert(all(mss)); //copy all
+	
+	this->inside = this2.inside;
+	this->table.inside = res;
+#undef all
 	return MERGE_SUCCESS;
 }
 
