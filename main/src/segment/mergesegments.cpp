@@ -128,15 +128,49 @@ core& core::operator+=(size_t x)
 
 static core merge_segments_core(const vector<mino_map_segment>& segments, const label_info& labels)
 {
-	vector<core> cores;
+	deque<core> cores;
 	for(size_t i = 0; i < segments.size() ; i++)
 	{
 		cores.push_back(core(segments[i],labels));
 	}
-
+	
+	core ans = cores.front();
+	cores.pop_front();
+	
+	size_t counter = 0;
+	const size_t COUNT_MAX = cores.size();
+	
+	
+	while(cores.size())
+	{
+		core c = cores.front();
+		cores.pop_front();
+		
+		merge_status s = ans.merge(c);
+		if(s == MERGE_CONFLICT)
+		{
+#warning 'throw 1'
+			throw 1;
+		}
+		else if(s == MERGE_NOT_FOUND)
+		{
+			cores.push_back(c);
+			counter++;
+			if(counter >= COUNT_MAX)
+			{
+#warning 'throw 2'
+			throw 2;			
+			}
+		}
+		
+		// do nothing when MERGE_SUCCESS
+	}
+	
+	return ans;
 }
 
 vector<mino_with_dir> merge_segments(const vector<mino_map_segment>& segments, label_info labels)
 {
+	if(segments.empty()) return vector<mino_with_dir>();
 	return merge_segments_core(segments,labels).get_inside();
 }
