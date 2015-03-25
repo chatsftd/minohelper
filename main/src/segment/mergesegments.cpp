@@ -126,7 +126,7 @@ core& core::operator+=(size_t x)
 }
 
 
-static core merge_segments_core(const vector<mino_map_segment>& segments, const label_info& labels)
+static error_level merge_segments_core(core& ans, const vector<mino_map_segment>& segments, const label_info& labels)
 {
 	deque<core> cores;
 	for(size_t i = 0; i < segments.size() ; i++)
@@ -134,7 +134,7 @@ static core merge_segments_core(const vector<mino_map_segment>& segments, const 
 		cores.push_back(core(segments[i],labels));
 	}
 	
-	core ans = cores.front();
+	ans = cores.front();
 	cores.pop_front();
 	
 	size_t counter = 0;
@@ -149,8 +149,7 @@ static core merge_segments_core(const vector<mino_map_segment>& segments, const 
 		merge_status s = ans.merge(c);
 		if(s == MERGE_CONFLICT)
 		{
-#warning 'throw 1'
-			throw 1;
+			return DIRECTION_MERGE_CONFLICT;
 		}
 		else if(s == MERGE_NOT_FOUND)
 		{
@@ -158,19 +157,30 @@ static core merge_segments_core(const vector<mino_map_segment>& segments, const 
 			counter++;
 			if(counter >= COUNT_MAX)
 			{
-#warning 'throw 2'
-			throw 2;			
+				cerr << "Unable to merge all the segments." << endl; cout << endl;
+				return DIRECTION_INCOMPLETE_MERGE;
 			}
 		}
 		
 		// do nothing when MERGE_SUCCESS
 	}
 	
-	return ans;
+	return ALL_OK;
 }
 
-vector<mino_with_dir> merge_segments(const vector<mino_map_segment>& segments, label_info labels)
+error_level merge_segments(vector<mino_with_dir>& mds, const vector<mino_map_segment>& segments, const label_info& labels)
 {
-	if(segments.empty()) return vector<mino_with_dir>();
-	return merge_segments_core(segments,labels).get_inside();
+	if(segments.empty())
+	{
+		mds = vector<mino_with_dir>();
+		return ALL_OK;
+	}
+	
+	core c;
+	error_level e = merge_segments_core(c,segments,labels);
+	
+	if(e != ALL_OK) return e;
+	
+	mds = c.get_inside();
+	return ALL_OK;
 }

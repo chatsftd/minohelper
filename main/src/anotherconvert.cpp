@@ -71,8 +71,10 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		}
 	} 
 	
+	vector<mino_with_dir> merged;
+	error_level e2 = merge_segments(merged,segments,dat.labels);
 	
-	vector<mino_with_dir> merged = merge_segments(segments,dat.labels);
+	if(e2 != ALL_OK) return e2;
 	
 	if(merged.empty())
 	{

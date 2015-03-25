@@ -45,7 +45,7 @@ public:
 };
 
 std::vector<mino_with_dir> add_dir(const std::vector<mino>& minos, direction dir);
-std::vector<mino_with_dir> merge_segments(const std::vector<mino_map_segment>& segments, label_info labels);
+error_level merge_segments(std::vector<mino_with_dir>& mds, const std::vector<mino_map_segment>& segments, const label_info& labels);
 inline core operator+(core lhs, size_t rhs) { lhs += rhs; return lhs; }
 
 #endif/*MERGE_SEGMENT_H_DEFINED_B55426BCA554843245E9542E0E7318F8B6D57FE8*/

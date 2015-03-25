@@ -20,6 +20,8 @@ string error_level::to_str() const
 		case_(CONFIG_FORMAT_WRONG);
 		case_(CONFIG_VAR_NOT_FOUND);
 		case_(BEFORE_AFTER_DIRECTION);
+		case_(DIRECTION_MERGE_CONFLICT);
+		case_(DIRECTION_INCOMPLETE_MERGE);
 		default: return "SOMETHING_WRONG";
 	}
 }
