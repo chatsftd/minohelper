@@ -19,6 +19,7 @@ string error_level::to_str() const
 		case_(CONFIG_READ_FAILED);
 		case_(CONFIG_FORMAT_WRONG);
 		case_(CONFIG_VAR_NOT_FOUND);
+		case_(BEFORE_AFTER_DIRECTION);
 		default: return "SOMETHING_WRONG";
 	}
 }

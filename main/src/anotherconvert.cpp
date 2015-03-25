@@ -6,7 +6,7 @@
 #include <deque>
 using namespace std;
 
-mjsn another_convert(state::file_data dat)
+error_level another_convert(mjsn& m, const state::file_data& dat)
 {
 	typedef map<point,direction> dirmap_t;
 	dirmap_t dir_map = dat.dir.get_all_points();
@@ -72,7 +72,6 @@ mjsn another_convert(state::file_data dat)
 	} 
 	
 	
-	mjsn m;
 	vector<mino_with_dir> merged = merge_segments(segments,dat.labels);
 	
 	if(merged.empty())
@@ -85,9 +84,8 @@ mjsn another_convert(state::file_data dat)
 	}
 	else
 	{
-#warning 'throw 3'
-		throw 3;
+		return BEFORE_AFTER_DIRECTION;
 	}
 	
-	return m;
+	return ALL_OK;
 }
