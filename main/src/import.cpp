@@ -1,10 +1,13 @@
 #include "import.h"
 #include "parsemino.h"
 #include "meta/interpretmeta.h"
+#include "anotherconvert.h"
+#include "mjsn.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 using namespace std;
+
 
 static error_level import_file(state& st, const string& filename)
 {
@@ -36,7 +39,14 @@ static error_level import_file(state& st, const string& filename)
 	{
 		return IMPROPER_MINO;
 	}
-	st.content[filename] = mD.unJust();
+	
+	state::file_data data = mD.unJust();
+	
+	mjsn m;
+	error_level s2 = another_convert(m,data);
+	if(s2 != ALL_OK) return s2;
+	
+	st.content[filename] = make_pair(m,data.palette);
 	cout << "OK, \"" << filename << "\" loaded." << endl << endl;
 	return ALL_OK;
 }

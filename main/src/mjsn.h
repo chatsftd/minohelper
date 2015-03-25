@@ -1,6 +1,8 @@
 #ifndef MJSN_H_DEFINED_D1462381BE2B141290C21DBDCDCA3BC33D95A467 
 #define MJSN_H_DEFINED_D1462381BE2B141290C21DBDCDCA3BC33D95A467
-#include "state.h"
+#include "mino.h"
+#include "type/errorlevel.h"
+#include "meta/state2.h"
 #include <vector>
 #include <string>
 #include <utility>

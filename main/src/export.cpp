@@ -12,16 +12,6 @@
 #include <deque>
 using namespace std;
 
-static error_level export3(string& str, const state::file_data& dat)
-{
-	mjsn m;
-	error_level e = another_convert(m,dat);
-	if(e != ALL_OK) return e;
-	
-	str = m.to_str(dat.palette);
-	return ALL_OK;
-}
-
 error_level export_(state& st, const arguments2& args)
 {
 	ret_data ret;
@@ -60,12 +50,9 @@ error_level export_(state& st, const arguments2& args)
 	
 	ofstream ofs(output.c_str());
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
+		
+	ofs << st.content[input].first.to_str(st.content[input].second) << endl;
 	
-	string str;
-	error_level e = export3(str,st.content[input]);
-	if(e != ALL_OK) return e;
-	
-	ofs << str << endl;
 	cout << "Finished." << endl << endl;
 	return ALL_OK;
 }
