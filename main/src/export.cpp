@@ -11,7 +11,7 @@
 #include <deque>
 using namespace std;
 
-static string export3(state::file_data dat)
+mjsn another_convert(state::file_data dat)
 {
 	typedef map<point,direction> dirmap_t;
 	dirmap_t dir_map = dat.dir.get_all_points();
@@ -94,6 +94,12 @@ static string export3(state::file_data dat)
 		throw 3;
 	}
 	
+	return m;
+}
+
+static string export3(state::file_data dat)
+{
+	mjsn m = export2(dat);
 	return m.to_str(dat.palette);
 }
 
