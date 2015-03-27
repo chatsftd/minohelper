@@ -67,7 +67,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		
 		for(size_t j = 0; j < segments[i].minos.size(); j++)
 		{
-			cout << "    " << segments[i].minos[i] << endl;
+			cout << "    " << segments[i].minos[j] << endl;
 		}
 	} 
 	
