@@ -47,42 +47,31 @@ static Maybe<Color> get_color(const string& str)
 error_level colordef_(state2& st, const meta& m)
 {
 	const vector<string> tokens = m.get_tokens();
-	if(tokens.size() < 2)
-	{
+	if(tokens.size() < 2) {
 		cerr << "Meta info 'colordef' needs arguments" << endl; cout << endl;
 		return INVALID_META;
 	}
-	for(size_t i = 1; i < tokens.size(); i += 2) //parse two tokens at once
-	{
+	for(size_t i = 1; i < tokens.size(); i += 2) { //parse two tokens at once
 		bool default_col = false;
-		if(tokens[i] == (string)"(" && tokens[i+1] == (string)")")
-		{
+		if(tokens[i] == (string)"(" && tokens[i+1] == (string)")") {
 			i++; // increment one more
 			default_col = true;
 		}
 		Maybe<Color> co = get_color(tokens[i+1]);
-		if(co.isNothing())
-		{
+		if(co.isNothing()) {
 			cerr << "Invalid color name '" << tokens[i+1] << "' inside a meta info 'colordef'" << endl; cout << endl;
 			return INVALID_META;
 		}
 		Color col = co.unJust();
-		if(default_col)
-		{
+		if(default_col) {
 			st.palette.default_color = col;
-		}
-		else
-		{
+		} else {
 			const string& str = tokens[i];
-			for(size_t j = 0; j < str.size(); j++)
-			{
-				if(!st.palette.exist(str[j]))
-				{
+			for(size_t j = 0; j < str.size(); j++) {
+				if(!st.palette.exist(str[j])) {
 					st.palette.set_color_of(str[j],col);
 					cout << "colordef: '" << str[j] << "' is " << col << endl;
-				}
-				else
-				{
+				} else {
 					cerr << "conflicting colordef: " << col << " and " << st.palette.get_color_of(str[j]) << " assigned to '" << str[j] << "'" << endl; cout << endl;
 				}
 			}

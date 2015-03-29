@@ -14,22 +14,18 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	
 	/* classification */
 	deque< vector<mino> > minos_separated;
-	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
-	{
+	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it) {
 		vector<mino> e;
 		point p = it->first;
 		
 		vector<mino>::iterator it2 = minos.begin();
-		while (it2 != minos.end())
-		{
-			if (it2->top_left() < p)
-			{
+		while (it2 != minos.end()) {
+			if (it2->top_left() < p) {
 				e.push_back(*it2);
 				it2 = minos.erase(it2);
-			}
-			else{ ++it2; }
+			} else { ++it2; }
 		}
-
+		
 		minos_separated.push_back(e);
 	}
 	minos_separated.push_back(minos);
@@ -41,8 +37,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	minos_separated.pop_front();
 	
 	
-	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it)
-	{
+	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it) {
 		vector<mino> minos2 = minos_separated.front();
 		point p = it->first;
 		map<point,point> trans = dat.dir.get_transform();
@@ -51,9 +46,8 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		
 		point p2 = trans[p]; //last_pos
 		
-		for(size_t i = 0; i < minos2.size(); i++)
-		{
-			minos2[i] -= p2.first + 1; 
+		for(size_t i = 0; i < minos2.size(); i++) {
+			minos2[i] -= p2.first + 1;
 			// it is guaranteed that minos are not on the same line as the direction
 		}
 		
@@ -61,31 +55,24 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		minos_separated.pop_front();
 	}
 	
-	for(size_t i = 0; i < segments.size(); i++)
-	{
+	for(size_t i = 0; i < segments.size(); i++) {
 		cout << "segment after " << segments[i].last_pos << ":" << endl;
 		
-		for(size_t j = 0; j < segments[i].minos.size(); j++)
-		{
+		for(size_t j = 0; j < segments[i].minos.size(); j++) {
 			cout << "    " << segments[i].minos[j] << endl;
 		}
-	} 
+	}
 	
 	vector<mino_with_dir> merged;
 	error_level e2 = merge_segments(merged,segments,dat.labels);
 	
 	if(e2 != ALL_OK) return e2;
 	
-	if(merged.empty())
-	{
+	if(merged.empty()) {
 		m.make_mjsn(first_segment);
-	}
-	else if(first_segment.empty())
-	{
+	} else if(first_segment.empty()) {
 		m.make_mjsn(merged);
-	}
-	else
-	{
+	} else {
 		return BEFORE_AFTER_DIRECTION;
 	}
 	

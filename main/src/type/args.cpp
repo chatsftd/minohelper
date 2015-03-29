@@ -4,7 +4,7 @@
 using namespace std;
 string& arguments2::operator [](size_t n)
 {
-#ifndef NDEBUG 
+#ifndef NDEBUG
 	return this->inside.at(n);
 #else
 	return this->inside[n];
@@ -14,7 +14,7 @@ string& arguments2::operator [](size_t n)
 string arguments2::operator [](size_t n) const
 {
 	string str;
-#ifndef NDEBUG 
+#ifndef NDEBUG
 	str = this->inside.at(n);
 #else
 	str = this->inside[n];
@@ -27,8 +27,7 @@ void arguments2::parse(const string& a)
 	stringstream input;
 	input.str(a);
 	string b;
-	while(input >> b)
-	{
+	while(input >> b) {
 		this->push_back(b);
 	}
 }

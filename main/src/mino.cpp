@@ -22,16 +22,15 @@ static void proc(int& tmp, point tl, point p)
 	size_t x0 = p.first;
 	size_t y0 = p.second;
 	
-	switch(bind(y0-y,x0-x))
-	{
-		case bind(1,0): tmp |=  1; break;
-		case bind(2,0): tmp |=  8; break;
-		case bind(0,1): tmp |=  2; break;
-		case bind(1,1): tmp |=  4; break;
-		case bind(2,1): tmp |= 32; break;
-		case bind(0,2): tmp |= 16; break;
-		case bind(1,2): tmp |= 64; break;
-		default: break; // ignore all other
+	switch(bind(y0-y,x0-x)) {
+	case bind(1,0): tmp |=  1; break;
+	case bind(2,0): tmp |=  8; break;
+	case bind(0,1): tmp |=  2; break;
+	case bind(1,1): tmp |=  4; break;
+	case bind(2,1): tmp |= 32; break;
+	case bind(0,2): tmp |= 16; break;
+	case bind(1,2): tmp |= 64; break;
+	default: break; // ignore all other
 	}
 	return;
 }
@@ -68,16 +67,16 @@ shape_num mino::get_shape_num() const
 
 ostream& operator<<(ostream& o, const mino& m)
 {
-    return o << "'" << m.ch << "' "
-	<< m.p0 << ","
-	<< m.p1 << ","
-	<< m.p2 << ","
-	<< m.p3
-	<< "  " << m.get_shape_num()
-	<< "  " << get_name(m.get_shape_num());
+	return o << "'" << m.ch << "' "
+	       << m.p0 << ","
+	       << m.p1 << ","
+	       << m.p2 << ","
+	       << m.p3
+	       << "  " << m.get_shape_num()
+	       << "  " << get_name(m.get_shape_num());
 }
-static inline size_t m(size_t a, size_t b){ return a < b ? a : b; }
-static inline size_t min(size_t a, size_t b, size_t c, size_t d){ return m(m(a,b),m(c,d)); }
+static inline size_t m(size_t a, size_t b) { return a < b ? a : b; }
+static inline size_t min(size_t a, size_t b, size_t c, size_t d) { return m(m(a,b),m(c,d)); }
 
 point mino::top_left() const
 {

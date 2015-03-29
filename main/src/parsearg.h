@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-typedef std::map<std::string, std::size_t> arg_info; 
+typedef std::map<std::string, std::size_t> arg_info;
 
 class ret_data
 {

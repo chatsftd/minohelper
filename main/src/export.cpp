@@ -20,29 +20,26 @@ error_level export_(state& st, const arguments2& args)
 	
 	string input  = ret.last_valid("");
 	string output = ret.last_valid("-o");
-	if(input == "")
-	{
+	if(input == "") {
 		error_level s = file_select(input, st);
 		if(s != ALL_OK) return s;
 	}
 	
-	if(st.content.find(input) == st.content.end()) // if input is not found
-	{
+	if(st.content.find(input) == st.content.end()) { // if input is not found
 		/*
-		 * create args from thin air and 
+		 * create args from thin air and
 		 * import the file
 		 */
 		
 		arguments2 new_args;
 		new_args.push_back("import");
-		new_args.push_back(input); 
+		new_args.push_back(input);
 		
 		error_level s9 = import_(st,new_args);
 		if(s9 != ALL_OK) return s9;
 	}
 	
-	if(output == "")
-	{
+	if(output == "") {
 		cout << "To where?" << endl;
 		cout << ">>> " << flush;
 		getline(cin,output);
@@ -50,7 +47,7 @@ error_level export_(state& st, const arguments2& args)
 	
 	ofstream ofs(output.c_str());
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
-		
+	
 	ofs << st.content[input].first.to_str(st.content[input].second) << endl;
 	
 	cout << "Finished." << endl << endl;

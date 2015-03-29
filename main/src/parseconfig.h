@@ -3,21 +3,21 @@
 #include <string>
 #include <iostream>
 
-enum parsestat
-{
+enum parsestat {
 	EMPTY_LINE,
 	VALID_LINE,
 	DELETION_LINE,
 	INVALID_LINE
 };
 
-class config_value{
+class config_value
+{
 	int inside;
-
-public:	
+	
+public:
 	friend std::ostream& operator<<(std::ostream& os, const config_value& val);
 	friend std::istream& operator>>(std::istream& is, config_value& val);
-	operator int() const{ return this->inside; }
+	operator int() const { return this->inside; }
 };
 
 parsestat parse_line(const std::string& str, std::string& varname, config_value& num);

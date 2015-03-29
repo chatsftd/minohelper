@@ -4,8 +4,7 @@ using namespace std;
 string error_level::to_str() const
 {
 #define case_(a) case (a): return (string)(#a)
-	switch(this->inside)
-	{
+	switch(this->inside) {
 		case_(EXIT_ALL);
 		case_(ALL_OK);
 		case_(INVALID_META);
@@ -22,13 +21,13 @@ string error_level::to_str() const
 		case_(BEFORE_AFTER_DIRECTION);
 		case_(DIRECTION_MERGE_CONFLICT);
 		case_(DIRECTION_INCOMPLETE_MERGE);
-		default: return "SOMETHING_WRONG";
+	default: return "SOMETHING_WRONG";
 	}
 }
 
 ostream& operator<<(ostream& o, const error_level& s)
 {
-	return o << s.to_str();	
+	return o << s.to_str();
 }
 
 error_level::operator int() const

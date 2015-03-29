@@ -7,8 +7,7 @@
 #include <iostream>
 #include <set>
 
-enum Color_
-{
+enum Color_ {
 	RED = 0,
 	ORANGE,
 	YELLOW,
@@ -22,8 +21,7 @@ enum Color_
 	Null = 0xCCCC
 };
 
-struct Color
-{
+struct Color {
 	Color_ inside;
 	Color(void) : inside(Null) {}
 	Color(Color_ c) : inside(c) {}
@@ -34,8 +32,7 @@ struct Color
 	friend std::ostream& operator<<(std::ostream& o, const Color& p);
 };
 
-enum direction
-{
+enum direction {
 	TO_SOUTH,
 	TO_EAST,
 	TO_NORTH,
@@ -48,15 +45,15 @@ class dir_info
 	std::map<point,point> from_first_to_last;
 	
 public:
-	void set_direction(point p, direction dir){ this->inside[p] = dir; }
-	void set_direction(size_t f, size_t s, direction dir){ this->inside[point(f,s)] = dir; }
-	void set_transform(point p, point p2){ this->from_first_to_last[p] = p2; }
+	void set_direction(point p, direction dir) { this->inside[p] = dir; }
+	void set_direction(size_t f, size_t s, direction dir) { this->inside[point(f,s)] = dir; }
+	void set_transform(point p, point p2) { this->from_first_to_last[p] = p2; }
 	direction get_direction(point p) const;
 	direction get_direction(size_t f, size_t s) const;
 	std::map<point,direction> get_all_points() const { return this->inside; }
 	std::map<point,point> get_transform() const { return this->from_first_to_last; }
 };
- 
+
 
 
 class color_palette
@@ -74,8 +71,7 @@ public:
 class label_info
 {
 public:
-	struct label_content
-	{
+	struct label_content {
 		int num;
 		point last_pos;
 		direction dir;
@@ -86,14 +82,13 @@ private:
 	std::multimap<std::string,label_content> inside;
 	
 public:
-	void set_label(const std::string& name, int num, point last_pos, direction dir); 
+	void set_label(const std::string& name, int num, point last_pos, direction dir);
 	std::set<point> last_positions() const;
 	std::set<size_t> last_x_positions() const;
 	std::multimap<std::string,label_content> get_labels_from_pos(point p) const;
 };
 
-struct state2
-{
+struct state2 {
 	color_palette palette;
 	dir_info dir;
 	label_info labels;

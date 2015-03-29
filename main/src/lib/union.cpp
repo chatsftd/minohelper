@@ -6,16 +6,14 @@ ID UnionFind::root(ID id)
 {
 	ID parent_id;
 	stack<ID> stc;
-	while(true)
-	{
+	while(true) {
 		stc.push(id);
 		parent_id = this->parents[id];
 		if(id == parent_id) break;
 		id = parent_id;
 	}
 	
-	while(!stc.empty()) // optimize
-	{
+	while(!stc.empty()) { // optimize
 		this->parents[stc.top()] = id;
 		stc.pop();
 	}
@@ -37,17 +35,15 @@ vector< vector<ID> > UnionFind::toGroups(void)
 	
 	size_t size = this->parents.size();
 	
-	for(size_t i = 0; i < size; i++)
-	{
+	for(size_t i = 0; i < size; i++) {
 		ID i2 = i;
 		buf[this->root(i2)].push_back(i2);
 	}
 	
 	vector<group> result;
-	for(map<ID, group>::iterator it = buf.begin(); it != buf.end(); ++it)
-    {
-        result.push_back(it->second);
-    }
+	for(map<ID, group>::iterator it = buf.begin(); it != buf.end(); ++it) {
+		result.push_back(it->second);
+	}
 	return result;
 }
 

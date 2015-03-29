@@ -6,8 +6,7 @@
 
 
 
-enum shape_num
-{
+enum shape_num {
 	N_mino = 0, /*   @   @@    @     @@  */
 	Z_mino,     /*  @@    @@   @@   @@   */
 	Y_mino,     /*  @           @        */
@@ -16,18 +15,18 @@ enum shape_num
 	J_mino,     /*   @   @@   @     @@@  */
 	P_mino,     /*   @   @    @@@     @  */
 	A_mino,     /*  @@   @               */
-	B_mino,     /*   J   P     A     B   */	
+	B_mino,     /*   J   P     A     B   */
 	
 	L_mino,     /*  @    @@   @@@     @  */
 	Q_mino,     /*  @     @   @     @@@  */
 	C_mino,     /*  @@    @              */
-	D_mino,     /*  L     Q    C     D   */	
+	D_mino,     /*  L     Q    C     D   */
 	
 	E_mino,     /*  @     @   @@@    @   */
 	F_mino,     /*  @@   @@    @    @@@  */
 	T_mino,     /*  @     @              */
-	K_mino,     /*  E     F    T     K   */	
-		
+	K_mino,     /*  E     F    T     K   */
+	
 	I_mino,     /*  @          @@        */
 	M_mino,     /*  @   @@@@   @@        */
 	O_mino,     /*  @                    */
@@ -51,22 +50,22 @@ public:
 	friend std::ostream& operator<<(std::ostream& o, const mino& m);
 	point top_left() const;
 	shape_num get_shape_num() const;
-	mino& operator-=(size_t x) 
-	{ 
+	mino& operator-=(size_t x)
+	{
 		this->p0 -= x;
 		this->p1 -= x;
 		this->p2 -= x;
 		this->p3 -= x;
-		return *this; 
+		return *this;
 	}
 	
-	mino& operator+=(size_t x) 
-	{ 
+	mino& operator+=(size_t x)
+	{
 		this->p0 += x;
 		this->p1 += x;
 		this->p2 += x;
 		this->p3 += x;
-		return *this; 
+		return *this;
 	}
 };
 

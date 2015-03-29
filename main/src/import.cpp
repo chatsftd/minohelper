@@ -13,8 +13,7 @@ static error_level import_file(state& st, const string& filename)
 {
 	cout << "Loading \"" << filename << "\" ..." << endl;
 	ifstream ifs(filename.c_str());
-	if(!ifs)
-	{
+	if(!ifs) {
 		cerr << "File \"" << filename << "\" does not exist." << endl; cout << endl;
 		return INVALID_FILEPATH;
 	}
@@ -24,8 +23,7 @@ static error_level import_file(state& st, const string& filename)
 		string s;
 		stringstream buffer;
 		buffer << ifs.rdbuf();
-		while(getline(buffer,s))
-		{
+		while(getline(buffer,s)) {
 			plane.push_back(s);
 		}
 	}
@@ -35,8 +33,7 @@ static error_level import_file(state& st, const string& filename)
 	
 	const Maybe<state::file_data>& mD = parse_mino(st2,plane);
 	
-	if(mD.isNothing())
-	{
+	if(mD.isNothing()) {
 		return IMPROPER_MINO;
 	}
 	
@@ -55,19 +52,16 @@ static error_level import_file(state& st, const string& filename)
 error_level import_(state& st, const arguments2& args)
 {
 	error_level ret_val = ALL_OK;
-	if(args.size() < 2)
-	{
+	if(args.size() < 2) {
 		string str;
 		cout << "File name?" << endl;
 		cout << ">>> " << flush;
 		getline(cin,str);
 		return import_file(st,str);
 	}
-	for(size_t j = 1; j < args.size(); ++j)
-	{
+	for(size_t j = 1; j < args.size(); ++j) {
 		error_level s = import_file(st,args[j]);
-		if(ret_val == ALL_OK)
-		{
+		if(ret_val == ALL_OK) {
 			ret_val = s; // return the first error code
 		}
 	}

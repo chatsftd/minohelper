@@ -23,8 +23,7 @@ enum error_level_i /* DON'T FORGET TO MODIFY error_level::to_str() TOO */
 	SOMETHING_WRONG = 0xCCCC
 };
 
-struct error_level
-{
+struct error_level {
 	error_level_i inside;
 	error_level(error_level_i s) : inside(s) {} /* no explicit */
 	operator int() const;

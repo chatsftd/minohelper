@@ -6,8 +6,7 @@
 #include <vector>
 #include <string>
 
-enum Paren
-{
+enum Paren {
 	Parenthesis,
 	Bracket,
 	Brace
@@ -16,8 +15,7 @@ enum Paren
 char paren_begin(Paren p);
 char paren_end(Paren p);
 
-struct meta
-{
+struct meta {
 	Paren paren;
 	std::string content;
 	point first_pos;

@@ -9,9 +9,9 @@ class arguments2
 	
 public:
 	arguments2() : inside() {}
-	void push_back(std::string s){ this->inside.push_back(s); }
-	bool empty() const{ return this->inside.empty(); }
-	size_t size() const{ return this->inside.size(); }
+	void push_back(std::string s) { this->inside.push_back(s); }
+	bool empty() const { return this->inside.empty(); }
+	size_t size() const { return this->inside.size(); }
 	std::string& operator [](size_t n);
 	std::string operator [](size_t n) const;
 	void parse(const std::string& a);
