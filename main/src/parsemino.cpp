@@ -1,5 +1,6 @@
 #include "parsemino.h"
 #include "lib/union.h"
+#include "lib/debug.h"
 #include "mino.h"
 #include <iostream>
 #include <map>
@@ -66,7 +67,7 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 	vector<mino> groups2;
 	for(size_t i = 0, n = groups.size(); i < n; i++) {
 		vector<point> tmp;
-		char c2; // the character used in the input
+		char c2 = ' '; // the character used in the input
 		for(size_t j = 0, m = groups[i].size(); j < m; j++) {
 			/*
 			x   :   p.first+1
@@ -81,8 +82,9 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 			c2 = c;
 			tmp.push_back(p);
 		}
-		if(tmp.size() == 0) continue; // ignore spaces
+		if(tmp.empty()) continue; // ignore spaces
 		if(tmp.size() == 4) {
+			assert2("gfadsxcf",c2 != ' ');
 			groups2.push_back(mino(tmp,c2));
 		} else {
 			cerr << "Improper mino ";

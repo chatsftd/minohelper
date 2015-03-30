@@ -6,7 +6,6 @@
 #include "lib/pathroot.h"
 #include <fstream>
 #include <sstream>
-#include <cctype>
 #include <map>
 using namespace std;
 
@@ -87,7 +86,6 @@ error_level config_(state& /*st**/, const arguments2& args)
 	cout << "File path: " << path << endl;
 	
 	for(size_t i = 0; i < opts.size(); i++) {
-		/*indent*/
 		const vector<string> opt = opts[i];
 		if(opt[0] == "--set") {
 			if(!is_varname(opt[1])) {
@@ -161,7 +159,6 @@ error_level config_(state& /*st**/, const arguments2& args)
 			cout << "The config file was successfully compressed." << endl;
 		}
 		cout << endl;
-		/*indent*/
 		
 	}
 	return ALL_OK;
