@@ -1,4 +1,5 @@
 #include "parseconfig.h"
+#include <cstring>
 #include <sstream>
 using namespace std;
 
@@ -16,8 +17,8 @@ istream& operator>>(istream& is, config_value& val)
 	return is;
 }
 
-static inline bool is_varname_init_char(char a) { return isalpha(a) || (a == '_'); }
-static inline bool is_varname_more_char(char a) { return isalnum(a) || (a == '_') || (a == '.'); }
+static inline bool is_varname_init_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"           ,a) != NULL; }
+static inline bool is_varname_more_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz.0123456789",a) != NULL; }
 
 bool is_varname(const string& str)
 {
