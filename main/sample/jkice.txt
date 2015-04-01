@@ -19,16 +19,10 @@
 (direction toright
 	first_label 6
 )
-              
-              
-              
-A   %         
-A  %%         
-A A%          
-A A           
-%AA           
-%  A          
-%  AA         
-%   A%        
-    %%%       
- {-__|_here-}
+                 %%%%AAAA
+                    A    
+                    AAA  
+                  AA  %% 
+                %AA    %%
+   {-here-}     %%       
+                %        
