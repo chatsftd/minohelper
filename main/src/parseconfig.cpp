@@ -20,6 +20,28 @@ istream& operator>>(istream& is, config_value& val)
 static inline bool is_varname_init_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"           ,a) != NULL; }
 static inline bool is_varname_more_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz.0123456789",a) != NULL; }
 
+istream& read_variable(istream& is, string& name)
+{
+	name = "";
+	is >> ws; // remove whitespace
+	if(!is_varname_init_char(is.peek())) {
+		is.setstate(ios::failbit);
+		return is;
+	}
+	
+	name.append(1,is.get());
+	
+	while(!is.eof()) {
+		char c2 = is.peek();
+		if(is_varname_more_char(c2)) {
+			name.append(1,is.get());
+		} else { break; }
+	}
+	
+	return is;
+}
+
+
 bool is_varname(const string& str)
 {
 	if(str.empty() || !is_varname_init_char(str[0])) { return false; }
@@ -31,74 +53,33 @@ bool is_varname(const string& str)
 
 parsestat parse_line(const string& str, string& varname, config_value& num)
 {
-	size_t pos = 0;
-	varname = "";
-	if(str.size() == 0) { return EMPTY_LINE; }
+	if(str.empty()) { return EMPTY_LINE; }
 	
-	while(true) { // before varname
-		if(!isspace(str[pos])) break;
-		pos++;
-		if(pos >= str.size()) { return EMPTY_LINE; }
+	stringstream ss(str.c_str());
+	ss >> ws;
+	if(ss.eof()) { return EMPTY_LINE; }
+	
+	
+	if(ss.peek() == '~') {
+		ss.get();
+		read_variable(ss,varname);
+		if(!ss) { return INVALID_LINE; }
+		
+		ss >> ws;
+		if(!ss.eof()) { return INVALID_LINE; }
+		return DELETION_LINE;
+	} else {
+		read_variable(ss,varname);
+		ss >> ws;
+		if(ss.peek() != '=') { return INVALID_LINE; }
+		else {
+			ss.get();
+			ss >> num;
+			if(!ss) {return INVALID_LINE;}
+			
+			ss >> ws;
+			if(!ss.eof()) { return INVALID_LINE; }
+			return VALID_LINE;
+		}
 	}
-	
-	char init_char = str[pos];
-	if(init_char == '~') {
-		pos++;
-		goto parse_deletion_line; //located at the end of the function
-	}
-	if(!is_varname_init_char(init_char)) { return INVALID_LINE; }
-	varname.append(1,init_char);
-	pos++;
-	if(pos >= str.size()) { return INVALID_LINE; }
-	
-	while(true) {
-		char a = str[pos];
-		if(!is_varname_more_char(str[pos])) break;
-		pos++;
-		varname.append(1,a);
-		if(pos >= str.size()) { return INVALID_LINE; }
-	}
-	
-	while(true) { // after varname
-		if(!isspace(str[pos])) break;
-		pos++;
-		if(pos >= str.size()) { return INVALID_LINE; }
-	}
-	
-	if(str[pos++] != '=') { return INVALID_LINE; }
-	if(pos >= str.size()) { return INVALID_LINE; }
-	
-	{ /* goto cannot jump over initialization */
-		string leftover = str.substr(pos);
-		stringstream ss(leftover.c_str());
-		ss >> num;
-		if(!ss) {return INVALID_LINE;}
-	}
-	return VALID_LINE;
-	
-	
-	/************
-	 * DELETION *
-	 ************/
-parse_deletion_line:
-	while(true) { // before varname
-		if(!isspace(str[pos])) break;
-		pos++;
-		if(pos >= str.size()) { return INVALID_LINE; }
-	}
-	
-	char init_char2 = str[pos];
-	if(!is_varname_init_char(init_char2)) { return INVALID_LINE; }
-	varname.append(1,init_char2);
-	pos++;
-	if(pos >= str.size()) { return DELETION_LINE; }
-	
-	while(true) {
-		char a = str[pos];
-		if(!is_varname_more_char(str[pos])) { return INVALID_LINE; }
-		pos++;
-		varname.append(1,a);
-		if(pos >= str.size()) break;
-	}
-	return DELETION_LINE;
 }
