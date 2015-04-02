@@ -43,7 +43,7 @@ static error_level import_file(state& st, const string& filename)
 	error_level s2 = another_convert(m,data);
 	if(s2 != ALL_OK) return s2;
 	
-	st.content[filename] = make_pair(m,data.palette);
+	st.content[filename] = make_pair(m,data.st2.palette);
 	cout << "OK, \"" << filename << "\" loaded." << endl << endl;
 	return ALL_OK;
 }

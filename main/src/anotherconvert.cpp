@@ -9,7 +9,7 @@ using namespace std;
 error_level another_convert(mjsn& m, const state::file_data& dat)
 {
 	typedef map<point,direction> dirmap_t;
-	dirmap_t dir_map = dat.dir.get_all_points();
+	dirmap_t dir_map = dat.st2.dir.get_all_points();
 	vector<mino> minos = dat.minos;
 	
 	/* classification */
@@ -40,7 +40,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it) {
 		vector<mino> minos2 = minos_separated.front();
 		point p = it->first;
-		map<point,point> trans = dat.dir.get_transform();
+		map<point,point> trans = dat.st2.dir.get_transform();
 		
 		assert2("geraesdfx", trans.count(p));
 		
@@ -64,7 +64,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	}
 	
 	vector<mino_with_dir> merged;
-	error_level e2 = merge_segments(merged,segments,dat.labels);
+	error_level e2 = merge_segments(merged,segments,dat.st2.labels);
 	
 	if(e2 != ALL_OK) return e2;
 	
