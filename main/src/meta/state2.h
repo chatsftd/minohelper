@@ -21,10 +21,13 @@ enum Color_ {
 	Null = 0xCCCC
 };
 
-struct Color {
-	Color_ inside;
-	Color(void) : inside(Null) {}
-	Color(Color_ c) : inside(c) {}
+class Color
+{
+	Color_ color;
+	
+public:
+	Color(void) : color(Null) {}
+	Color(Color_ c) : color(c) {}
 	int to_int() const;
 	std::string to_str() const;
 	bool operator !() const;
@@ -41,16 +44,14 @@ enum direction {
 
 class dir_info
 {
-	std::map<point,direction> inside;
+	std::map<point,direction> all_points;
 	std::map<point,point> from_first_to_last;
 	
 public:
-	void set_direction(point p, direction dir) { this->inside[p] = dir; }
-	void set_direction(size_t f, size_t s, direction dir) { this->inside[point(f,s)] = dir; }
+	void set_direction(point p, direction dir) { this->all_points[p] = dir; }
+	void set_direction(size_t f, size_t s, direction dir) { this->all_points[point(f,s)] = dir; }
 	void set_transform(point p, point p2) { this->from_first_to_last[p] = p2; }
-	direction get_direction(point p) const;
-	direction get_direction(size_t f, size_t s) const;
-	std::map<point,direction> get_all_points() const { return this->inside; }
+	std::map<point,direction> get_all_points() const { return this->all_points; }
 	std::map<point,point> get_transform() const { return this->from_first_to_last; }
 };
 
@@ -79,11 +80,10 @@ public:
 	};
 	
 private:
-	std::multimap<std::string,label_content> inside;
+	std::multimap<std::string,label_content> label_map;
 	
 public:
 	void set_label(const std::string& name, int num, point last_pos, direction dir);
-	std::set<point> last_positions() const;
 	std::set<size_t> last_x_positions() const;
 	std::multimap<std::string,label_content> get_labels_from_pos(point p) const;
 };
