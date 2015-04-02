@@ -42,21 +42,6 @@ enum direction {
 	TO_WEST
 };
 
-class dir_info
-{
-	std::map<point,direction> all_points;
-	std::map<point,point> from_first_to_last;
-	
-public:
-	void set_direction(point p, direction dir) { this->all_points[p] = dir; }
-	void set_direction(size_t f, size_t s, direction dir) { this->all_points[point(f,s)] = dir; }
-	void set_transform(point p, point p2) { this->from_first_to_last[p] = p2; }
-	std::map<point,direction> get_all_points() const { return this->all_points; }
-	std::map<point,point> get_transform() const { return this->from_first_to_last; }
-};
-
-
-
 class color_palette
 {
 	std::map<char,Color> p;
@@ -89,6 +74,19 @@ public:
 };
 
 struct state2 {
+	class dir_info
+	{
+		std::map<point,direction> all_points;
+		std::map<point,point> from_first_to_last;
+		
+	public:
+		void set_direction(point p, direction dir) { this->all_points[p] = dir; }
+		void set_direction(size_t f, size_t s, direction dir) { this->all_points[point(f,s)] = dir; }
+		void set_transform(point p, point p2) { this->from_first_to_last[p] = p2; }
+		std::map<point,direction> get_all_points() const { return this->all_points; }
+		std::map<point,point> get_transform() const { return this->from_first_to_last; }
+	};
+	
 	color_palette palette;
 	dir_info dir;
 	label_info labels;
