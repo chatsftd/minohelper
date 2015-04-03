@@ -4,7 +4,7 @@ using namespace std;
 string error_level::to_str() const
 {
 #define case_(a) case (a): return (string)(#a)
-	switch(this->inside) {
+	switch(this->value) {
 		case_(EXIT_ALL);
 		case_(ALL_OK);
 		case_(INVALID_META);
@@ -32,5 +32,5 @@ ostream& operator<<(ostream& o, const error_level& s)
 
 error_level::operator int() const
 {
-	return static_cast<int>(this->inside);
+	return static_cast<int>(this->value);
 }

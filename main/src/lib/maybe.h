@@ -5,13 +5,13 @@ template <class T>
 class Maybe
 {
 	bool isJust_;
-	T inside;
-	Maybe(bool ij, const T& t) : isJust_(ij), inside(t) {}
+	T t;
+	Maybe(bool ij, const T& t_) : isJust_(ij), t(t_) {}
 	
 public:
-	Maybe() : isJust_(false), inside() {}
+	Maybe() : isJust_(false), t() {}
 	template <class T2> friend Maybe<T2> Nothing() { Maybe<T2> mt; return mt;}
-	template <class T2> friend Maybe<T2> Just(const T2& t) { Maybe<T2> mt(true,t); return mt;}
+	template <class T2> friend Maybe<T2> Just(const T2& t_) { Maybe<T2> mt(true,t_); return mt;}
 	bool isJust() const { return this->isJust_; }
 	bool isNothing() const { return !(this->isJust_); }
 	T unJust() const;
@@ -21,11 +21,11 @@ template <class T>
 T Maybe<T>::unJust() const
 {
 	if(this->isJust_) {
-		return this->inside;
+		return this->t;
 	} else {
 		assert2("cannot unJust Nothing",0);
-		T t;
-		return t;
+		T t_;
+		return t_;
 	}
 }
 

@@ -5,21 +5,21 @@ using namespace std;
 string& arguments2::operator [](size_t n)
 {
 #ifndef NDEBUG
-	return this->inside.at(n);
+	return this->tokens.at(n);
 #else
-	return this->inside[n];
+	return this->tokens[n];
 #endif
 }
 
-string arguments2::operator [](size_t n) const
+const string& arguments2::operator [](size_t n) const
 {
-	string str;
+	return
 #ifndef NDEBUG
-	str = this->inside.at(n);
+	    this->tokens.at(n)
 #else
-	str = this->inside[n];
+	    this->tokens[n]
 #endif
-	return str;
+	    ;
 }
 
 void arguments2::parse(const string& a)

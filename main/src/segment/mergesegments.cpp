@@ -6,28 +6,21 @@
 #include <deque>
 using namespace std;
 
-struct label_table {
-	std::map<std::string,size_t> inside;
-	label_table() : inside() {}
-	label_table(std::map<std::string,size_t> i) : inside(i) {}
-	bool empty() const { return this->inside.empty(); }
-	size_t size() const { return this->inside.size(); }
-	void add_offset(int x);
-};
+typedef map<string,size_t> label_table;
 
 
-std::set<std::string> common_labels(const label_table& t1, const label_table& t2);
+set<string> common_labels(const label_table& t1, const label_table& t2);
 
 class core
 {
-	std::vector<mino_with_dir> inside;
+	vector<mino_with_dir> mds;
 	label_table table;
 	
 public:
-	core() : inside(), table() {}
-	core(std::vector<mino_with_dir> i, std::map<std::string,size_t> l) : inside(i), table(l) {}
+	core() : mds(), table() {}
+	core(vector<mino_with_dir> i, label_table l) : mds(i), table(l) {}
 	core(const mino_map_segment& segment, const label_info& labels);
-	std::vector<mino_with_dir> get_inside() const { return this->inside; }
+	vector<mino_with_dir> get_mds() const { return this->mds; }
 	merge_status merge(const core& c);
 	core& operator+=(size_t x);
 };
@@ -44,16 +37,16 @@ vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
 	return ans;
 }
 
-void label_table::add_offset(int x)
+void add_offset(label_table& t1, int x)
 {
-	for(std::map<std::string,size_t>::iterator it = this->inside.begin(); it != this->inside.end(); ++it) {
+	for(label_table::iterator it = t1.begin(); it != t1.end(); ++it) {
 		it->second += x;
 	}
 }
 
 core::core(const mino_map_segment& segment, const label_info& labels)
 {
-	vector<mino_with_dir> mds = add_dir(segment.minos,segment.dir);
+	this->mds = add_dir(segment.minos,segment.dir);
 	
 	map<string,size_t> tabl;
 	
@@ -62,7 +55,6 @@ core::core(const mino_map_segment& segment, const label_info& labels)
 	for(label_map::const_iterator it = labels2.begin(); it != labels2.end(); ++it) {
 		tabl[it->first] = it->second.num;
 	}
-	this->inside = mds;
 	this->table = tabl;
 }
 
@@ -70,11 +62,11 @@ set<string> common_labels(const label_table& t1, const label_table& t2)
 {
 	set<string> tmp;
 	set<string> res;
-	for(map<string,size_t>::const_iterator it = t1.inside.begin(); it != t1.inside.end(); ++it) {
+	for(map<string,size_t>::const_iterator it = t1.begin(); it != t1.end(); ++it) {
 		tmp.insert(it->first);
 	}
 	
-	for(map<string,size_t>::const_iterator it = t2.inside.begin(); it != t2.inside.end(); ++it) {
+	for(map<string,size_t>::const_iterator it = t2.begin(); it != t2.end(); ++it) {
 		if(tmp.count(it->first)) {	res.insert(it->first);	}
 	}
 	return res;
@@ -82,11 +74,11 @@ set<string> common_labels(const label_table& t1, const label_table& t2)
 
 merge_status core::merge(const core& that)
 {
-	if(that.inside.empty()) {
+	if(that.mds.empty()) {
 		return MERGE_SUCCESS; //do nothing
 	}
 	
-	if(this->inside.empty()) {
+	if(this->mds.empty()) {
 		core tmp(that); //copy
 		*this = tmp;
 		return MERGE_SUCCESS;
@@ -100,23 +92,23 @@ merge_status core::merge(const core& that)
 	
 	
 	string first_label = *(common_labs.begin());
-	size_t row1 = this->table.inside.find(first_label)->second; //this->table.inside.at(first_label);
-	size_t row2 =  that.table.inside.find(first_label)->second;
+	size_t row1 = this->table.find(first_label)->second; //this->table.at(first_label);
+	size_t row2 =  that.table.find(first_label)->second;
 	
 	core this2 = *this + row2; //criss-cross
 	core that2 =  that + row1;
 	
 #define all(c) (c).begin(),(c).end()
-	this2.inside.insert(this2.inside.end(), all(that2.inside));	//append
+	this2.mds.insert(this2.mds.end(), all(that2.mds));	//append
 	
-	multimap<std::string,size_t> mss;
-	mss.insert(all(this2.table.inside));
-	mss.insert(all(that2.table.inside));
+	multimap<string,size_t> mss;
+	mss.insert(all(this2.table));
+	mss.insert(all(that2.table));
 	//merge all the table
-	for(multimap<std::string,size_t>::const_iterator it = mss.begin(); it != mss.end(); ++it) {
+	for(multimap<string,size_t>::const_iterator it = mss.begin(); it != mss.end(); ++it) {
 		if(mss.count(it->first) > 1) { //duplicate
-			size_t i1 = this2.table.inside[it->first];
-			size_t i2 = that2.table.inside[it->first];
+			size_t i1 = this2.table[it->first];
+			size_t i2 = that2.table[it->first];
 			if(i1 == i2) continue;
 			else {
 				cerr << "conflict occurred with '" << it->first << "' "
@@ -126,21 +118,21 @@ merge_status core::merge(const core& that)
 		}
 	}
 	
-	map<std::string,size_t> res;
+	map<string,size_t> res;
 	res.insert(all(mss)); //copy all
 	
-	this->inside = this2.inside;
-	this->table.inside = res;
+	this->mds = this2.mds;
+	this->table = res;
 #undef all
 	return MERGE_SUCCESS;
 }
 
 core& core::operator+=(size_t x)
 {
-	for(size_t i = 0; i < this->inside.size(); i++) {
-		inside[i].first += x;
+	for(size_t i = 0; i < this->mds.size(); i++) {
+		this->mds[i].first += x;
 	}
-	this->table.add_offset(x);
+	add_offset(this->table,x);
 	return *this;
 }
 
@@ -193,6 +185,6 @@ error_level merge_segments(vector<mino_with_dir>& mds, const vector<mino_map_seg
 	
 	if(e != ALL_OK) return e;
 	
-	mds = c.get_inside();
+	mds = c.get_mds();
 	return ALL_OK;
 }

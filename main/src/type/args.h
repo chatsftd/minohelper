@@ -5,15 +5,15 @@
 
 class arguments2
 {
-	std::vector<std::string> inside;
+	std::vector<std::string> tokens;
 	
 public:
-	arguments2() : inside() {}
-	void push_back(std::string s) { this->inside.push_back(s); }
-	bool empty() const { return this->inside.empty(); }
-	size_t size() const { return this->inside.size(); }
+	arguments2() : tokens() {}
+	void push_back(std::string s) { this->tokens.push_back(s); }
+	bool empty() const { return this->tokens.empty(); }
+	size_t size() const { return this->tokens.size(); }
 	std::string& operator [](size_t n);
-	std::string operator [](size_t n) const;
+	const std::string& operator [](size_t n) const;
 	void parse(const std::string& a);
 };
 

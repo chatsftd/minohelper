@@ -12,12 +12,11 @@ enum parsestat {
 
 class config_value
 {
-	int inside;
+	int int_value;
 	
 public:
 	friend std::ostream& operator<<(std::ostream& os, const config_value& val);
 	friend std::istream& operator>>(std::istream& is, config_value& val);
-	operator int() const { return this->inside; }
 };
 
 parsestat parse_line(const std::string& str, std::string& varname, config_value& num);

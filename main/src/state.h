@@ -11,15 +11,11 @@
 class state
 {
 public:
-	class file_data
-	{
-	public:
+	struct file_data {
 		std::vector<mino> minos;
-		color_palette palette;
-		label_info labels;
-		dir_info dir;
-		file_data(void) : minos(), palette() {}
-		file_data(const std::vector<mino>& m, const state2& st2) : minos(m), palette(st2.palette), labels(st2.labels), dir(st2.dir) {}
+		state2 st2;
+		file_data(void) : minos(), st2() {}
+		file_data(const std::vector<mino>& m, const state2& st2_) : minos(m), st2(st2_) {}
 	};
 	std::map<std::string, std::pair<mjsn,color_palette> > content;
 	error_level error_status;

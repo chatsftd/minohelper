@@ -10,11 +10,11 @@ typedef std::map<std::string, std::size_t> arg_info;
 
 class ret_data
 {
-	std::vector<std::vector<std::string> > inside;
+	std::vector<std::vector<std::string> > options_;
 	
 public:
-	ret_data() : inside() {}
-	std::string last_valid(std::string opt);
+	ret_data() : options_() {}
+	std::string last_valid(const std::string& opt);
 	std::vector<std::vector<std::string> > options();
 	error_level parse_arg2(const arg_info& info, const arguments2& args);
 };

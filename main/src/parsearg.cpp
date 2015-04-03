@@ -2,9 +2,9 @@
 #include <iostream>
 using namespace std;
 
-string ret_data::last_valid(string opt)
+string ret_data::last_valid(const string& opt)
 {
-	vector<vector<string> > dat = this->inside;
+	vector<vector<string> > dat = this->options_;
 	string ans = "";
 	for(size_t i = 0; i < dat.size(); i++) {
 		if(dat[i][0] != opt) continue;
@@ -23,7 +23,7 @@ arg_info default_arg_info()
 }
 vector<vector<string> > ret_data::options()
 {
-	return this->inside;
+	return this->options_;
 }
 
 error_level ret_data::parse_arg2(const arg_info& info, const arguments2& args)
@@ -44,19 +44,19 @@ error_level ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 			count = info.find(args[j])->second; // means `info[args[j]]`
 			vector<string> vec;
 			vec.push_back(args[j]);
-			this->inside.push_back(vec);
+			this->options_.push_back(vec);
 			if(count) { opt_now = args[j]; }
 			
 		} else { //not option
 			if(count) {
-				this->inside.back().push_back(args[j]);
+				this->options_.back().push_back(args[j]);
 				count--;
 				if(count == 0) opt_now = "";
 			} else {
 				vector<string> vec;
 				vec.push_back("");
 				vec.push_back(args[j]);
-				this->inside.push_back(vec);
+				this->options_.push_back(vec);
 			}
 			
 		}
