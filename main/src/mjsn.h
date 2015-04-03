@@ -9,8 +9,11 @@
 
 typedef std::pair<mino,direction> mino_with_dir;
 
-struct mjsn {
-	std::vector< std::vector<mino_with_dir> > inside;
+class mjsn
+{
+	std::vector< std::vector<mino_with_dir> > md_plane;
+	
+public:
 	void make_mjsn(const std::vector<mino_with_dir>& minos);
 	std::string to_str(const color_palette& palette) const;
 };
