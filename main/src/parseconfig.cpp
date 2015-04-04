@@ -6,13 +6,14 @@ using namespace std;
 
 ostream& operator<<(ostream& os, const config_value& val)
 {
-	os << val.int_value;
+	os << val.u.int_value;
 	return os;
 }
 
 istream& operator>>(istream& is, config_value& val)
 {
-	is >> val.int_value;
+	val.type = CONFIG_INT_TYPE;
+	is >> val.u.int_value;
 	if(!is) { is.setstate(ios::failbit); }
 	return is;
 }

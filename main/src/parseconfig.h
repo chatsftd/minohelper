@@ -10,9 +10,16 @@ enum parsestat {
 	INVALID_LINE
 };
 
+enum config_value_type {
+	CONFIG_INT_TYPE
+};
+
 class config_value
 {
-	int int_value;
+	config_value_type type;
+	union {
+		int int_value;
+	} u;
 	
 public:
 	friend std::ostream& operator<<(std::ostream& os, const config_value& val);
