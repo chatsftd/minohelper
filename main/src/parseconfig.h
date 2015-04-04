@@ -11,7 +11,8 @@ enum parsestat {
 };
 
 enum config_value_type {
-	CONFIG_INT_TYPE
+	CONFIG_INT_TYPE,
+	CONFIG_BOOL_TYPE
 };
 
 class config_value
@@ -19,6 +20,7 @@ class config_value
 	config_value_type type;
 	union {
 		int int_value;
+		bool bool_value;
 	} u;
 	
 public:

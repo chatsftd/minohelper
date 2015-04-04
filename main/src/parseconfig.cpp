@@ -6,15 +6,32 @@ using namespace std;
 
 ostream& operator<<(ostream& os, const config_value& val)
 {
-	os << val.u.int_value;
+	switch(val.type) {
+	case CONFIG_INT_TYPE: os << val.u.int_value; break;
+	case CONFIG_BOOL_TYPE: os << boolalpha << val.u.bool_value; break;
+	}
+	
 	return os;
 }
 
 istream& operator>>(istream& is, config_value& val)
 {
-	val.type = CONFIG_INT_TYPE;
+
 	is >> val.u.int_value;
-	if(!is) { is.setstate(ios::failbit); }
+	if(is) {
+		val.type = CONFIG_INT_TYPE;
+		return is;
+	}
+	
+	is.clear();
+	is >> boolalpha >> val.u.bool_value;
+	
+	if(is) {
+		val.type = CONFIG_BOOL_TYPE;
+		return is;
+	}
+	
+	is.setstate(ios::failbit);
 	return is;
 }
 
@@ -41,7 +58,6 @@ istream& read_variable(istream& is, string& name)
 	
 	return is;
 }
-
 
 bool is_varname(const string& str)
 {
