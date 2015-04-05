@@ -8,7 +8,12 @@ ostream& operator<<(ostream& os, const config_value& val)
 {
 	switch(val.type) {
 	case CONFIG_INT_TYPE: os << val.u.int_value; break;
-	case CONFIG_BOOL_TYPE: os << boolalpha << val.u.bool_value; break;
+	case CONFIG_BOOL_TYPE: {
+		ios::fmtflags flags = os.flags();
+		os << boolalpha << val.u.bool_value;
+		os.flags(flags);
+		break;
+	}
 	}
 	
 	return os;
@@ -16,16 +21,17 @@ ostream& operator<<(ostream& os, const config_value& val)
 
 istream& operator>>(istream& is, config_value& val)
 {
-
 	is >> val.u.int_value;
 	if(is) {
 		val.type = CONFIG_INT_TYPE;
 		return is;
 	}
-	
 	is.clear();
-	is >> boolalpha >> val.u.bool_value;
 	
+	
+	ios::fmtflags flags = is.flags();
+	is >> boolalpha >> val.u.bool_value;
+	is.flags(flags);
 	if(is) {
 		val.type = CONFIG_BOOL_TYPE;
 		return is;
