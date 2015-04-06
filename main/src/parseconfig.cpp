@@ -29,12 +29,14 @@ ostream& operator<<(ostream& os, const config_value& val)
 {
 	switch(val.type) {
 	case CONFIG_INT_TYPE: os << val.u.int_value; break;
+	case CONFIG_STRING_TYPE: os << quote(val.u.string_value); break;
 	case CONFIG_BOOL_TYPE: {
 		ios::fmtflags flags = os.flags();
 		os << boolalpha << val.u.bool_value;
 		os.flags(flags);
 		break;
 	}
+	
 	}
 	
 	return os;
@@ -57,6 +59,15 @@ istream& operator>>(istream& is, config_value& val)
 		val.type = CONFIG_BOOL_TYPE;
 		return is;
 	}
+	is.clear();
+	
+	read_quoted_string(is, val.u.string_value);
+	if(is) {
+		val.type = CONFIG_STRING_TYPE;
+		return is;
+	}
+	is.clear();
+	
 	
 	is.setstate(ios::failbit);
 	return is;

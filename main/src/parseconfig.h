@@ -12,15 +12,17 @@ enum parsestat {
 
 enum config_value_type {
 	CONFIG_INT_TYPE,
-	CONFIG_BOOL_TYPE
+	CONFIG_BOOL_TYPE,
+	CONFIG_STRING_TYPE
 };
 
 class config_value
 {
 	config_value_type type;
-	union {
+	struct { /*union*/
 		int int_value;
 		bool bool_value;
+		std::string string_value;
 	} u;
 	
 public:
