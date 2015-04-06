@@ -1,5 +1,5 @@
 #include "config.h"
-#include "parseconfig.h"
+#include "config/parseconfig.h"
 #include "parsearg.h"
 #include "help.h"
 #include "lib/debug.h"
