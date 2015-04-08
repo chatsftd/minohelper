@@ -16,8 +16,8 @@ static error_level status_(state& st, const arguments2& /*args**/)
 		cout << "No files loaded." << endl;
 	} else {
 		cout << "Loaded " << (size == 1 ? "file" : "files") << ":" << endl;
-		for(file_map::const_iterator it = st.content.begin(); it != st.content.end(); ++it) {
-			cout << "\t\"" << (it->first) << '"' << endl;
+		for(const auto& pa : st.content) {
+			cout << "\t\"" << pa.first << '"' << endl;
 		}
 		cout << endl;
 	}

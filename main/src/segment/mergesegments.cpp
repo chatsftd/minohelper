@@ -39,8 +39,8 @@ vector<mino_with_dir> add_dir(const vector<mino>& minos, direction dir)
 
 void add_offset(label_table& t1, int x)
 {
-	for(label_table::iterator it = t1.begin(); it != t1.end(); ++it) {
-		it->second += x;
+	for(auto& pa : t1) {
+		pa.second += x;
 	}
 }
 
@@ -52,8 +52,8 @@ core::core(const mino_map_segment& segment, const label_info& labels)
 	
 	typedef multimap<string,label_info::label_content> label_map;
 	label_map labels2 = labels.get_labels_from_pos(segment.last_pos);
-	for(label_map::const_iterator it = labels2.begin(); it != labels2.end(); ++it) {
-		tabl[it->first] = it->second.num;
+	for(const auto& pa : labels2) {
+		tabl[pa.first] = pa.second.num;
 	}
 	this->table = tabl;
 }
@@ -62,12 +62,14 @@ set<string> common_labels(const label_table& t1, const label_table& t2)
 {
 	set<string> tmp;
 	set<string> res;
-	for(map<string,size_t>::const_iterator it = t1.begin(); it != t1.end(); ++it) {
-		tmp.insert(it->first);
+	for(const auto& pa : t1) {
+		tmp.insert(pa.first);
 	}
 	
-	for(map<string,size_t>::const_iterator it = t2.begin(); it != t2.end(); ++it) {
-		if(tmp.count(it->first)) {	res.insert(it->first);	}
+	for(const auto& pa : t2) {
+		if(tmp.count(pa.first)) {
+			res.insert(pa.first);
+		}
 	}
 	return res;
 }
@@ -105,13 +107,13 @@ merge_status core::merge(const core& that)
 	mss.insert(all(this2.table));
 	mss.insert(all(that2.table));
 	//merge all the table
-	for(multimap<string,size_t>::const_iterator it = mss.begin(); it != mss.end(); ++it) {
-		if(mss.count(it->first) > 1) { //duplicate
-			size_t i1 = this2.table[it->first];
-			size_t i2 = that2.table[it->first];
+	for(const auto& pa : mss) {
+		if(mss.count(pa.first) > 1) { //duplicate
+			size_t i1 = this2.table[pa.first];
+			size_t i2 = that2.table[pa.first];
 			if(i1 == i2) continue;
 			else {
-				cerr << "conflict occurred with '" << it->first << "' "
+				cerr << "conflict occurred with '" << pa.first << "' "
 				     "while adjusting '" << first_label << "'" << endl;
 				return MERGE_CONFLICT;
 			}

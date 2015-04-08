@@ -27,9 +27,9 @@ error_level file_select(string& filename, const state& st)
 	
 	Index i = 1;
 	map<Index, string> map_;
-	for(file_map::const_iterator it = st.content.begin(); it != st.content.end(); ++it) {
-		cout << '\t' << i << ": \"" << it->first << '"' << endl;
-		map_[i] = it->first;
+	for(const auto& pa : st.content) {
+		cout << '\t' << i << ": \"" << pa.first << '"' << endl;
+		map_[i] = pa.first;
 		i++;
 	}
 	Index max_plus_1 = i;

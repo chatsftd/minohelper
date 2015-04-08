@@ -14,9 +14,9 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	
 	/* classification */
 	deque< vector<mino> > minos_separated;
-	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it) {
+	for(const auto& pa : dir_map) {
 		vector<mino> e;
-		point p = it->first;
+		point p = pa.first;
 		
 		vector<mino>::iterator it2 = minos.begin();
 		while (it2 != minos.end()) {
@@ -37,9 +37,9 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 	minos_separated.pop_front();
 	
 	
-	for(dirmap_t::const_iterator it = dir_map.begin(); it != dir_map.end(); ++it) {
+	for(const auto& pa : dir_map) {
 		vector<mino> minos2 = minos_separated.front();
-		point p = it->first;
+		point p = pa.first;
 		map<point,point> trans = dat.st2.dir.get_transform();
 		
 		assert2("geraesdfx", trans.count(p));
@@ -51,7 +51,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 			// it is guaranteed that minos are not on the same line as the direction
 		}
 		
-		segments.push_back(mino_map_segment(minos2,p2,it->second));
+		segments.push_back(mino_map_segment(minos2,p2,pa.second));
 		minos_separated.pop_front();
 	}
 	

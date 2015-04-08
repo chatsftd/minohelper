@@ -41,8 +41,8 @@ vector< vector<ID> > UnionFind::toGroups(void)
 	}
 	
 	vector<group> result;
-	for(map<ID, group>::iterator it = buf.begin(); it != buf.end(); ++it) {
-		result.push_back(it->second);
+	for(const auto& pa : buf) {
+		result.push_back(pa.second);
 	}
 	return result;
 }

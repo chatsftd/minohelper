@@ -53,8 +53,8 @@ static error_level write_all(ostream& os, const string& path, bool padding)
 	map<string,config_value> list;
 	error_level s = get_all(ifs,list);
 	if(s != ALL_OK) return s;
-	for(map<string,config_value>::iterator it = list.begin(); it != list.end(); ++it) {
-		os << (padding ? "    " : "") << (it->first) << " = " << (it->second) << endl;
+	for(const auto& pa : list) {
+		os << (padding ? "    " : "") << pa.first << " = " << pa.second << endl;
 	}
 	return ALL_OK;
 }
