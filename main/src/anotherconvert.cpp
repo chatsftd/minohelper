@@ -5,14 +5,9 @@
 #include <iostream>
 #include <deque>
 using namespace std;
-
-error_level another_convert(mjsn& m, const state::file_data& dat)
+typedef map<point,direction> dirmap_t;
+deque< vector<mino> > separate_minos(const dirmap_t& dir_map, vector<mino>/*copy*/ minos)
 {
-	typedef map<point,direction> dirmap_t;
-	dirmap_t dir_map = dat.st2.dir.get_all_points();
-	vector<mino> minos = dat.minos;
-	
-	/* classification */
 	deque< vector<mino> > minos_separated;
 	for(const auto& pa : dir_map) {
 		vector<mino> e;
@@ -29,14 +24,18 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		minos_separated.push_back(e);
 	}
 	minos_separated.push_back(minos);
-	/* classification end */
-	
-	vector<mino_map_segment> segments;
-	
+	return minos_separated;
+}
+
+error_level another_convert(mjsn& m, const state::file_data& dat)
+{
+	dirmap_t dir_map = dat.st2.dir.get_all_points();
+	deque< vector<mino> > minos_separated = separate_minos(dir_map, dat.minos);
 	vector<mino_with_dir> first_segment = add_dir(minos_separated.front(),TO_SOUTH);
 	minos_separated.pop_front();
 	
 	
+	vector<mino_map_segment> segments;
 	for(const auto& pa : dir_map) {
 		vector<mino> minos2 = minos_separated.front();
 		point p = pa.first;
