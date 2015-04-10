@@ -41,7 +41,7 @@ error_level ret_data::parse_arg2(const arg_info& info, const arguments2& args)
 				return INVALID_ARGS;
 			}
 			
-			count = info.find(args[j])->second; // means `info[args[j]]`
+			count = info.at(args[j]);
 			vector<string> vec;
 			vec.push_back(args[j]);
 			this->options_.push_back(vec);

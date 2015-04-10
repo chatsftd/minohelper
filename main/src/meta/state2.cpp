@@ -41,7 +41,7 @@ bool Color::is_null() const
 bool color_palette::exist(char c) const
 {
 	if(this->p.find(c) == this->p.end()) return false;
-	return !(this->p.find(c)->second.is_null());
+	return !(this->p.at(c).is_null());
 }
 
 void color_palette::set_color_of(char c, Color col)
@@ -52,7 +52,7 @@ void color_palette::set_color_of(char c, Color col)
 Color color_palette::get_color_of(char c) const
 {
 	if(this->exist(c)) {
-		return this->p.find(c)->second;
+		return this->p.at(c);
 	} else {
 		return this->default_color;
 	}

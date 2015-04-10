@@ -94,8 +94,8 @@ merge_status core::merge(const core& that)
 	
 	
 	string first_label = *(common_labs.begin());
-	size_t row1 = this->table.find(first_label)->second; //this->table.at(first_label);
-	size_t row2 =  that.table.find(first_label)->second;
+	size_t row1 = this->table.at(first_label);
+	size_t row2 =  that.table.at(first_label);
 	
 	core this2 = *this + row2; //criss-cross
 	core that2 =  that + row1;
