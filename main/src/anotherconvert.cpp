@@ -8,7 +8,7 @@ using namespace std;
 typedef map<point,direction> dirmap_t;
 deque< vector<mino> > separate_minos(const dirmap_t& dir_map, vector<mino>/*copy*/ minos)
 {
-	deque< vector<mino> > minos_separated;
+	deque< vector<mino> > ans;
 	for(const auto& pa : dir_map) {
 		vector<mino> e;
 		point p = pa.first;
@@ -21,17 +21,17 @@ deque< vector<mino> > separate_minos(const dirmap_t& dir_map, vector<mino>/*copy
 			} else { ++it2; }
 		}
 		
-		minos_separated.push_back(e);
+		ans.push_back(e);
 	}
-	minos_separated.push_back(minos);
-	return minos_separated;
+	ans.push_back(minos);
+	return ans;
 }
 
 error_level another_convert(mjsn& m, const state::file_data& dat)
 {
 	dirmap_t dir_map = dat.st2.dir.get_all_points();
 	deque< vector<mino> > minos_separated = separate_minos(dir_map, dat.minos);
-	vector<mino_with_dir> first_segment = add_dir(minos_separated.front(),TO_SOUTH);
+	vector<mino_with_dir> first_segment = add_dir(minos_separated.front(),TO_SOUTH); // first segment is special; it has no `direction` meta and no label
 	minos_separated.pop_front();
 	
 	
@@ -41,7 +41,7 @@ error_level another_convert(mjsn& m, const state::file_data& dat)
 		point p = pa.first;
 		map<point,point> trans = dat.st2.dir.get_transform();
 		
-		assert2("geraesdfx", trans.count(p));
+		assert2("geraesdfx", trans.count(p)); //fixme: this assertion can be removed by changing the data structure
 		
 		point p2 = trans[p]; //last_pos
 		
