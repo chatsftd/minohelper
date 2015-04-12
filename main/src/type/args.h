@@ -9,7 +9,7 @@ class arguments2
 	
 public:
 	arguments2() : tokens() {}
-	void push_back(std::string s) { this->tokens.push_back(s); }
+	void push_back(const std::string& s) { this->tokens.push_back(s); }
 	bool empty() const { return this->tokens.empty(); }
 	size_t size() const { return this->tokens.size(); }
 	std::string& operator [](size_t n);

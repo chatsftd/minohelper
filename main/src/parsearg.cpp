@@ -21,6 +21,18 @@ arg_info default_arg_info()
 	this_["-o"] = 1;
 	return this_;
 }
+
+vector<vector<string> > ret_data::options(const std::string& opt)
+{
+	vector<vector<string> > dat = this->options_;
+	vector<vector<string> > ans;
+	for(size_t i = 0; i < dat.size(); i++) {
+		if(dat[i][0] != opt) continue;
+		ans.push_back(dat[i]);
+	}
+	return ans;
+}
+
 vector<vector<string> > ret_data::options()
 {
 	return this->options_;
