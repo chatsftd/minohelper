@@ -21,28 +21,27 @@ static error_level init(int& ret, state& st, const arguments2& args)
 	if(output == "") {
 		const vector<vector<string> > inputs = retd.options("");
 		
-	arguments2 args2;
-	args2.push_back("import");
+		arguments2 args2;
+		args2.push_back("import");
 		
 		for(size_t i = 0; i < inputs.size(); i++) {
 			args2.push_back(inputs[i][1]);
 		}
 		
-	error_level s = import_(st,args2);
-	return s;
+		error_level s = import_(st,args2);
+		return s;
 	} else {
-	string input = retd.last_valid("");
-	arguments2 args3;
-	args3.push_back("export");
-	args3.push_back(input);
-	args3.push_back("-o");
-	args3.push_back(output);
-	
-	error_level s3 = export_(st,args3);
-	// export implicitly imports the file
-	
-	ret = s3;
-	return EXIT_ALL;
+		string input = retd.last_valid("");
+		arguments2 args3;
+		args3.push_back("export");
+		args3.push_back(input);
+		args3.push_back("-o");
+		args3.push_back(output);
+		
+		error_level s3 = export_(st,args3); // export implicitly imports the file
+		
+		ret = s3;
+		return EXIT_ALL;
 	}
 }
 
