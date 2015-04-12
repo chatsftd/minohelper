@@ -17,7 +17,7 @@ error_level export_(state& st, const arguments2& args)
 	if(s2 != ALL_OK) return s2;
 	
 	string input  = ret.last_valid("");
-	string output = ret.last_valid("-o");
+	
 	if(input == "") {
 		error_level s = file_select(input, st);
 		if(s != ALL_OK) return s;
@@ -37,10 +37,19 @@ error_level export_(state& st, const arguments2& args)
 		if(s9 != ALL_OK) return s9;
 	}
 	
-	if(output == "") {
+	const vector<vector<string> > outputs = ret.options("-o");
+	if(outputs.size() >= 2) {
+		cerr << "Cannot output to more than one file." << endl; cout << endl;
+		return INVALID_ARGS;
+	}
+	
+	string output;
+	if(outputs.empty()) {
 		cout << "To where?" << endl;
 		cout << ">>> " << flush;
 		getline(cin,output);
+	} else {
+		output = ret.last_valid("-o");
 	}
 	
 	ofstream ofs(output.c_str());
