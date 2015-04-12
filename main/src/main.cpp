@@ -15,19 +15,23 @@ static error_level init(int& ret, state& st, const arguments2& args)
 	
 	ret_data retd;
 	error_level s2 = retd.parse_arg2(default_arg_info(),args);
-	string input  = retd.last_valid("");
-	string output = retd.last_valid("-o");
-	
 	if(s2 != ALL_OK) { return s2; }
-	if(input == "") { return ALL_OK; }
 	
+	string output = retd.last_valid("-o");
+	if(output == "") {
+		const vector<vector<string> > inputs = retd.options("");
+		
 	arguments2 args2;
 	args2.push_back("import");
-	args2.push_back(input);
+		
+		for(size_t i = 0; i < inputs.size(); i++) {
+			args2.push_back(inputs[i][1]);
+		}
+		
 	error_level s = import_(st,args2);
-	
-	if(output == "") { return s; }
-	
+	return s;
+	} else {
+	string input = retd.last_valid("");
 	arguments2 args3;
 	args3.push_back("export");
 	args3.push_back(input);
@@ -35,8 +39,11 @@ static error_level init(int& ret, state& st, const arguments2& args)
 	args3.push_back(output);
 	
 	error_level s3 = export_(st,args3);
+	// export implicitly imports the file
+	
 	ret = s3;
 	return EXIT_ALL;
+	}
 }
 
 int main(int argc, char** argv)
