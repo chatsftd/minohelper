@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-string ret_data::last_valid(const string& opt)
+string ret_data::last_valid(const string& opt) const
 {
 	vector<vector<string> > dat = this->options_;
 	string ans = "";
@@ -22,7 +22,7 @@ arg_info default_arg_info()
 	return this_;
 }
 
-vector<vector<string> > ret_data::options(const std::string& opt)
+vector<vector<string> > ret_data::options(const std::string& opt) const
 {
 	vector<vector<string> > dat = this->options_;
 	vector<vector<string> > ans;
@@ -33,7 +33,7 @@ vector<vector<string> > ret_data::options(const std::string& opt)
 	return ans;
 }
 
-vector<vector<string> > ret_data::options()
+vector<vector<string> > ret_data::options() const
 {
 	return this->options_;
 }
