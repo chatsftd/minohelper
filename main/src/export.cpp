@@ -55,7 +55,7 @@ error_level export_(state& st, const arguments2& args)
 		cout << ">>> " << flush;
 		getline(cin,output);
 	} else {
-		output = ret.last_valid("-o");
+		output = outputs[0][1];
 	}
 	
 	ofstream ofs(output.c_str());

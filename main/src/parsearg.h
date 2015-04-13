@@ -14,7 +14,6 @@ class ret_data
 	
 public:
 	ret_data() : options_() {}
-	std::string last_valid(const std::string& opt) const;
 	std::vector<std::vector<std::string> > options() const;
 	std::vector<std::vector<std::string> > options(const std::string& opt) const;
 	error_level parse_arg2(const arg_info& info, const arguments2& args);

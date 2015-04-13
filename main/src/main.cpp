@@ -34,13 +34,13 @@ static error_level init(int& ret, state& st, const arguments2& args)
 		error_level s = import_(st,args2);
 		return s;
 	} else {
-		string output = retd.last_valid("-o");
-		string input = retd.last_valid("");
 		const vector<vector<string> > inputs = retd.options("");
 		if(inputs.size() >= 2) {
 			cerr << "Cannot determine which file to export." << endl; cout << endl;
 			return INVALID_ARGS;
 		}
+		string input = inputs[0][1];
+		string output = outputs[0][1];
 		arguments2 args3;
 		args3.push_back("export");
 		args3.push_back(input);

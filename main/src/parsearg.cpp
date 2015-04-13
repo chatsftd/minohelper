@@ -2,19 +2,6 @@
 #include <iostream>
 using namespace std;
 
-string ret_data::last_valid(const string& opt) const
-{
-	vector<vector<string> > dat = this->options_;
-	string ans = "";
-	for(size_t i = 0; i < dat.size(); i++) {
-		if(dat[i][0] != opt) continue;
-		for(size_t j = 1; j < dat[i].size(); j++) {
-			ans = dat[i][j];
-		}
-	}
-	return ans;
-}
-
 arg_info default_arg_info()
 {
 	arg_info this_;
