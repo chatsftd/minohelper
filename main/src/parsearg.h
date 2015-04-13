@@ -8,21 +8,21 @@
 
 typedef std::map<std::string, std::size_t> arg_info;
 
-class ret_data
+class parsed_args
 {
 	std::vector<std::vector<std::string> > options_;
 	
 public:
-	ret_data() : options_() {}
-	std::string last_valid(const std::string& opt);
-	std::vector<std::vector<std::string> > options();
+	parsed_args() : options_() {}
+	std::vector<std::vector<std::string> > options() const;
+	std::vector<std::vector<std::string> > options(const std::string& opt) const;
 	error_level parse_arg2(const arg_info& info, const arguments2& args);
 };
 
 /*
  * args: "A","-o","abc","-i","B","-o","def","C","-p","123","456","-p","567","890","-i"
  * arg_info: '-o' takes one argument, '-i' takes none...
- * ret_data: [["","A"],["-o","abc"],["-i"],["","B"],["-o","def"],["","C"],["-p","123","456"],["-p","567","890"],["-i"]]
+ * parsed_args: [["","A"],["-o","abc"],["-i"],["","B"],["-o","def"],["","C"],["-p","123","456"],["-p","567","890"],["-i"]]
  */
 
 arg_info default_arg_info();

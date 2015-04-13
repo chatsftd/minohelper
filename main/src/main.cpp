@@ -13,30 +13,45 @@ static error_level init(int& ret, state& st, const arguments2& args)
 {
 	ret = 0;
 	
-	ret_data retd;
+	parsed_args retd;
 	error_level s2 = retd.parse_arg2(default_arg_info(),args);
-	string input  = retd.last_valid("");
-	string output = retd.last_valid("-o");
-	
 	if(s2 != ALL_OK) { return s2; }
-	if(input == "") { return ALL_OK; }
 	
-	arguments2 args2;
-	args2.push_back("import");
-	args2.push_back(input);
-	error_level s = import_(st,args2);
-	
-	if(output == "") { return s; }
-	
-	arguments2 args3;
-	args3.push_back("export");
-	args3.push_back(input);
-	args3.push_back("-o");
-	args3.push_back(output);
-	
-	error_level s3 = export_(st,args3);
-	ret = s3;
-	return EXIT_ALL;
+	const vector<vector<string> > outputs = retd.options("-o");
+	if(outputs.size() >= 2) {
+		cerr << "Cannot output to more than one file." << endl; cout << endl;
+		return INVALID_ARGS;
+	} else if(outputs.empty()) {
+		const vector<vector<string> > inputs = retd.options("");
+		
+		arguments2 args2;
+		args2.push_back("import");
+		
+		for(size_t i = 0; i < inputs.size(); i++) {
+			args2.push_back(inputs[i][1]);
+		}
+		
+		error_level s = import_(st,args2);
+		return s;
+	} else {
+		const vector<vector<string> > inputs = retd.options("");
+		if(inputs.size() >= 2) {
+			cerr << "Cannot determine which file to export." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		string input = inputs[0][1];
+		string output = outputs[0][1];
+		arguments2 args3;
+		args3.push_back("export");
+		args3.push_back(input);
+		args3.push_back("-o");
+		args3.push_back(output);
+		
+		error_level s3 = export_(st,args3); // export implicitly imports the file
+		
+		ret = s3;
+		return EXIT_ALL;
+	}
 }
 
 int main(int argc, char** argv)

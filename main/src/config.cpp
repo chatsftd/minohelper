@@ -61,7 +61,7 @@ static error_level write_all(ostream& os, const string& path, bool padding)
 
 error_level config_(state& /*st**/, const arguments2& args)
 {
-	ret_data ret;
+	parsed_args ret;
 	arg_info info;
 	info["--set"     ] = 2; // config --set verbosity 3
 	info["--get"     ] = 1; // config --get verbosity

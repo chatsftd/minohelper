@@ -12,15 +12,21 @@ using namespace std;
 
 error_level export_(state& st, const arguments2& args)
 {
-	ret_data ret;
+	parsed_args ret;
 	error_level s2 = ret.parse_arg2(default_arg_info(),args);
 	if(s2 != ALL_OK) return s2;
 	
-	string input  = ret.last_valid("");
-	string output = ret.last_valid("-o");
-	if(input == "") {
+	const vector<vector<string> > inputs = ret.options("");
+	string input;
+	
+	if(inputs.empty()) {
 		error_level s = file_select(input, st);
 		if(s != ALL_OK) return s;
+	} else if(inputs.size() >= 2) {
+		cerr << "Cannot determine which file to export." << endl; cout << endl;
+		return INVALID_ARGS;
+	} else {
+		input = inputs[0][1];
 	}
 	
 	if(st.content.find(input) == st.content.end()) { // if input is not found
@@ -37,10 +43,19 @@ error_level export_(state& st, const arguments2& args)
 		if(s9 != ALL_OK) return s9;
 	}
 	
-	if(output == "") {
+	const vector<vector<string> > outputs = ret.options("-o");
+	if(outputs.size() >= 2) {
+		cerr << "Cannot output to more than one file." << endl; cout << endl;
+		return INVALID_ARGS;
+	}
+	
+	string output;
+	if(outputs.empty()) {
 		cout << "To where?" << endl;
 		cout << ">>> " << flush;
 		getline(cin,output);
+	} else {
+		output = outputs[0][1];
 	}
 	
 	ofstream ofs(output.c_str());
