@@ -16,11 +16,17 @@ error_level export_(state& st, const arguments2& args)
 	error_level s2 = ret.parse_arg2(default_arg_info(),args);
 	if(s2 != ALL_OK) return s2;
 	
-	string input  = ret.last_valid("");
+	const vector<vector<string> > inputs = ret.options("");
+	string input;
 	
-	if(input == "") {
+	if(inputs.empty()) {
 		error_level s = file_select(input, st);
 		if(s != ALL_OK) return s;
+	} else if(inputs.size() >= 2) {
+		cerr << "Cannot determine which file to export." << endl; cout << endl;
+		return INVALID_ARGS;
+	} else {
+		input = inputs[0][1];
 	}
 	
 	if(st.content.find(input) == st.content.end()) { // if input is not found
