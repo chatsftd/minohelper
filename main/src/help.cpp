@@ -69,7 +69,7 @@ string help_message(const string& command)
 
 error_level help_(state& /*st**/, const arguments2& args)
 {
-	ret_data ret;
+	parsed_args ret;
 	arg_info info;
 	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;

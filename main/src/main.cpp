@@ -13,7 +13,7 @@ static error_level init(int& ret, state& st, const arguments2& args)
 {
 	ret = 0;
 	
-	ret_data retd;
+	parsed_args retd;
 	error_level s2 = retd.parse_arg2(default_arg_info(),args);
 	if(s2 != ALL_OK) { return s2; }
 	

@@ -9,7 +9,7 @@ arg_info default_arg_info()
 	return this_;
 }
 
-vector<vector<string> > ret_data::options(const std::string& opt) const
+vector<vector<string> > parsed_args::options(const std::string& opt) const
 {
 	vector<vector<string> > dat = this->options_;
 	vector<vector<string> > ans;
@@ -20,12 +20,12 @@ vector<vector<string> > ret_data::options(const std::string& opt) const
 	return ans;
 }
 
-vector<vector<string> > ret_data::options() const
+vector<vector<string> > parsed_args::options() const
 {
 	return this->options_;
 }
 
-error_level ret_data::parse_arg2(const arg_info& info, const arguments2& args)
+error_level parsed_args::parse_arg2(const arg_info& info, const arguments2& args)
 {
 	string opt_now = "";
 	size_t count = 0;

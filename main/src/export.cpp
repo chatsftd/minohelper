@@ -12,7 +12,7 @@ using namespace std;
 
 error_level export_(state& st, const arguments2& args)
 {
-	ret_data ret;
+	parsed_args ret;
 	error_level s2 = ret.parse_arg2(default_arg_info(),args);
 	if(s2 != ALL_OK) return s2;
 	
