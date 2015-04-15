@@ -26,10 +26,11 @@ string help_message(const string& command)
 		      );
 	} else if(command == "export") {
 		return(
-		          "usage: export [<source>] [-o <destination>]\n"
-		          "  Export file(s) from minohelper\n"
+		          "usage: export [<source>] [-o <destination>] [--width <max-width>]\n"
+		          "  Export a file from minohelper\n"
 		          "  If called without destination, it will ask for one;\n"
 		          "  if called without source, it will ask you to choose one.\n"
+				  "  The exported file's width is limited to max-width if possible.\n"
 		      );
 	} else if(command == "exit") {
 		return(

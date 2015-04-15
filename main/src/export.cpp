@@ -13,7 +13,11 @@ using namespace std;
 error_level export_(state& st, const arguments2& args)
 {
 	parsed_args ret;
-	error_level s2 = ret.parse_arg2(default_arg_info(),args);
+	arg_info info;
+	info["-o"] = 1;
+	info["--width"] = 1;
+	
+	error_level s2 = ret.parse_arg2(info,args);
 	if(s2 != ALL_OK) return s2;
 	
 	const vector<vector<string> > inputs = ret.options("");
@@ -58,10 +62,23 @@ error_level export_(state& st, const arguments2& args)
 		output = outputs[0][1];
 	}
 	
+	const vector<vector<string> > widths = ret.options("--width");
+	size_t max_width = 0;
+	if(!widths.empty()) {
+		string s = widths.back()[1];
+		stringstream ss(s.c_str());
+		ss >> max_width;
+		if(!ss) {
+			cerr << "'" << s << "' is not a valid width." << endl; cout << endl;
+			return INVALID_ARGS;
+		}
+		
+	}
+	
 	ofstream ofs(output.c_str());
 	cout << "Exporting \"" << input << "\" to \"" << output << "\" ..." << endl;
 	
-	ofs << st.content[input].first.to_str(st.content[input].second) << endl;
+	ofs << st.content[input].first.to_str(st.content[input].second,max_width) << endl;
 	
 	cout << "Finished." << endl << endl;
 	return ALL_OK;
