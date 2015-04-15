@@ -15,7 +15,7 @@ class mjsn
 	
 public:
 	void make_mjsn(const std::vector<mino_with_dir>& minos);
-	std::string to_str(const color_palette& palette) const;
+	std::string to_str(const color_palette& palette, const size_t& max_width = 0) const;
 };
 
 
