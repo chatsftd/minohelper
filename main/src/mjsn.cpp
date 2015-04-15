@@ -41,23 +41,30 @@ void mjsn::make_mjsn(const vector<mino_with_dir>& minos)
 
 string mjsn::to_str(const color_palette& palette) const
 {
-	string str = "[\"\",";
+	vector<string> strs = {"[","\"\"",","};
 	for(size_t j = 0; j < this->md_plane.size(); ++j) {
 		if(this->md_plane[j].empty()) {
-			str += "\"\",";
+			strs.push_back("\"\",");
 			continue;
 		}
-		str += "[";
+		strs.push_back("[");
 		
 		for(size_t k = 0; k < this->md_plane[j].size(); ++k) {
-			str += export4(this->md_plane[j][k], palette);
+			strs.push_back(export4(this->md_plane[j][k], palette));
 			if(k+1 != this->md_plane[j].size()) {
-				str += ",";
+				strs.push_back(",");
 			}
 		}
-		str += "],";
+		strs.push_back("],");
 	}
-	str += "\"end\"]";
+	strs.push_back("\"end\"");
+	strs.push_back("]");
+	
+	
+	string str;
+	for(const auto& pa : strs) {
+		str += pa;
+	}
 	return str;
 }
 
