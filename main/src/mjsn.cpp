@@ -79,7 +79,7 @@ string mjsn::to_str(const color_palette& palette, const size_t& max_width) const
 		for(const auto& pa : strs) {
 			res += pa;
 		}
-	} 
+	}
 	return res;
 }
 

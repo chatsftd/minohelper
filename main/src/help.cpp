@@ -30,7 +30,7 @@ string help_message(const string& command)
 		          "  Export a file from minohelper\n"
 		          "  If called without destination, it will ask for one;\n"
 		          "  if called without source, it will ask you to choose one.\n"
-				  "  The exported file's width is limited to max-width if possible.\n"
+		          "  The exported file's width is limited to max-width if possible.\n"
 		      );
 	} else if(command == "exit") {
 		return(
