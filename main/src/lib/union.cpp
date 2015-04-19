@@ -4,28 +4,25 @@
 using namespace std;
 ID UnionFind::root(ID id)
 {
-	ID parent_id;
-	stack<ID> stc;
-	while(true) {
-		stc.push(id);
-		parent_id = this->parents[id];
-		if(id == parent_id) break;
-		id = parent_id;
+	if(this->parents[id] == id) {
+		return id;
+	} else {
+		return this->parents[id] = this->root(this->parents[id]);
 	}
-	
-	while(!stc.empty()) { // optimize
-		this->parents[stc.top()] = id;
-		stc.pop();
-	}
-	return id;
-	
 }
 
 void UnionFind::unite(ID id1, ID id2)
 {
 	ID root1 = this->root(id1);
 	ID root2 = this->root(id2);
-	this->parents[root2] = root1;
+	if(root1 == root2) return;
+	
+	if(this->rank[id1] < this->rank[id2]) {
+		this->parents[root1] = root2;
+	} else {
+		this->parents[root2] = root1;
+		if(this->rank[id1] == this->rank[id2]) this->rank[id1]++;
+	}
 }
 
 vector< vector<ID> > UnionFind::toGroups(void)
