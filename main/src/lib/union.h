@@ -7,9 +7,10 @@ class UnionFind
 {
 private:
 	std::vector<ID> parents;
+	std::vector<std::size_t> rank;
 	
 public:
-	explicit UnionFind(const std::vector<ID>& id_list) : parents(id_list) {}
+	explicit UnionFind(const std::vector<ID>& id_list) : parents(id_list), rank(id_list.size(),0) {}
 	ID root(ID id);
 	void unite(ID id1, ID id2);
 	std::vector< std::vector<ID> > toGroups(void);
