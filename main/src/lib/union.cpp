@@ -4,21 +4,11 @@
 using namespace std;
 ID UnionFind::root(ID id)
 {
-	ID parent_id;
-	stack<ID> stc;
-	while(true) {
-		stc.push(id);
-		parent_id = this->parents[id];
-		if(id == parent_id) break;
-		id = parent_id;
-	}
-	
-	while(!stc.empty()) { // optimize
-		this->parents[stc.top()] = id;
-		stc.pop();
-	}
-	return id;
-	
+	if(this->parents[id] == id) {
+		return id;
+	} else {
+		return this->parents[id] = this->root(this->parents[id]);
+	} 
 }
 
 void UnionFind::unite(ID id1, ID id2)
