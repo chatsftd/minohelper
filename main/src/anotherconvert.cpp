@@ -38,7 +38,7 @@ vector<mino_map_segment> make_segments(const dirmap_t& dir_map, const map<point,
 		point p2 = trans.at(p); //last_pos
 		
 		for(size_t i = 0; i < minos2.size(); i++) {
-			minos2[i] -= p2.first + 1;
+			minos2[i] -= p2.row + 1;
 			// it is guaranteed that minos are not on the same line as the direction
 		}
 		

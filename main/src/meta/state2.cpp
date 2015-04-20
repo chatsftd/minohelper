@@ -69,7 +69,7 @@ set<size_t> label_info::last_x_positions() const
 {
 	set<size_t> xs;
 	for(const auto& pa : this->label_map) {
-		xs.insert(pa.second.last_pos.first);
+		xs.insert(pa.second.last_pos.row);
 	}
 	return xs;
 }
