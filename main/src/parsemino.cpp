@@ -69,15 +69,8 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 		vector<point> tmp;
 		char c2 = ' '; // the character used in the input
 		for(size_t j = 0, m = groups[i].size(); j < m; j++) {
-			/*
-			x   :   p.first+1
-			y   :   p.second+1
-			id  :   groups[i][j]
-			char:   atom_plane[p.first][p.second].second
-			*/
-			
 			point p = ItoP[groups[i][j]];
-			char c = atom_plane[p.first][p.second].second;
+			char c = atom_plane[p.row][p.column].second;
 			if(c == ' ') continue; // ignore spaces
 			c2 = c;
 			tmp.push_back(p);
@@ -103,4 +96,3 @@ Maybe<state::file_data> parse_mino(const state2& st2, const vector<string>& cont
 	state::file_data dat(groups2, st2);
 	return Just(dat);
 }
-

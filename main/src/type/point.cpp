@@ -4,6 +4,6 @@ using namespace std;
 
 ostream& operator<<(ostream& o, const point& p)
 {
-	assert2("Wrong point", p.first != WRONG_PLACE && p.second != WRONG_PLACE);
-	return o << "(" << p.first+1 << "," << p.second+1 << ")";
+	assert2("Wrong point", p.row != WRONG_PLACE && p.column != WRONG_PLACE);
+	return o << "(" << p.row+1 << "," << p.column+1 << ")";
 }

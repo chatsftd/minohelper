@@ -5,31 +5,31 @@
 
 #define WRONG_PLACE (0xCCCCCCCC)
 struct point {
-	size_t first;
-	size_t second;
-	point(size_t f, size_t s) : first(f), second(s) {}
-	point() : first(WRONG_PLACE), second(WRONG_PLACE) {}
+	size_t row;
+	size_t column;
+	point(size_t f, size_t s) : row(f), column(s) {}
+	point() : row(WRONG_PLACE), column(WRONG_PLACE) {}
 	friend std::ostream& operator<<(std::ostream& o, const point& p);
 	
 	point& operator-=(size_t x)
 	{
-		assert2("Negative index", this->first >= x);
-		this->first -= x;
+		assert2("Negative index", this->row >= x);
+		this->row -= x;
 		return *this;
 	}
 	
 	point& operator+=(size_t x)
 	{
-		this->first += x;
+		this->row += x;
 		return *this;
 	}
 };
 
 inline point operator-(point lhs, size_t rhs) { lhs -= rhs; return lhs; }
 inline point operator+(point lhs, size_t rhs) { lhs += rhs; return lhs; }
-inline bool operator==(const point& lhs, const point& rhs) {return (lhs.first == rhs.first) && (lhs.second == rhs.second);}
+inline bool operator==(const point& lhs, const point& rhs) {return (lhs.row == rhs.row) && (lhs.column == rhs.column);}
 inline bool operator!=(const point& lhs, const point& rhs) {return !operator==(lhs,rhs);}
-inline bool operator< (const point& lhs, const point& rhs) {return (lhs.first+1 < rhs.first+1) ? true : (lhs.first+1 > rhs.first+1) ? false : (lhs.second+1 < rhs.second+1);}
+inline bool operator< (const point& lhs, const point& rhs) {return (lhs.row+1 < rhs.row+1) ? true : (lhs.row+1 > rhs.row+1) ? false : (lhs.column+1 < rhs.column+1);}
 inline bool operator> (const point& lhs, const point& rhs) {return  operator< (rhs,lhs);}
 inline bool operator<=(const point& lhs, const point& rhs) {return !operator< (rhs,lhs);}
 inline bool operator>=(const point& lhs, const point& rhs) {return !operator< (lhs,rhs);}

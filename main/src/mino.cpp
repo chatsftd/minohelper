@@ -17,10 +17,10 @@ mino::mino(const vector<point>& points, char c) : ch(c)
 #define bind(a,b) (((a) << 4) | (b))
 static void proc(int& tmp, point tl, point p)
 {
-	size_t x = tl.first;
-	size_t y = tl.second;
-	size_t x0 = p.first;
-	size_t y0 = p.second;
+	size_t x = tl.row;
+	size_t y = tl.column;
+	size_t x0 = p.row;
+	size_t y0 = p.column;
 	
 	switch(bind(y0-y,x0-x)) {
 	case bind(1,0): tmp |=  1; break;
@@ -80,5 +80,5 @@ static inline size_t min(size_t a, size_t b, size_t c, size_t d) { return m(m(a,
 
 point mino::top_left() const
 {
-	return point(min(p0.first,p1.first,p2.first,p3.first),min(p0.second,p1.second,p2.second,p3.second));
+	return point(min(p0.row,p1.row,p2.row,p3.row),min(p0.column,p1.column,p2.column,p3.column));
 }

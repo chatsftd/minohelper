@@ -10,7 +10,7 @@ static string export4(const mino_with_dir& md, const color_palette& palette)
 	ans << '"' << palette.get_color_of(m.ch).to_int();
 	ans << '_' << static_cast<int>(m.get_shape_num());
 	ans << '_' << static_cast<int>(d);
-	ans << '_' << m.top_left().second;
+	ans << '_' << m.top_left().column;
 	ans << '_' << "0";
 	ans << '"';
 	return ans.str();
@@ -21,13 +21,13 @@ void mjsn::make_mjsn(const vector<mino_with_dir>& minos)
 	size_t down_most = 0;
 	for(size_t i = 0; i < minos.size(); ++i) { //look for down_most
 		point p = minos[i].first.top_left();
-		if(down_most < p.first) down_most = p.first;
+		if(down_most < p.row) down_most = p.row;
 	}
 	
 	vector< vector<mino_with_dir> > result(down_most+1);
 	for(size_t i = 0; i < minos.size(); ++i) {
 		point p = minos[i].first.top_left();
-		result[down_most - p.first].push_back(minos[i]);
+		result[down_most - p.row].push_back(minos[i]);
 	}
 	
 	
