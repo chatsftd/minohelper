@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-static const char help[] = (
+static const string help = (
                                "usage: <command> [<args>]\n"
                                "Available Commands:\n"
                                "     import   Import file(s) to minohelper\n"
