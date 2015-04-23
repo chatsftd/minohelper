@@ -1,11 +1,10 @@
 #include "pathroot.h"
 
 #include <cstdlib>
-#include <cstring>
 
 
 /*
- * Copied and slightly edited from http://qiita.com/hirotoshi/items/62b1de023e567ddeb984
+ * Copied and edited from http://qiita.com/hirotoshi/items/62b1de023e567ddeb984
  */
 #ifdef _WIN32
 #define ENV_HOME "USERPROFILE"
@@ -18,13 +17,9 @@
 static const std::string getenv_limited(const char *name, const size_t size)
 {
 	if(!name || !getenv(name)) return std::string();
-	
-	char env[size + 1];
-	env[size] = '\0';
-	
-	strncpy(env, getenv(name), size);
-	
-	return std::string(env);
+	std::string ret = getenv(name);
+	if(size < ret.size()) { ret.erase(size); }
+	return ret;
 }
 
 std::string path_root()

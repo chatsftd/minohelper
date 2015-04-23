@@ -3,8 +3,8 @@
 #include <sstream>
 using namespace std;
 
-static inline bool is_varname_init_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"           ,a) != NULL; }
-static inline bool is_varname_more_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz.0123456789",a) != NULL; }
+static inline bool is_varname_init_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"           ,a) != nullptr; }
+static inline bool is_varname_more_char(char a) { return strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz.0123456789",a) != nullptr; }
 
 istream& read_variable(istream& is, string& name)
 {
